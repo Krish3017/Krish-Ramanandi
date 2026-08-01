@@ -3,7 +3,7 @@ import profileImg from "../assets/profile.jpeg";
 
 export const Hero: React.FC = () => {
   return (
-    <section className="w-full pt-3 pb-3">
+    <section id="hero" className="w-full pt-3 pb-3">
       <div className="max-w-[1300px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
         {/* Front Page Header Bar */}
         <div className="flex justify-between items-center text-[11px] md:text-[12px] font-mono-meta tracking-[0.2em] text-[#111111] pb-1.5 mb-1.5 border-b border-[#111111] uppercase">

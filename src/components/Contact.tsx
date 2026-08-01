@@ -22,7 +22,7 @@ export const Contact: React.FC = () => {
 
   return (
     <section id="contact" className="w-full py-5 md:py-6 bg-[#F2ECE0]">
-      <div className="max-w-[1200px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
+      <div className="max-w-[1250px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
         {/* Section Header */}
         <div className="flex justify-between items-end pb-2">
           <div>
