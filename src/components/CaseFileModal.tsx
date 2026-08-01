@@ -24,6 +24,7 @@ export interface CaseFileDetail {
   relatedExhibits: { name: string; title: string }[];
   link: string;
   imageBg: string;
+  imageUrl?: string;
 }
 
 interface CaseFileModalProps {
@@ -133,7 +134,7 @@ export const CaseFileModal: React.FC<CaseFileModalProps> = ({
           {/* FEATURED SCREENSHOT POSTER FRAME */}
           <motion.div
             variants={itemVariants}
-            className="relative mb-6 border border-[#111111] bg-[#111111] p-3 text-white shadow-md"
+            className="relative mb-6 border border-[#111111] bg-[#111111] p-3 text-white shadow-md overflow-hidden"
           >
             {/* Tape Strip */}
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-5 bg-[#E4DDCF]/90 border border-[#C8C2B4] rotate-[-1deg] z-20" />
@@ -148,30 +149,40 @@ export const CaseFileModal: React.FC<CaseFileModalProps> = ({
               </span>
             </div>
 
-            {/* Visual Graphic Area */}
-            <div className={`relative ${caseData.imageBg} border border-gray-800 p-6 sm:p-10 min-h-[220px] sm:min-h-[280px] flex flex-col justify-between`}>
-              <div className="flex justify-between items-center text-[10px] font-mono text-cyan-400 tracking-widest uppercase">
-                <span>STATUS: {caseData.status}</span>
-                <span>CONFIDENTIAL EVIDENCE</span>
+            {/* Display Real Image if available, or fallback to visual graphic area */}
+            {caseData.imageUrl ? (
+              <div className="relative overflow-hidden border border-gray-800 max-h-[420px] bg-[#09090D] flex items-center justify-center">
+                <img
+                  src={caseData.imageUrl}
+                  alt={caseData.title}
+                  className="w-full max-h-[420px] object-cover object-top"
+                />
               </div>
+            ) : (
+              <div className={`relative ${caseData.imageBg} border border-gray-800 p-6 sm:p-10 min-h-[220px] sm:min-h-[280px] flex flex-col justify-between`}>
+                <div className="flex justify-between items-center text-[10px] font-mono text-cyan-400 tracking-widest uppercase">
+                  <span>STATUS: {caseData.status}</span>
+                  <span>CONFIDENTIAL EVIDENCE</span>
+                </div>
 
-              <div className="my-4">
-                <span className="font-mono text-xs text-cyan-300 uppercase tracking-widest block mb-1">
-                  • {caseData.exhibitLetter} — {caseData.title}
-                </span>
-                <h3 className="font-serif text-2xl sm:text-4xl text-white font-bold max-w-xl leading-tight">
-                  {caseData.headline}
-                </h3>
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-                {caseData.frontend.split(" · ").concat(caseData.data.split(" · ")).map((tech) => (
-                  <span key={tech} className="font-mono text-[10px] bg-white/10 px-2 py-0.5 border border-white/20 text-gray-200">
-                    {tech}
+                <div className="my-4">
+                  <span className="font-mono text-xs text-cyan-300 uppercase tracking-widest block mb-1">
+                    • {caseData.exhibitLetter} — {caseData.title}
                   </span>
-                ))}
+                  <h3 className="font-serif text-2xl sm:text-4xl text-white font-bold max-w-xl leading-tight">
+                    {caseData.headline}
+                  </h3>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {caseData.frontend.split(" · ").concat(caseData.data.split(" · ")).map((tech) => (
+                    <span key={tech} className="font-mono text-[10px] bg-white/10 px-2 py-0.5 border border-white/20 text-gray-200">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Bottom Caption Row */}
             <div className="flex justify-between items-center pt-2 px-1 font-mono text-[10px] sm:text-[11px] text-gray-400 border-t border-gray-800 mt-2">
@@ -220,29 +231,29 @@ export const CaseFileModal: React.FC<CaseFileModalProps> = ({
                 </div>
 
                 <div className="divide-y divide-[#C8C2B4] font-mono-meta text-[11.5px] text-[#111111]">
-                  <div className="px-4 py-2 flex justify-between items-center">
-                    <span className="font-bold text-[#555555]">FRONT-END</span>
-                    <span className="font-semibold text-right">{caseData.frontend}</span>
+                  <div className="px-4 py-2.5 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
+                    <span className="font-bold text-[#555555] shrink-0 text-[10.5px]">FRONT-END</span>
+                    <span className="font-semibold text-left sm:text-right text-[11.5px] leading-tight text-[#111111]">{caseData.frontend}</span>
                   </div>
-                  <div className="px-4 py-2 flex justify-between items-center">
-                    <span className="font-bold text-[#555555]">DATA</span>
-                    <span className="font-semibold text-right">{caseData.data}</span>
+                  <div className="px-4 py-2.5 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
+                    <span className="font-bold text-[#555555] shrink-0 text-[10.5px]">DATA</span>
+                    <span className="font-semibold text-left sm:text-right text-[11.5px] leading-tight text-[#111111]">{caseData.data}</span>
                   </div>
-                  <div className="px-4 py-2 flex justify-between items-center">
-                    <span className="font-bold text-[#555555]">ADMIN</span>
-                    <span className="font-semibold text-right">{caseData.admin}</span>
+                  <div className="px-4 py-2.5 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
+                    <span className="font-bold text-[#555555] shrink-0 text-[10.5px]">ADMIN</span>
+                    <span className="font-semibold text-left sm:text-right text-[11.5px] leading-tight text-[#111111]">{caseData.admin}</span>
                   </div>
-                  <div className="px-4 py-2 flex justify-between items-center">
-                    <span className="font-bold text-[#555555]">ROLE</span>
-                    <span className="font-semibold text-right">{caseData.role}</span>
+                  <div className="px-4 py-2.5 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
+                    <span className="font-bold text-[#555555] shrink-0 text-[10.5px]">ROLE</span>
+                    <span className="font-semibold text-left sm:text-right text-[11.5px] leading-tight text-[#111111]">{caseData.role}</span>
                   </div>
-                  <div className="px-4 py-2 flex justify-between items-center">
-                    <span className="font-bold text-[#555555]">ENTERED</span>
-                    <span className="font-semibold text-right">{caseData.entered}</span>
+                  <div className="px-4 py-2.5 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
+                    <span className="font-bold text-[#555555] shrink-0 text-[10.5px]">ENTERED</span>
+                    <span className="font-semibold text-left sm:text-right text-[11.5px] leading-tight text-[#111111]">{caseData.entered}</span>
                   </div>
-                  <div className="px-4 py-2 flex justify-between items-center">
-                    <span className="font-bold text-[#555555]">STATUS</span>
-                    <span className="font-semibold text-right">{caseData.status}</span>
+                  <div className="px-4 py-2.5 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
+                    <span className="font-bold text-[#555555] shrink-0 text-[10.5px]">STATUS</span>
+                    <span className="font-semibold text-left sm:text-right text-[11.5px] leading-tight text-[#111111]">{caseData.status}</span>
                   </div>
 
                   {/* RELATED EXHIBITS */}

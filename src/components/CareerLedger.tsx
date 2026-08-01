@@ -10,26 +10,18 @@ interface CareerEntry {
 export const CareerLedger: React.FC = () => {
   const ledgerEntries: CareerEntry[] = [
     {
-      period: "Apr 2026 — Now",
-      role: "Founder & Web Developer",
-      organization: "PROJECT 43",
+      period: "Dec 2025 — Jul 2026",
+      role: "Full Stack Developer Intern",
+      organization: "BULL AGRITECH",
       description:
-        "Subject last seen founding a small studio to take on more than standard websites — he looks after the web work while the team handles fuller application builds for clients.",
+        "Engineered Bullion, a production-grade enterprise procurement platform used for day-to-day agricultural business operations. Built responsive dashboards, developed full-stack features, integrated REST APIs, and optimized administrative workflows using Next.js, Django REST Framework, and PostgreSQL in a collaborative engineering environment.",
     },
     {
-      period: "2024 — Now",
-      role: "AI & Full-Stack Engineer",
-      organization: "INDEPENDENT CONTRACTS (GLOBAL)",
-      description:
-        "Observed daily, building web applications — the storefront, quoting engine and an interactive 3D design platform — working across both front-end and back-end.",
-    },
-    {
-      period: "2022 — 2024",
-      role: "Software Developer",
-      organization: "SURAT TECH BUREAU",
-      description:
-        "First recorded appearance. Ran shifts at the engineering desk — leading a team, keeping service tight under pressure, and learning the trade before the code.",
-    },
+      period: "Jul 2026 — Present",
+      role: "Web Development Coordinator",
+      organization: "CYBERKAVACH CLUB, CHARUSAT UNIVERSITY",
+      description:"Leading the development and maintenance of the club's official web platform, building secure features, improving user experience, and delivering scalable solutions for events, attendance, certificates, and administrative operations."
+    }
   ];
 
   return (
@@ -46,7 +38,7 @@ export const CareerLedger: React.FC = () => {
             </h2>
           </div>
           <span className="font-mono-meta text-[10px] md:text-[11px] tracking-[0.18em] text-[#555555] font-semibold uppercase hidden sm:inline">
-            MOVEMENTS ON RECORD SINCE 2022
+            MOVEMENTS ON RECORD SINCE 2025
           </span>
         </div>
 

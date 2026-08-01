@@ -7,6 +7,16 @@ export const Contact: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.email || !formData.message) return;
+    
+    // Construct mailto link
+    const mailtoSubject = encodeURIComponent(formData.subject || "Portfolio Commission / Inquiry");
+    const mailtoBody = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    );
+    
+    // Trigger local mail client
+    window.location.href = `mailto:krishramanandi30@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+    
     setSubmitted(true);
   };
 
@@ -36,10 +46,10 @@ export const Contact: React.FC = () => {
             {submitted ? (
               <div className="p-4 text-center my-4">
                 <h4 className="font-newspaper-title text-2xl text-[#111111] mb-2">
-                  Transmission Received.
+                  Transmission Drafted.
                 </h4>
                 <p className="font-sans text-[13.5px] text-[#333333]">
-                  Your message has been logged. Krish will get back to you shortly.
+                  Your mail client has been opened to transmit the letter to krishramanandi30@gmail.com.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
@@ -135,7 +145,7 @@ export const Contact: React.FC = () => {
                 DIRECT LINE
               </p>
               <p className="font-newspaper-title text-base sm:text-lg text-[#111111] mb-1">
-                krish@example.com
+                krishramanandi30@gmail.com
               </p>
               <p className="font-sans text-[12.5px] leading-[1.45] text-[#555555]">
                 For commissions, contracts, and the occasional good argument about RAG pipelines.
@@ -184,7 +194,7 @@ export const Contact: React.FC = () => {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/in/krish-ramanandi"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="magnify-hover w-9 h-9 border border-[#111111] flex items-center justify-center hover:bg-[#111111] hover:text-[#F7F3EA] transition-colors"
@@ -194,7 +204,7 @@ export const Contact: React.FC = () => {
                 </svg>
               </a>
               <a
-                href="mailto:krish@example.com"
+                href="mailto:krishramanandi30@gmail.com"
                 className="magnify-hover w-9 h-9 border border-[#111111] flex items-center justify-center hover:bg-[#111111] hover:text-[#F7F3EA] transition-colors"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

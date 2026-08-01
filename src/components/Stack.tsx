@@ -10,17 +10,19 @@ interface LabReportItem {
 
 export const Stack: React.FC = () => {
   const labReportData: LabReportItem[] = [
-    { substance: "Python / PyTorch", code: "PY/TORCH", detected: "Most days", finding: "PRIMARY TOOL" },
-    { substance: "React / TS", code: "RTS", detected: "Most days", finding: "PRIMARY TOOL" },
-    { substance: "Tailwind CSS", code: "TWX", detected: "Most days", finding: "PRIMARY TOOL" },
-    { substance: "FastAPI / Node.js", code: "API", detected: "Most days", finding: "TRACE AMOUNT" },
-    { substance: "Supabase", code: "SUPA", detected: "In projects", finding: "PRIMARY TOOL" },
-    { substance: "PostgreSQL", code: "PG", detected: "In projects", finding: "COMFORTABLE" },
-    { substance: "LangChain / RAG", code: "RAG", detected: "In projects", finding: "PRIMARY TOOL" },
-    { substance: "AWS & Docker", code: "AWS", detected: "In projects", finding: "COMFORTABLE" },
-    { substance: "Qdrant / Vector Search", code: "QDR", detected: "When needed", finding: "COMFORTABLE" },
-    { substance: "C++ / Systems", code: "CPP", detected: "Occasional", finding: "TRACE AMOUNT" },
-  ];
+  { substance: "Python",               code: "PY",   detected: "Daily",             finding: "PRIMARY TOOL" },
+  { substance: "React / Next.js",      code: "RXT",  detected: "Daily",             finding: "PRIMARY TOOL" },
+  { substance: "TypeScript",           code: "TS",   detected: "Frequent",          finding: "COMFORTABLE" },
+  { substance: "FastAPI",              code: "FAPI", detected: "AI Projects",       finding: "COMFORTABLE" },
+  { substance: "Django REST",          code: "DJRF", detected: "Internship",        finding: "TRACE AMOUNT" },
+  { substance: "Supabase",             code: "SUPA", detected: "Full-Stack Apps",   finding: "COMFORTABLE" },
+  { substance: "PostgreSQL",           code: "PG",   detected: "Production Apps",   finding: "COMFORTABLE" },
+  { substance: "LangGraph / LangChain",code: "LG",   detected: "AI Projects",       finding: "PRIMARY TOOL" },
+  { substance: "RAG Systems",          code: "RAG",  detected: "AI Projects",       finding: "COMFORTABLE" },
+  { substance: "Git & GitHub",         code: "GIT",  detected: "Daily",             finding: "PRIMARY TOOL" },
+  { substance: "Docker",               code: "DOC",  detected: "Occasional",        finding: "TRACE AMOUNT" },
+  { substance: "C++",                  code: "CPP",  detected: "Problem Solving",   finding: "COMFORTABLE" },
+];
 
   return (
     <section id="stack" className="w-full py-4 md:py-5 bg-[#F7F3EA]">

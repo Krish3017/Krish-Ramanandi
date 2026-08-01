@@ -1,5 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
+import supportFlowImg from "../assets/SupportFlow.png";
+import bullionImg from "../assets/bullion.png";
+import nexusImg from "../assets/Nexus.png";
+import cyberkavachImg from "../assets/cyberkavach.png";
+import scrummindImg from "../assets/scrummind.png";
+import dataforgeImg from "../assets/dataforge.png";
 
 interface Project {
   exhibit: string;
@@ -10,6 +16,7 @@ interface Project {
   date: string;
   link: string;
   imageBg: string;
+  imageUrl?: string;
 }
 
 interface SelectedWorksProps {
@@ -20,63 +27,69 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
   const projects: Project[] = [
     {
       exhibit: "EXHIBIT B",
-      sub: "AGENT.SYSTEM.AI",
-      title: "Autonomous Workflow Agent",
-      description: "An autonomous agent system built to parse complex financial records, synthesize unstructured PDF reports, and automate multi-step data pipelines.",
-      tags: ["Python", "LangChain", "OpenAI", "FastAPI"],
-      date: "2025 — Now",
+      sub: "BULLION.ADMIN",
+      title: "Bullion Admin",
+      description: "A production-grade administrative platform streamlining procurement, inventory, user operations, and business workflows for an AgriTech enterprise.",
+      tags: ["Next.js 15", "React", "TypeScript", "Tailwind", "Django REST", "PostgreSQL"],
+      date: "2026",
       link: "#",
-      imageBg: "bg-[#1E1E24]"
+      imageBg: "bg-[#101010]",
+      imageUrl: bullionImg
     },
     {
       exhibit: "EXHIBIT C",
-      sub: "RAG.DATABASE.IO",
-      title: "Enterprise Vector Search",
-      description: "High-throughput semantic search and retrieval system indexed over 10M+ documents using Qdrant and custom embeddings.",
-      tags: ["Python", "PyTorch", "Qdrant", "Docker"],
-      date: "2025 — Now",
+      sub: "NEXUSRAG.AI",
+      title: "NexusRAG",
+      description: "An advanced RAG platform transforming unstructured documents into searchable, explainable knowledge using LangChain, vector similarity search, and Groq-hosted LLMs.",
+      tags: ["React", "TypeScript", "LangChain", "Vector Store"],
+      date: "2026",
       link: "#",
-      imageBg: "bg-[#16202C]"
+      imageBg: "bg-[#131313]",
+      imageUrl: nexusImg
     },
     {
       exhibit: "EXHIBIT D",
-      sub: "VISION.ANALYTICS.AI",
-      title: "Real-time Vision Inspector",
-      description: "Edge computer vision pipeline detecting structural defects in manufacturing components with sub-50ms latency.",
-      tags: ["OpenCV", "PyTorch", "React", "WebSockets"],
-      date: "2024 — Now",
+      sub: "DATAFORGE.STUDIO",
+      title: "DataForge",
+      description: "A modern analytics and visualization platform converting fragmented datasets into interactive real-time dashboards, statistical models, and business intelligence.",
+      tags: ["React", "Python", "SQL", "PostgreSQL", "Power BI"],
+      date: "2026",
       link: "#",
-      imageBg: "bg-[#251D24]"
+      imageBg: "bg-[#141414]",
+      imageUrl: dataforgeImg
     },
     {
       exhibit: "EXHIBIT E",
-      sub: "STUDIO.COMMERCE.APP",
-      title: "Full-Stack E-Commerce Core",
-      description: "Custom storefront and admin back-office managing multi-tenant inventory, automated invoicing, and Stripe payments.",
-      tags: ["React", "TypeScript", "Tailwind", "PostgreSQL"],
-      date: "2024 — Now",
+      sub: "CYBERKAVACH.ORG",
+      title: "CyberKavach",
+      description: "Operational backbone for the university cybersecurity community automating member registration, event tracking, certificates, audit logging, and role-based security.",
+      tags: ["JavaScript", "Tailwind CSS", "MySQL", "HTML"],
+      date: "2026",
       link: "#",
-      imageBg: "bg-[#1C2622]"
+      imageBg: "bg-[#0f0f0f]",
+      imageUrl: cyberkavachImg
     },
     {
       exhibit: "EXHIBIT F",
-      sub: "HEALTH.PLATFORM.IN",
-      title: "Telehealth Portal System",
-      description: "HIPAA-compliant patient booking and secure messaging portal built with end-to-end audit logging.",
-      tags: ["React", "Tailwind", "Supabase"],
-      date: "2024",
+      sub: "SCRUMMIND.APP",
+      title: "ScrumMind",
+      description: "A collaborative workspace where sprint planning, task management, backlog organization, documentation, and AI assistance converge into a unified workspace.",
+      tags: ["Next.js", "React", "Tailwind CSS", "PostgreSQL", "Supabase"],
+      date: "2026",
       link: "#",
-      imageBg: "bg-[#28221D]"
+      imageBg: "bg-[#111111]",
+      imageUrl: scrummindImg
     },
     {
       exhibit: "EXHIBIT G",
-      sub: "FINTECH.DASH.COM",
-      title: "Real-Time Ledger Engine",
-      description: "High-concurrency ledger engine supporting double-entry bookkeeping and real-time transaction reconciliation.",
-      tags: ["Python", "TypeScript", "PostgreSQL"],
-      date: "2024",
+      sub: "SUPPORTFLOW.AI",
+      title: "SupportFlow AI — Assistant",
+      description: "Autonomous customer support agent workforce utilizing LangGraph and ChromaDB memory networks for low-latency question-answering pipelines.",
+      tags: ["FastAPI", "ChromaDB", "LangGraph", "Groq LLM"],
+      date: "2026",
       link: "#",
-      imageBg: "bg-[#1B2428]"
+      imageBg: "bg-[#101010]",
+      imageUrl: supportFlowImg
     }
   ];
 
@@ -101,39 +114,35 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
             </h2>
           </div>
           <span className="font-mono-meta text-[10px] md:text-[11px] tracking-[0.18em] text-[#555555] uppercase hidden sm:inline">
-            EXHIBITS A – G · ENTERED 2024 – NOW
+            EXHIBITS A – G · ENTERED 2026
           </span>
         </div>
         <div className="border-b-2 border-[#111111] mb-5" />
 
         {/* FEATURED EXHIBIT A */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border border-[#111111] bg-[#F2ECE0] p-4 sm:p-5 mb-6 hover:bg-[#FAF0DE] transition-colors duration-200">
-          {/* Left Screenshot Frame */}
+          {/* Left Screenshot Frame with Real Image */}
           <div className="lg:col-span-7">
             <div className="border border-[#111111] bg-[#111111] p-2.5 text-white">
               <div className="flex gap-2 mb-2 pb-2 border-b border-gray-800">
                 <span className="w-2.5 h-2.5 rounded-full bg-red-500 inline-block"></span>
                 <span className="w-2.5 h-2.5 rounded-full bg-yellow-500 inline-block"></span>
                 <span className="w-2.5 h-2.5 rounded-full bg-green-500 inline-block"></span>
-                <span className="font-mono text-[11px] text-gray-400 ml-3">project43.com.au</span>
+                <span className="font-mono text-[11px] text-gray-400 ml-3">supportflow.ai</span>
               </div>
 
-              <div className="p-5 md:p-7 bg-[#09090D] border border-gray-800 flex flex-col justify-center items-start min-h-[200px] relative">
-                <span className="font-mono text-[11px] text-cyan-400 tracking-widest uppercase mb-1.5">
-                  • Project 43 — Flagship AI Studio
-                </span>
-                <h3 className="font-serif text-3xl sm:text-4xl text-white font-bold mb-3">
-                  Design. Code. Ship.
-                </h3>
-                <p className="text-gray-400 font-sans text-xs max-w-md mb-4">
-                  From autonomous AI agents to bespoke full-stack applications.
-                </p>
+              <div className="relative overflow-hidden border border-gray-800 bg-[#09090D] min-h-[220px] flex items-center justify-center">
+                <img
+                  src={supportFlowImg}
+                  alt="SupportFlow AI"
+                  className="w-full h-[220px] sm:h-[260px] object-cover object-top transition-transform duration-300 hover:scale-105"
+                />
 
-                <div className="absolute bottom-3 left-3 border border-[#8A3B2D] px-2 py-0.5 rounded-full text-[#8A3B2D] font-mono text-[9px] font-bold tracking-widest uppercase bg-[#F7F3EA]/90">
+                <div className="absolute bottom-3 left-3 border border-[#8A3B2D] px-2 py-0.5 rounded-full text-[#8A3B2D] font-mono text-[9px] font-bold tracking-widest uppercase bg-[#F7F3EA]/90 z-10">
                   EXHIBIT A
                 </div>
-                <div className="absolute bottom-3 right-3 font-mono text-[9px] text-gray-500">
-                  recovered from project43.com.au
+                <div className="absolute bottom-3 right-3 font-mono text-[9px] text-gray-200 bg-black/70 px-2 py-0.5 rounded z-10">
+                  recovered from supportflow.ai
                 </div>
               </div>
             </div>
@@ -146,17 +155,17 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
                 EXHIBIT A
               </span>
               <p className="font-mono-meta text-[10px] tracking-[0.18em] text-[#555555] uppercase mb-1">
-                PROJECT 43 · FLAGSHIP
+                SUPPORTFLOW.AI · FLAGSHIP
               </p>
               <h3 className="font-newspaper-title text-2xl md:text-3xl text-[#111111] font-normal mb-2">
-                project43.com.au
+                SupportFlow AI
               </h3>
               <p className="font-sans text-[15px] sm:text-[15.5px] leading-[1.6] text-[#333333] mb-3 text-left">
-                Subject observed founding an AI & full-stack development studio in April 2026 — an operation taking on more than standard websites, building fuller agentic applications for clients. The web side traces directly to him: Python, FastAPI, React, Supabase, shipped on Vercel and AWS.
+                An autonomous customer support platform where specialized AI agents collaborate using LangGraph, ChromaDB, and FastAPI to resolve tickets, prioritize urgency, and manage human-in-the-loop escalations.
               </p>
 
               <div className="flex flex-wrap gap-1.5 mb-3">
-                {["Python", "FastAPI", "React", "Supabase", "Vercel"].map((t) => (
+                {["Next.js", "React", "ChromaDB", "FastAPI", "LangGraph"].map((t) => (
                   <span key={t} className="font-mono-meta text-[10.5px] tracking-wider px-2.5 py-0.5 border border-[#111111] bg-[#F7F3EA] text-[#111111]">
                     {t}
                   </span>
@@ -166,7 +175,7 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
 
             <div className="flex justify-between items-center pt-2.5 border-t border-[#111111]">
               <span className="font-mono-meta text-[11px] text-[#555555]">
-                Apr 2026 — Now · Founder & AI Engineer
+                2026 · AI Engineer & Full Stack
               </span>
               <a
                 href="#exhibit-a"
@@ -198,19 +207,29 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
                 {proj.title}
               </h4>
 
-              {/* Centered Image Box Frame with Smooth Hover Zoom */}
+              {/* Centered Image Box Frame with Real Project Image Screenshot */}
               <div className="relative mb-2.5 mx-auto w-full border border-[#111111] p-2 bg-[#EDEDED] overflow-hidden">
                 {/* Tape strip */}
                 <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-16 h-5 bg-[#E4DDCF]/90 border border-[#C8C2B4] rotate-[-1deg] z-20" />
 
-                <div className={`relative overflow-hidden border border-[#111111] ${proj.imageBg} p-3 min-h-[120px] flex flex-col justify-between transition-transform duration-300 group-hover:scale-[1.04]`}>
-                  <div className="w-full flex justify-between items-center text-[9.5px] font-mono text-gray-400">
-                    <span>STATUS: ACTIVE</span>
-                    <span>CONFIDENTIAL</span>
-                  </div>
-                  <div className="font-mono text-xs text-white font-bold my-1">
-                    {proj.title}
-                  </div>
+                <div className="relative overflow-hidden border border-[#111111] bg-[#111111] h-[135px] sm:h-[150px] flex items-center justify-center">
+                  {proj.imageUrl ? (
+                    <img
+                      src={proj.imageUrl}
+                      alt={proj.title}
+                      className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className={`w-full h-full ${proj.imageBg} p-3 flex flex-col justify-between`}>
+                      <div className="w-full flex justify-between items-center text-[9.5px] font-mono text-gray-400">
+                        <span>STATUS: ACTIVE</span>
+                        <span>CONFIDENTIAL</span>
+                      </div>
+                      <div className="font-mono text-xs text-white font-bold my-1">
+                        {proj.title}
+                      </div>
+                    </div>
+                  )}
 
                   {/* Wavy hand-stamped CONFIRMED — shallow multi-curve border, crisp readable text */}
                   <div className="absolute top-0 right-[-5px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 -rotate-[9deg] pointer-events-none z-30 drop-shadow-md">

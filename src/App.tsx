@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { Masthead } from "./components/Masthead";
 import { Navigation } from "./components/Navigation";
 import { Hero } from "./components/Hero";
@@ -40,44 +41,80 @@ export default function App() {
       {/* Sticky Editorial Navigation Bar (Sticks top-0 as user scrolls) */}
       <Navigation />
 
-      {/* Hero Section */}
-      <Hero />
-
-      {/* Thick Section Separator */}
-      <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
-        <div className="border-b-4 border-[#111111]" />
+      {/* Hero Section with a premium multi-directional reveal landing animation */}
+      <div className="overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <Hero />
+        </motion.div>
       </div>
 
-      {/* Selected Works (Exhibits A-G) */}
-      <SelectedWorks onOpenCase={handleOpenCase} />
-
-      {/* Thick Section Separator */}
+      {/* Bold separator line with max width 1300px */}
       <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
-        <div className="border-b-4 border-[#111111]" />
+        <div className="border-b-3 border-[#111111]" />
       </div>
 
-      {/* The Lab Report / Stack */}
-      <Stack />
+      {/* Selected Works (Exhibits A-G) - Reveal/Slide in from LEFT */}
+      <motion.div
+        initial={{ opacity: 0, x: -45 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <SelectedWorks onOpenCase={handleOpenCase} />
+      </motion.div>
 
-      {/* Thick Section Separator */}
+      {/* Bold separator line with max width 1400px */}
       <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
-        <div className="border-b-4 border-[#111111]" />
+        <div className="border-b-3 border-[#111111]" />
       </div>
 
-      {/* The Career Ledger */}
-      <CareerLedger />
+      {/* The Lab Report / Stack - Reveal/Slide in from RIGHT */}
+      <motion.div
+        initial={{ opacity: 0, x: 45 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <Stack />
+      </motion.div>
 
-      {/* Thick Section Separator */}
+      {/* Bold separator line with max width 1400px */}
       <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
-        <div className="border-b-4 border-[#111111]" />
+        <div className="border-b-3 border-[#111111]" />
       </div>
 
-      {/* Official Correspondence / Contact */}
-      <Contact />
+      {/* The Career Ledger - Reveal/Slide in from LEFT */}
+      <motion.div
+        initial={{ opacity: 0, x: -45 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <CareerLedger />
+      </motion.div>
 
-      {/* Thick Section Separator */}
+      {/* Bold separator line with max width 1400px */}
       <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
-        <div className="border-b-4 border-[#111111]" />
+        <div className="border-b-2 border-[#111111]" />
+      </div>
+
+      {/* Official Correspondence / Contact - Reveal/Slide in from RIGHT */}
+      <motion.div
+        initial={{ opacity: 0, x: 45 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <Contact />
+      </motion.div>
+
+      {/* Bold separator line with max width 1400px */}
+      <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
+        <div className="border-b-3 border-[#111111]" />
       </div>
 
       {/* Newspaper Footer */}
