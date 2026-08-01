@@ -140,14 +140,6 @@ export default function App() {
       </div>
 
       {/* Official Correspondence / Contact - Reveal/Slide in from RIGHT */}
-      <motion.div
-        initial={{ opacity: 0, x: 45 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <Contact />
-      </motion.div>
 
       {/* Bold separator line */}
       <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
@@ -168,7 +160,14 @@ export default function App() {
       <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
         <div className="border-b-3 border-[#111111]" />
       </div>
-
+<motion.div
+        initial={{ opacity: 0, x: 45 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <Contact />
+      </motion.div>
       {/* Newspaper Footer */}
       <Footer />
 

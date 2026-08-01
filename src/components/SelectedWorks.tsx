@@ -1,11 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
-import supportFlowImg from "../assets/SupportFlow.png";
-import bullionImg from "../assets/bullion.png";
-import nexusImg from "../assets/Nexus.png";
-import cyberkavachImg from "../assets/cyberkavach.png";
-import scrummindImg from "../assets/scrummind.png";
-import dataforgeImg from "../assets/dataforge.png";
+import supportFlowImg from "../assets/black-white/SupportFlow.png";
+import bullionImg from "../assets/black-white/bullion.png";
+import nexusImg from "../assets/black-white/Nexus.png";
+import cyberkavachImg from "../assets/black-white/cyberkavach.png";
+import scrummindImg from "../assets/black-white/scrummind.png";
+import dataforgeImg from "../assets/black-white/dataforge.png";
 
 interface Project {
   exhibit: string;
@@ -106,9 +106,6 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
         {/* Section Header */}
         <div className="flex justify-between items-end border-b border-[#111111] pb-2">
           <div>
-            <span className="font-mono-meta text-[11px] md:text-[12px] tracking-[0.2em] font-semibold text-[#111111] uppercase">
-              THE EVIDENCE
-            </span>
             <h2 className="font-newspaper-title text-3xl md:text-4xl lg:text-5xl text-[#111111] font-normal mt-0.5">
               Selected Works
             </h2>
