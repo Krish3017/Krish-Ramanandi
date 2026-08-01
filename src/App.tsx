@@ -10,10 +10,12 @@ import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { MagnifyingCursor } from "./components/MagnifyingCursor";
 import { CaseFileModal } from "./components/CaseFileModal";
+import { DetectiveIntro } from "./components/DetectiveIntro";
 import { caseFilesMap } from "./data/caseFilesData";
 
 export default function App() {
   const [activeCaseKey, setActiveCaseKey] = useState<string | null>(null);
+  const [showIntro, setShowIntro] = useState<boolean>(true);
 
   const handleOpenCase = (exhibitName: string) => {
     // Normalise exhibit string
@@ -32,6 +34,9 @@ export default function App() {
 
   return (
     <div className="paper-texture print-lines min-h-screen w-full text-[#111111] bg-[#F7F3EA] overflow-x-clip selection:bg-[#111111] selection:text-[#F7F3EA] relative">
+      {/* Interactive AAA Detective-Style Opening Sequence */}
+      {showIntro && <DetectiveIntro onComplete={() => setShowIntro(false)} />}
+
       {/* Custom Outlined Magnifying Glass Cursor */}
       <MagnifyingCursor />
 
@@ -52,7 +57,7 @@ export default function App() {
         </motion.div>
       </div>
 
-      {/* Bold separator line with max width 1300px */}
+      {/* Bold separator line */}
       <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
         <div className="border-b-3 border-[#111111]" />
       </div>
@@ -67,7 +72,7 @@ export default function App() {
         <SelectedWorks onOpenCase={handleOpenCase} />
       </motion.div>
 
-      {/* Bold separator line with max width 1400px */}
+      {/* Bold separator line */}
       <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
         <div className="border-b-3 border-[#111111]" />
       </div>
@@ -82,7 +87,7 @@ export default function App() {
         <Stack />
       </motion.div>
 
-      {/* Bold separator line with max width 1400px */}
+      {/* Bold separator line */}
       <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
         <div className="border-b-3 border-[#111111]" />
       </div>
@@ -97,9 +102,9 @@ export default function App() {
         <CareerLedger />
       </motion.div>
 
-      {/* Bold separator line with max width 1400px */}
+      {/* Bold separator line */}
       <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
-        <div className="border-b-2 border-[#111111]" />
+        <div className="border-b-3 border-[#111111]" />
       </div>
 
       {/* Official Correspondence / Contact - Reveal/Slide in from RIGHT */}
@@ -112,7 +117,7 @@ export default function App() {
         <Contact />
       </motion.div>
 
-      {/* Bold separator line with max width 1400px */}
+      {/* Bold separator line */}
       <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
         <div className="border-b-3 border-[#111111]" />
       </div>
