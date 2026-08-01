@@ -1,5 +1,6 @@
 import React from "react";
 import profileImg from "../assets/profile.jpeg";
+import { MetricsStrip } from "./MetricsStrip";
 
 export const Hero: React.FC = () => {
   return (
@@ -18,7 +19,7 @@ export const Hero: React.FC = () => {
             <div>
               {/* Case Tag */}
               <p className="font-mono-meta text-[11px] md:text-[12px] tracking-[0.2em] font-bold text-[#111111] uppercase mb-1.5 md:mb-2">
-                CASE NO. 01 — FINDINGS PUBLISHED
+                CASE NO. 107 — FINDINGS PUBLISHED
               </p>
 
               {/* Main Editorial Headline */}
@@ -68,49 +69,7 @@ export const Hero: React.FC = () => {
               </div>
 
               {/* Metrics Strip */}
-              <div className="border-t-4 border-[#111111] pt-2">
-                <div className="grid grid-cols-2 sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-[#111111]">
-                  {/* Box 1 */}
-                  <div className="pr-4 sm:pr-6 py-2 sm:py-0 flex flex-col justify-center">
-                    <h3 className="font-newspaper-title text-2xl md:text-3xl font-normal text-[#111111]">
-                      No. 01
-                    </h3>
-                    <p className="font-mono-meta text-[9px] tracking-[0.16em] text-[#444444] uppercase mt-0.5">
-                      EDITION · FIRST PRINTING
-                    </p>
-                  </div>
-
-                  {/* Box 2 */}
-                  <div className="px-4 sm:px-6 py-2 sm:py-0 flex flex-col justify-center">
-                    <h3 className="font-newspaper-title text-2xl md:text-3xl font-normal text-[#111111]">
-                      34°C
-                    </h3>
-                    <p className="font-mono-meta text-[9px] tracking-[0.16em] text-[#444444] uppercase mt-0.5">
-                      SURAT · CLEAR SUMMER SUN
-                    </p>
-                  </div>
-
-                  {/* Box 3 */}
-                  <div className="px-4 sm:px-6 py-2 sm:py-0 flex flex-col justify-center">
-                    <h3 className="font-newspaper-title text-2xl md:text-3xl font-normal text-[#111111]">
-                      Global
-                    </h3>
-                    <p className="font-mono-meta text-[9px] tracking-[0.16em] text-[#444444] uppercase mt-0.5">
-                      CIRCULATION · REMOTE-FRIENDLY
-                    </p>
-                  </div>
-
-                  {/* Box 4 */}
-                  <div className="pl-4 sm:pl-6 py-2 sm:py-0 flex flex-col justify-center">
-                    <h3 className="font-newspaper-title text-2xl md:text-3xl font-normal text-[#111111]">
-                      Late Final
-                    </h3>
-                    <p className="font-mono-meta text-[9px] tracking-[0.16em] text-[#444444] uppercase mt-0.5">
-                      SHIPS WHEN IT'S READY
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <MetricsStrip variant="hero" />
             </div>
           </div>
 

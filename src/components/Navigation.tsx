@@ -11,18 +11,32 @@ export const Navigation: React.FC<NavigationProps> = ({ onNavigate }) => {
   useEffect(() => {
     const handleScroll = () => {
       const sectionIds = ["hero", "work", "stack", "career", "contact"];
-      const scrollPosition = window.scrollY + 220; // Offset for sticky navbar height
+      const scrollPosition = window.scrollY;
 
-      for (let i = sectionIds.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sectionIds[i]);
+      // At top of page -> HERO
+      if (scrollPosition < 150) {
+        setActiveSection("hero");
+        return;
+      }
+
+      // At bottom of page -> CONTACT
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80) {
+        setActiveSection("contact");
+        return;
+      }
+
+      // Determine active section based on position relative to viewport
+      let currentSection = "hero";
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
         if (el) {
-          const top = el.offsetTop;
-          if (scrollPosition >= top) {
-            setActiveSection(sectionIds[i]);
-            break;
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 250) {
+            currentSection = id;
           }
         }
       }
+      setActiveSection(currentSection);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
