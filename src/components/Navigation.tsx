@@ -10,7 +10,7 @@ export const Navigation: React.FC<NavigationProps> = ({ onNavigate }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sectionIds = ["hero", "work", "stack", "career", "contact"];
+      const sectionIds = ["hero", "work", "stack", "career", "evidence", "contact"];
       const scrollPosition = window.scrollY;
 
       // At top of page -> HERO
@@ -65,6 +65,7 @@ export const Navigation: React.FC<NavigationProps> = ({ onNavigate }) => {
     { id: "work", label: "WORK" },
     { id: "stack", label: "STACK" },
     { id: "career", label: "CAREER" },
+    { id: "evidence", label: "EVIDENCE" },
     { id: "contact", label: "CONTACT" },
   ];
 

@@ -6,6 +6,7 @@ import { Hero } from "./components/Hero";
 import { SelectedWorks } from "./components/SelectedWorks";
 import { Stack } from "./components/Stack";
 import { CareerLedger } from "./components/CareerLedger";
+import { EvidenceBoard } from "./components/EvidenceBoard";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { MagnifyingCursor } from "./components/MagnifyingCursor";
@@ -100,6 +101,21 @@ export default function App() {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
         <CareerLedger />
+      </motion.div>
+
+      {/* Bold separator line */}
+      <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
+        <div className="border-b-3 border-[#111111]" />
+      </div>
+
+      {/* The Evidence Board - Pinboard & Archival Wall */}
+      <motion.div
+        initial={{ opacity: 0, y: 35 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <EvidenceBoard onOpenCase={handleOpenCase} />
       </motion.div>
 
       {/* Bold separator line */}

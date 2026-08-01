@@ -63,6 +63,14 @@ export const Footer: React.FC = () => {
                 </li>
                 <li>
                   <button
+                    onClick={() => scrollToSection("evidence")}
+                    className="magnify-hover hover:text-[#C8C2B4] transition-colors text-left"
+                  >
+                    Evidence Board
+                  </button>
+                </li>
+                <li>
+                  <button
                     onClick={() => scrollToSection("contact")}
                     className="magnify-hover hover:text-[#C8C2B4] transition-colors text-left"
                   >
