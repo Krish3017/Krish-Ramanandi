@@ -8,6 +8,7 @@ import { Stack } from "./components/Stack";
 import { CareerLedger } from "./components/CareerLedger";
 import { EvidenceBoard } from "./components/EvidenceBoard";
 import { Contact } from "./components/Contact";
+import { FinalReport } from "./components/FinalReport";
 import { Footer } from "./components/Footer";
 import { MagnifyingCursor } from "./components/MagnifyingCursor";
 import { CaseFileModal } from "./components/CaseFileModal";
@@ -146,6 +147,21 @@ export default function App() {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
         <Contact />
+      </motion.div>
+
+      {/* Bold separator line */}
+      <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
+        <div className="border-b-3 border-[#111111]" />
+      </div>
+
+      {/* Final Investigation Report — Portfolio Conclusion */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <FinalReport />
       </motion.div>
 
       {/* Bold separator line */}
