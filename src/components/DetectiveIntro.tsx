@@ -10,15 +10,16 @@ type Phase = "SEARCHING" | "LOCKING" | "PAUSED" | "WHITE_PAGE" | "STAMPING" | "B
 export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) => {
   const [phase, setPhase] = useState<Phase>("SEARCHING");
 
-  const mousePosRef = useRef({ x: window.innerWidth * 0.72, y: window.innerHeight * 0.32 });
-  const lensPosRef = useRef({ x: window.innerWidth * 0.72, y: window.innerHeight * 0.32 });
+  const mousePosRef = useRef({ x: -9999, y: -9999 });
+  const lensPosRef = useRef({ x: -9999, y: -9999 });
   const velocityRef = useRef({ x: 0, y: 0 });
   const rotationRef = useRef(0);
   const idleTimeRef = useRef(0);
+  const initializedRef = useRef(false);
 
   const [lensState, setLensState] = useState({
-    x: window.innerWidth * 0.72,
-    y: window.innerHeight * 0.32,
+    x: -9999,
+    y: -9999,
     rotation: 0,
     glareShift: 0,
   });
@@ -59,13 +60,31 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
     const handleMouseMove = (e: MouseEvent) => {
       if (phase !== "SEARCHING") return;
       mousePosRef.current = { x: e.clientX, y: e.clientY };
+
+      if (!initializedRef.current) {
+        initializedRef.current = true;
+        lensPosRef.current = { x: e.clientX, y: e.clientY };
+        velocityRef.current = { x: 0, y: 0 };
+        setLensState({ x: e.clientX, y: e.clientY, rotation: 0, glareShift: 0 });
+      }
     };
+
     const handleTouchMove = (e: TouchEvent) => {
       if (phase !== "SEARCHING") return;
       if (e.touches.length > 0) {
-        mousePosRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        const tx = e.touches[0].clientX;
+        const ty = e.touches[0].clientY;
+        mousePosRef.current = { x: tx, y: ty };
+
+        if (!initializedRef.current) {
+          initializedRef.current = true;
+          lensPosRef.current = { x: tx, y: ty };
+          velocityRef.current = { x: 0, y: 0 };
+          setLensState({ x: tx, y: ty, rotation: 0, glareShift: 0 });
+        }
       }
     };
+
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("touchmove", handleTouchMove);
     return () => {
@@ -76,11 +95,11 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
 
   useEffect(() => {
     let animId: number;
-    const stiffness = 0.085;
-    const damping = 0.78;
+    const stiffness = 0.05; // Slower, smoother spring tension
+    const damping = 0.83;   // Luxurious smooth physical damping
 
     const loop = () => {
-      if (phase === "SEARCHING") {
+      if (phase === "SEARCHING" && initializedRef.current) {
         const targetX = mousePosRef.current.x;
         const targetY = mousePosRef.current.y;
 
@@ -126,8 +145,8 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
         const dx = targetCenter.x - lensPosRef.current.x;
         const dy = targetCenter.y - lensPosRef.current.y;
 
-        lensPosRef.current.x += dx * 0.14;
-        lensPosRef.current.y += dy * 0.14;
+        lensPosRef.current.x += dx * 0.10;
+        lensPosRef.current.y += dy * 0.10;
 
         rotationRef.current += (0 - rotationRef.current) * 0.15;
 
@@ -157,20 +176,24 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
       let shakeCount = 0;
       const shakeInterval = setInterval(() => {
         shakeCount++;
-        setShakeOffset({
-          x: (Math.random() - 0.5) * 3,
-          y: (Math.random() - 0.5) * 3,
-          rotate: (Math.random() - 0.5) * 1.2,
-        });
-        if (shakeCount >= 40) {
+
+        // Initial 1.1s: jitter with higher detective inspection amplitude
+        if (shakeCount <= 20) {
+          setShakeOffset({
+            x: (Math.random() - 0.5) * 8,
+            y: (Math.random() - 0.5) * 8,
+            rotate: (Math.random() - 0.5) * 3.5,
+          });
+        } else {
+          // At end of inspection: stop jittering completely!
           setShakeOffset({ x: 0, y: 0, rotate: 0 });
         }
-      }, 75);
+      }, 55);
 
       const pauseTimer = setTimeout(() => {
         clearInterval(shakeInterval);
         setPhase("WHITE_PAGE");
-      }, 4500);
+      }, 3000);
 
       return () => {
         clearInterval(shakeInterval);
@@ -197,7 +220,7 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
     }
   }, [phase, onComplete]);
 
-  // Premium newspaper background — dense 5-column broadsheet layout
+  // Newspaper grid layout
   const renderNewspaperGrid = (isSharp: boolean) => (
     <div className="w-full h-full min-h-screen bg-[#ECE7DA] px-8 py-8 flex flex-col justify-between select-none">
       {/* Top masthead rule */}
@@ -227,6 +250,18 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
             <div className="h-2.5 bg-[#777] rounded-sm w-full" />
             <div className="h-2.5 bg-[#777] rounded-sm w-3/4" />
           </div>
+          <div className="h-3.5 bg-[#222] rounded-sm w-2/3 my-2.5" />
+          <div className="space-y-2">
+            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
+            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
+            <div className="h-2.5 bg-[#777] rounded-sm w-4/5" />
+          </div>
+          <div className="h-3 bg-[#333] rounded-sm w-1/2 my-2" />
+          <div className="space-y-2">
+            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
+            <div className="h-2.5 bg-[#777] rounded-sm w-11/12" />
+            <div className="h-2.5 bg-[#777] rounded-sm w-3/4" />
+          </div>
         </div>
 
         {/* Column 2 */}
@@ -248,6 +283,17 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
             <div className="h-2.5 bg-[#777] rounded-sm w-full" />
             <div className="h-2.5 bg-[#777] rounded-sm w-4/5" />
           </div>
+          <div className="h-3 bg-[#444] rounded-sm w-1/2 my-2" />
+          <div className="space-y-2">
+            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
+            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
+            <div className="h-2.5 bg-[#777] rounded-sm w-5/6" />
+          </div>
+          <div className="h-3.5 bg-[#222] rounded-sm w-3/5 my-2.5" />
+          <div className="space-y-2">
+            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
+            <div className="h-2.5 bg-[#777] rounded-sm w-3/4" />
+          </div>
         </div>
 
         {/* Column 3 — CENTER COLUMN CONTAINING WANTED NOTICE */}
@@ -258,7 +304,6 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
             <div className="h-2.5 bg-[#777] rounded-sm w-full" />
           </div>
 
-          {/* WANTED NOTICE BOX — RED WANTED + BOLD BLACK KRISH RAMANANDI */}
           <div
             ref={isSharp ? null : targetRef}
             className="my-3 py-3 px-4 text-center border-y-2 border-[#111111] w-[140px] flex flex-col items-center justify-center bg-[#F7F3EA] shadow-xs"
@@ -281,6 +326,12 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
             <div className="h-2.5 bg-[#777] rounded-sm w-full" />
             <div className="h-2.5 bg-[#777] rounded-sm w-3/4" />
           </div>
+          <div className="h-3.5 bg-[#333] rounded-sm w-2/3 my-2" />
+          <div className="space-y-2 w-full">
+            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
+            <div className="h-2.5 bg-[#777] rounded-sm w-11/12" />
+            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
+          </div>
         </div>
 
         {/* Column 4 */}
@@ -300,6 +351,17 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
           <div className="space-y-2">
             <div className="h-2.5 bg-[#777] rounded-sm w-4/5" />
           </div>
+          <div className="h-3 bg-[#444] rounded-sm w-3/5 my-2" />
+          <div className="space-y-2">
+            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
+            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
+            <div className="h-2.5 bg-[#777] rounded-sm w-11/12" />
+          </div>
+          <div className="h-3.5 bg-[#333] rounded-sm w-1/2 my-2.5" />
+          <div className="space-y-2">
+            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
+            <div className="h-2.5 bg-[#777] rounded-sm w-3/4" />
+          </div>
         </div>
 
         {/* Column 5 */}
@@ -316,27 +378,18 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
             <div className="h-2.5 bg-[#777] rounded-sm w-full" />
             <div className="h-2.5 bg-[#777] rounded-sm w-full" />
           </div>
+          <div className="h-3 bg-[#222] rounded-sm w-2/3 my-2" />
+          <div className="space-y-2">
+            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
+            <div className="h-2.5 bg-[#777] rounded-sm w-4/5" />
+            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
+          </div>
+          <div className="h-3.5 bg-[#444] rounded-sm w-3/5 my-2.5" />
+          <div className="space-y-2">
+            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
+            <div className="h-2.5 bg-[#777] rounded-sm w-11/12" />
+          </div>
         </div>
-      </div>
-
-      {/* Bottom Center Instructional Prompt with Soft Ambient Breathing Animation */}
-      <div className="text-center pb-3 pt-5">
-        <motion.span
-          initial={{ opacity: 0, y: 8 }}
-          animate={
-            phase === "SEARCHING"
-              ? { opacity: [0.35, 0.85, 0.35], y: 0 }
-              : { opacity: 0.8, y: 0 }
-          }
-          transition={
-            phase === "SEARCHING"
-              ? { repeat: Infinity, duration: 2.8, ease: "easeInOut" }
-              : { duration: 0.5 }
-          }
-          className="font-mono-meta text-[11px] sm:text-[12px] tracking-[0.3em] font-semibold text-[#444444] uppercase inline-block"
-        >
-          TAKE THE GLASS &mdash; FIND THE SUBJECT
-        </motion.span>
       </div>
     </div>
   );
@@ -363,6 +416,15 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
             <span>&rarr;</span>
           </button>
 
+          {/* UNBLURRED ALWAYS-VISIBLE BOTTOM INSTRUCTION BADGE */}
+          {(phase === "SEARCHING" || phase === "LOCKING" || phase === "PAUSED") && (
+            <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[10000] pointer-events-none text-center">
+              <span className="font-mono-meta text-[11px] sm:text-[12px] tracking-[0.3em] font-extrabold text-[#111111] uppercase inline-block bg-[#FAF7F2] px-5 py-2 border-2 border-[#111111] rounded-xs shadow-md">
+                TAKE THE GLASS &mdash; FIND THE SUBJECT
+              </span>
+            </div>
+          )}
+
           {(phase === "SEARCHING" || phase === "LOCKING" || phase === "PAUSED") && (
             <div className="relative w-full h-full">
               {/* LAYER 1: BLURRED NEWSPAPER BACKGROUND */}
@@ -370,65 +432,73 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
                 {renderNewspaperGrid(false)}
               </div>
 
-              {/* SPOTLIGHT FLASHLIGHT OVERLAY — follows lens position in real-time */}
-              <div
-                className="absolute inset-0 pointer-events-none z-10 transition-opacity duration-300"
-                style={{
-                  background: `radial-gradient(circle 340px at ${lensState.x}px ${lensState.y}px, rgba(255, 253, 245, 0.55) 0%, rgba(225, 218, 202, 0.25) 45%, rgba(15, 12, 8, 0.45) 100%)`,
-                }}
-              />
+              {/* SPOTLIGHT FLASHLIGHT OVERLAY — hidden until real cursor position known */}
+              {initializedRef.current && (
+                <div
+                  className="absolute inset-0 pointer-events-none z-10 transition-opacity duration-300"
+                  style={{
+                    background: `radial-gradient(circle 520px at ${lensState.x}px ${lensState.y}px,
+                      rgba(255, 253, 245, 0.55) 0%,
+                      rgba(250, 246, 235, 0.48) 12%,
+                      rgba(240, 234, 218, 0.38) 26%,
+                      rgba(220, 210, 190, 0.28) 42%,
+                      rgba(180, 170, 150, 0.20) 58%,
+                      rgba(120, 112, 96, 0.30) 75%,
+                      rgba(60, 55, 46, 0.42) 90%,
+                      rgba(15, 12, 8, 0.48) 100%)`,
+                    filter: "blur(30px)",
+                  }}
+                />
+              )}
 
-              {/* LAYER 2: CLEAN SIMPLE MAGNIFYING GLASS */}
-              <div
-                className="absolute pointer-events-none z-50 transform -translate-x-1/2 -translate-y-1/2 will-change-transform"
-                style={{
-                  transform: `translate3d(${lensState.x + shakeOffset.x}px, ${lensState.y + shakeOffset.y}px, 0) rotate(${lensState.rotation + shakeOffset.rotate}deg)`,
-                  left: 0,
-                  top: 0,
-                }}
-              >
-                <div className="relative w-[175px] h-[175px]">
-                  {/* Single soft drop shadow */}
-                  <div className="absolute inset-0 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.35)]" />
+              {/* LAYER 2: CLEAN SIMPLE MAGNIFYING GLASS — hidden until real cursor position known */}
+              {initializedRef.current && (
+                <div
+                  className="absolute pointer-events-none z-50 transform -translate-x-1/2 -translate-y-1/2 will-change-transform"
+                  style={{
+                    transform: `translate3d(${lensState.x + shakeOffset.x}px, ${lensState.y + shakeOffset.y}px, 0) rotate(${lensState.rotation + shakeOffset.rotate}deg)`,
+                    left: 0,
+                    top: 0,
+                  }}
+                >
+                  <div className="relative w-[175px] h-[175px]">
+                    <div className="absolute inset-0 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.35)]" />
 
-                  {/* Simple black ring lens frame */}
-                  <div className="relative w-full h-full rounded-full overflow-hidden border-[9px] border-[#111111] bg-[#ECE7DA] z-10">
-                    {/* Single subtle glare streak */}
+                    <div className="relative w-full h-full rounded-full overflow-hidden border-[9px] border-[#111111] bg-[#ECE7DA] z-10">
+                      <div
+                        className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/25 rounded-full z-20 pointer-events-none transition-transform duration-100"
+                        style={{ transform: `translateX(${lensState.glareShift}px)` }}
+                      />
+
+                      <div
+                        className="absolute inset-0 pointer-events-none"
+                        style={{
+                          width: `${window.innerWidth}px`,
+                          height: `${window.innerHeight}px`,
+                          transform: `translate(calc(-${lensState.x}px * 1.4 + 87.5px), calc(-${lensState.y}px * 1.4 + 87.5px)) scale(1.4)`,
+                          transformOrigin: "0 0",
+                        }}
+                      >
+                        {renderNewspaperGrid(true)}
+                      </div>
+                    </div>
+
                     <div
-                      className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/25 rounded-full z-20 pointer-events-none transition-transform duration-100"
-                      style={{ transform: `translateX(${lensState.glareShift}px)` }}
-                    />
-
-                    {/* MAGNIFIED sharp newspaper inside lens */}
-                    <div
-                      className="absolute inset-0 pointer-events-none"
+                      className="absolute z-0"
                       style={{
-                        width: `${window.innerWidth}px`,
-                        height: `${window.innerHeight}px`,
-                        transform: `translate(calc(-${lensState.x}px * 1.4 + 87.5px), calc(-${lensState.y}px * 1.4 + 87.5px)) scale(1.4)`,
+                        left: "85.4%",
+                        top: "85.4%",
+                        width: 0,
+                        height: 0,
+                        transform: "rotate(-50deg)",
                         transformOrigin: "0 0",
                       }}
                     >
-                      {renderNewspaperGrid(true)}
+                      <div className="w-[18px] h-[85px] bg-[#111111] rounded-b-[4px]" style={{ marginLeft: "0px" }} />
                     </div>
                   </div>
-
-                  {/* HANDLE — pivot placed on ring circumference */}
-                  <div
-                    className="absolute z-0"
-                    style={{
-                      left: "85.4%",
-                      top: "85.4%",
-                      width: 0,
-                      height: 0,
-                      transform: "rotate(-50deg)",
-                      transformOrigin: "0 0",
-                    }}
-                  >
-                    <div className="w-[18px] h-[85px] bg-[#111111] rounded-b-[4px]" style={{ marginLeft: "0px" }} />
-                  </div>
                 </div>
-              </div>
+              )}
             </div>
           )}
 
