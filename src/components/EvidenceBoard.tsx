@@ -11,13 +11,9 @@ export const EvidenceBoard: React.FC<EvidenceBoardProps> = ({ onOpenCase }) => {
   const [zoomingId, setZoomingId] = useState<string | null>(null);
 
   const handleInspect = (item: EvidenceItemData) => {
-    setZoomingId(item.id);
-    setTimeout(() => {
-      if (onOpenCase) {
-        onOpenCase(item.exhibitKey);
-      }
-      setZoomingId(null);
-    }, 400);
+    if (onOpenCase) {
+      onOpenCase(item.exhibitKey);
+    }
   };
 
   return (

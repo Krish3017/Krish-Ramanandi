@@ -11,8 +11,10 @@ import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { MagnifyingCursor } from "./components/MagnifyingCursor";
 import { CaseFileModal } from "./components/CaseFileModal";
+import { EvidenceDetailModal } from "./components/EvidenceDetailModal";
 import { DetectiveIntro } from "./components/DetectiveIntro";
 import { caseFilesMap } from "./data/caseFilesData";
+import { evidenceDetailMap } from "./data/evidenceDetailData";
 
 export default function App() {
   const [activeCaseKey, setActiveCaseKey] = useState<string | null>(null);
@@ -21,17 +23,30 @@ export default function App() {
   const handleOpenCase = (exhibitName: string) => {
     // Normalise exhibit string
     const key = exhibitName.toUpperCase();
-    if (caseFilesMap[key]) {
+    if (evidenceDetailMap[key] || caseFilesMap[key]) {
       setActiveCaseKey(key);
+      window.scrollTo({ top: 0, behavior: "instant" });
     } else {
       // Fallback to EXHIBIT G
       setActiveCaseKey("EXHIBIT G");
+      window.scrollTo({ top: 0, behavior: "instant" });
     }
   };
 
   const handleCloseCase = () => {
+    const isEvidence = activeCaseKey?.startsWith("EV-");
     setActiveCaseKey(null);
+    if (isEvidence) {
+      setTimeout(() => {
+        const el = document.getElementById("evidence");
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 50);
+    }
   };
+
+  const isEvidenceDetailKey = activeCaseKey ? activeCaseKey.startsWith("EV-") : false;
 
   return (
     <div className="paper-texture print-lines min-h-screen w-full text-[#111111] bg-[#F7F3EA] overflow-x-clip selection:bg-[#111111] selection:text-[#F7F3EA] relative">
@@ -141,12 +156,22 @@ export default function App() {
       {/* Newspaper Footer */}
       <Footer />
 
-      {/* Standalone Full-Page Case File View with Smooth Transition */}
-      <CaseFileModal
-        caseData={activeCaseKey ? caseFilesMap[activeCaseKey] || null : null}
-        onClose={handleCloseCase}
-        onSelectExhibit={handleOpenCase}
-      />
+      {/* Dedicated Confidential Evidence Detail View for EV-001 through EV-007 */}
+      {isEvidenceDetailKey && activeCaseKey && evidenceDetailMap[activeCaseKey] && (
+        <EvidenceDetailModal
+          record={evidenceDetailMap[activeCaseKey]}
+          onClose={handleCloseCase}
+        />
+      )}
+
+      {/* Standard Case File View for Selected Works Exhibits A through G */}
+      {!isEvidenceDetailKey && activeCaseKey && (
+        <CaseFileModal
+          caseData={caseFilesMap[activeCaseKey] || null}
+          onClose={handleCloseCase}
+          onSelectExhibit={handleOpenCase}
+        />
+      )}
     </div>
   );
 }
