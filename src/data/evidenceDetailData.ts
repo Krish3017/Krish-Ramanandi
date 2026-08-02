@@ -1,8 +1,10 @@
-import bullionImg from "../assets/bullion.png";
-import cyberkavachImg from "../assets/cyberkavach.png";
-import supportFlowImg from "../assets/SupportFlow.png";
-import dataforgeImg from "../assets/dataforge.png";
-import nexusImg from "../assets/Nexus.png";
+import bullAgritechEv from "../assets/evidence/BullAgritech.png";
+import gssocEv from "../assets/evidence/Gssoc.png";
+import gdgEv from "../assets/evidence/GDG.png";
+import odoo2025Ev from "../assets/evidence/Odoo2025.jpeg";
+import nptelDbmsEv from "../assets/evidence/NPTELDBMS.png";
+import odoo2026Ev from "../assets/evidence/Odoo2026.png";
+import cyberkavachEv from "../assets/evidence/cyberkavach.png";
 
 export interface EvidenceDetailRecord {
   caseCode: string;
@@ -39,13 +41,9 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
     statusHighlight: "Production Software Deployed",
     images: [
       {
-        url: bullionImg,
-        caption: "Bullion Enterprise Procurement Platform Administrative Console",
+        url: bullAgritechEv,
+        caption: "Bull Agritech Internship Verification & Procurement Platform Evidence",
         isPrimary: true,
-      },
-      {
-        url: supportFlowImg,
-        caption: "REST API Integration & Backend Workflows Verification",
       },
     ],
     keyFindings: [
@@ -75,13 +73,9 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
     statusHighlight: "Officially Selected Contributor",
     images: [
       {
-        url: cyberkavachImg,
-        caption: "Official GSSoC 2026 Contributor Selection Badge & Contributor Record",
+        url: gssocEv,
+        caption: "Official GSSoC 2026 Contributor Selection Certificate & Selection Record",
         isPrimary: true,
-      },
-      {
-        url: dataforgeImg,
-        caption: "Open Source Pull Requests & Peer Code Review Activity",
       },
     ],
     keyFindings: [
@@ -111,13 +105,9 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
     statusHighlight: "2nd Rank Winner · ₹6000 Prize",
     images: [
       {
-        url: supportFlowImg,
-        caption: "GDG Sprintathon 2026 Leaderboard & Team #152 Final Scoreboard",
+        url: gdgEv,
+        caption: "GDG Sprintathon 2026 2nd Rank Winner Certificate & Scoreboard",
         isPrimary: true,
-      },
-      {
-        url: bullionImg,
-        caption: "Rapid Hackathon Prototype Execution & UI Demo",
       },
     ],
     keyFindings: [
@@ -147,13 +137,9 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
     statusHighlight: "Top 350 Teams in India",
     images: [
       {
-        url: bullionImg,
+        url: odoo2025Ev,
         caption: "Official Odoo Hackathon 2025 Grand Finale Pass & Event Verification",
         isPrimary: true,
-      },
-      {
-        url: cyberkavachImg,
-        caption: "24-Hour Onsite Grand Finale Development & Presentation",
       },
     ],
     keyFindings: [
@@ -183,8 +169,8 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
     statusHighlight: "Top 1% · Score 85%",
     images: [
       {
-        url: dataforgeImg,
-        caption: "Official NPTEL Elite + Silver Certification Transcript & Grade Card",
+        url: nptelDbmsEv,
+        caption: "Official NPTEL Elite + Silver Certification Transcript & Grade Card (Top 1%)",
         isPrimary: true,
       },
     ],
@@ -215,7 +201,7 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
     statusHighlight: "Consecutive Year Finalist",
     images: [
       {
-        url: nexusImg,
+        url: odoo2026Ev,
         caption: "Odoo 2026 Selection Confirmation Memo & Team Registration Record",
         isPrimary: true,
       },
@@ -245,13 +231,9 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
     statusHighlight: "Web Development Coordinator",
     images: [
       {
-        url: cyberkavachImg,
-        caption: "CyberKavach Official Web Platform Administrative Management System",
+        url: cyberkavachEv,
+        caption: "CyberKavach Official Web Platform & Leadership Credentials",
         isPrimary: true,
-      },
-      {
-        url: supportFlowImg,
-        caption: "Digital Certificate Generation & Automated Attendance Workflows",
       },
     ],
     keyFindings: [
