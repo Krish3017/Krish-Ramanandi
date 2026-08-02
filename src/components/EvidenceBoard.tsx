@@ -72,7 +72,7 @@ export const EvidenceBoard: React.FC<EvidenceBoardProps> = ({ onOpenCase }) => {
           <div className="relative max-w-[820px] mx-auto min-h-[480px] md:min-h-[490px]">
 
             {/* Interconnected Red Evidence Thread Network (SVG Layer precisely aligned to pin anchors) */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-visible hidden md:block">
+            <svg viewBox="0 0 820 490" preserveAspectRatio="none" className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-visible block">
               {/* Thread 1: EV-001 (Top-Left) to EV-004 (Top-High-Center) */}
               <motion.path
                 d={hoveredId === "ev-001" || hoveredId === "ev-004" ? "M 130 50 C 230 20, 330 15, 430 25" : "M 130 50 C 220 25, 340 18, 430 25"}

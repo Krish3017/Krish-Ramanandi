@@ -43,8 +43,8 @@ export const Stack: React.FC = () => {
         {/* Thin Single Divider Line */}
         <div className="border-b-2 border-[#111111] mb-3" />
 
-        {/* The Lab Report Table Frame — Tightened layout removing excessive spacing */}
-        <div className="border border-[#111111] bg-[#F7F3EA] overflow-hidden">
+        {/* The Lab Report Table Frame — Responsive horizontal scroll wrapper */}
+        <div className="border border-[#111111] bg-[#F7F3EA] overflow-x-auto print-lines">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-[#111111] text-[#F7F3EA] font-mono-meta text-[10px] sm:text-[11px] tracking-[0.2em] uppercase">

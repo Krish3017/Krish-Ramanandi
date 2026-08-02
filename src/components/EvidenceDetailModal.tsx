@@ -27,7 +27,7 @@ export const EvidenceDetailModal: React.FC<EvidenceDetailModalProps> = ({ record
 
   return (
     <AnimatePresence>
-      <div className="fixed top-0 left-0 right-0 bottom-0 z-[99999] w-screen h-screen bg-[#FAF7F2] text-[#111111] overflow-hidden flex flex-col p-3 sm:p-5 md:p-6 select-none print-lines">
+      <div className="fixed top-0 left-0 right-0 bottom-0 z-[99999] w-screen h-[100dvh] bg-[#FAF7F2] text-[#111111] overflow-y-auto md:overflow-hidden flex flex-col p-3 sm:p-5 md:p-6 select-none print-lines">
         
         {/* Coffee Ring Stain Micro-Detail in Background */}
         <svg className="absolute top-8 right-14 w-48 h-48 opacity-15 pointer-events-none overflow-visible rotate-12 z-0" viewBox="0 0 100 100">
@@ -36,14 +36,14 @@ export const EvidenceDetailModal: React.FC<EvidenceDetailModalProps> = ({ record
         </svg>
 
         {/* ========================================================================= */}
-        {/* Main Standalone Full-Screen Non-Scrollable Single Viewport Layout */}
+        {/* Main Standalone Full-Screen Layout (Single Viewport on Desktop, Scrollable on Mobile) */}
         {/* ========================================================================= */}
         <motion.div
           initial={{ opacity: 0, scale: 0.99 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.99 }}
           transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="flex-1 flex flex-col h-full overflow-hidden max-w-[1300px] w-full mx-auto relative z-10"
+          className="flex-1 flex flex-col min-h-min md:h-full md:overflow-hidden max-w-[1300px] w-full mx-auto relative z-10"
         >
           {/* Top Header Navigation Bar */}
           <div className="flex justify-between items-center border-b-2 border-[#111111] pb-3 mb-3 shrink-0 relative">

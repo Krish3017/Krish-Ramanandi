@@ -162,7 +162,7 @@ export const FinalReport: React.FC = () => {
             whileInView={{ scale: 1, opacity: 1, rotate: -4 }}
             viewport={{ once: true }}
             transition={{ type: "spring", stiffness: 350, damping: 18, delay: 0.3 }}
-            className="absolute bottom-16 right-4 sm:bottom-20 sm:right-8 z-30 pointer-events-none border-4 border-[#8A3B2D] px-4 sm:px-6 py-1.5 bg-[#FAF7F2]/90 backdrop-blur-[1px] shadow-lg font-newspaper text-xl sm:text-3xl font-bold tracking-[0.2em] text-[#8A3B2D] uppercase select-none"
+            className="absolute bottom-2 right-2 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-30 pointer-events-none border-3 sm:border-4 border-[#8A3B2D] px-3 sm:px-6 py-1 sm:py-1.5 bg-[#FAF7F2]/95 backdrop-blur-[1px] shadow-lg font-newspaper text-lg sm:text-2xl md:text-3xl font-bold tracking-[0.18em] sm:tracking-[0.2em] text-[#8A3B2D] uppercase select-none"
           >
             CASE CLOSED
           </motion.div>

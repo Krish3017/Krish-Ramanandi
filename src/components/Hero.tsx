@@ -23,7 +23,7 @@ export const Hero: React.FC = () => {
               </p>
 
               {/* Main Editorial Headline */}
-              <h2 className="font-editorial-headline text-[3rem] sm:text-[4.2rem] md:text-[5rem] lg:text-[5.6rem] leading-[0.88] text-[#111111] font-normal tracking-[-0.03em] mb-2 md:mb-3">
+              <h2 className="font-editorial-headline text-[2.5rem] xs:text-[2.9rem] sm:text-[4.2rem] md:text-[5rem] lg:text-[5.6rem] leading-[0.88] text-[#111111] font-normal tracking-[-0.03em] mb-2 md:mb-3">
                 An AI Engineer <br />
                 who likes <br />
                 building intelligent <br />
