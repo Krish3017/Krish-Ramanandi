@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import resumePdf from "../assets/Resume.pdf";
 
 interface NavigationProps {
   onNavigate?: (sectionId: string) => void;
@@ -105,12 +106,12 @@ export const Navigation: React.FC<NavigationProps> = ({ onNavigate }) => {
           })}
           
           <a
-            href="#resume"
-            onClick={(e) => {
-              e.preventDefault();
-              alert("Resume PDF: Krish Ramanandi — AI Engineer");
-            }}
-            className="bg-[#111111] text-[#F7F3EA] font-mono-meta text-[12.5px] sm:text-[14.5px] md:text-[15px] tracking-[0.2em] font-bold px-4 sm:px-6 md:px-8 py-1.5 md:py-2 border border-[#111111] hover:bg-[#333333] transition-colors inline-block text-center"
+            href={resumePdf}
+            target="_blank"
+            rel="noopener noreferrer"
+            download="Krish_Ramanandi_Resume.pdf"
+            title="Download Krish Ramanandi Resume PDF"
+            className="bg-[#111111] text-[#F7F3EA] font-mono-meta text-[12.5px] sm:text-[14.5px] md:text-[15px] tracking-[0.2em] font-bold px-4 sm:px-6 md:px-8 py-1.5 md:py-2 border border-[#111111] hover:bg-[#8A3B2D] transition-colors inline-block text-center shadow-xs"
           >
             RESUME
           </a>

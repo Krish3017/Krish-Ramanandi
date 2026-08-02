@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import resumePdf from "../assets/Resume.pdf";
 
 export const FinalReport: React.FC = () => {
   const checklistItems = [
@@ -126,9 +127,11 @@ export const FinalReport: React.FC = () => {
           {/* Section 6: Action Triggers */}
           <div className="flex flex-wrap justify-center items-center gap-3 pt-2 border-t border-[#111111]">
             <a
-              href="https://drive.google.com"
+              href={resumePdf}
               target="_blank"
               rel="noopener noreferrer"
+              download="Krish_Ramanandi_Resume.pdf"
+              title="Download Krish Ramanandi Resume PDF"
               className="magnify-hover font-mono-meta text-[11px] font-bold text-[#F7F3EA] bg-[#111111] hover:bg-[#8A3B2D] px-4 py-2 transition-colors uppercase tracking-widest border border-[#111111] shadow-xs"
             >
               RETRIEVE RESUME
