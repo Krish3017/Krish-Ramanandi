@@ -267,179 +267,168 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
     }
   }, [phase, onComplete]);
 
-  // Newspaper grid layout
-  const renderNewspaperGrid = (isSharp: boolean) => (
-    <div className="w-full h-full min-h-screen bg-[#ECE7DA] px-8 py-8 flex flex-col justify-between select-none">
+  const [screenSize, setScreenSize] = useState<"mobile" | "tablet" | "desktop">("desktop");
+  const [viewportHeight, setViewportHeight] = useState(typeof window !== "undefined" ? window.innerHeight : 800);
+
+  useEffect(() => {
+    const checkSize = () => {
+      setViewportHeight(window.innerHeight);
+      const w = window.innerWidth;
+      if (w < 640) {
+        setScreenSize("mobile");
+      } else if (w < 1024) {
+        setScreenSize("tablet");
+      } else {
+        setScreenSize("desktop");
+      }
+    };
+    checkSize();
+    window.addEventListener("resize", checkSize);
+    return () => window.removeEventListener("resize", checkSize);
+  }, []);
+
+  const isMobile = screenSize === "mobile";
+  const isTablet = screenSize === "tablet";
+
+  // Dynamic counts based on viewport height to continuously fill column height with zero empty space
+  const mobileCount = Math.max(16, Math.ceil(viewportHeight / 55));
+  const tabletCount = Math.max(12, Math.ceil(viewportHeight / 80));
+  const desktopCount = Math.max(8, Math.ceil(viewportHeight / 100));
+
+  // Programmatic Article Column Generator
+  const ArticleColumn = ({
+    count,
+    colIndex,
+    isMobile,
+    hasWanted,
+    isSharp,
+  }: {
+    count: number;
+    colIndex: number;
+    isMobile?: boolean;
+    hasWanted?: boolean;
+    isSharp?: boolean;
+  }) => {
+    const headlineH = isMobile ? "h-3" : "h-3.5";
+    const paraH = isMobile ? "h-1.5" : "h-2.5";
+    const spaceY = isMobile ? "space-y-1.5" : "space-y-2";
+
+    const getHeadlineWidth = (idx: number) => {
+      const widths = ["w-3/4", "w-2/3", "w-4/5", "w-1/2", "w-3/5"];
+      return widths[(idx + colIndex * 2) % widths.length];
+    };
+
+    const getParaWidths = (idx: number) => {
+      const patterns = [
+        ["w-full", "w-11/12", "w-full", "w-4/5"],
+        ["w-full", "w-full", "w-5/6"],
+        ["w-full", "w-3/4"],
+        ["w-full", "w-11/12", "w-3/4"],
+      ];
+      return patterns[(idx + colIndex) % patterns.length];
+    };
+
+    const wantedIndex = Math.floor(count * (isMobile ? 0.35 : 0.40));
+
+    return (
+      <div className={`flex flex-col ${isMobile ? "space-y-2" : "space-y-3.5"} overflow-hidden h-full`}>
+        {Array.from({ length: count }).map((_, idx) => {
+          const isWantedPosition = hasWanted && idx === wantedIndex;
+          const headW = getHeadlineWidth(idx);
+          const paraWList = getParaWidths(idx);
+
+          return (
+            <React.Fragment key={idx}>
+              {isWantedPosition ? (
+                <div
+                  ref={isSharp ? null : targetRef}
+                  className={`my-2 py-2 px-3 text-center border-y-2 border-[#111111] ${
+                    isMobile ? "w-[118px]" : "w-[135px]"
+                  } flex flex-col items-center justify-center bg-[#F7F3EA] shadow-2xs mx-auto shrink-0`}
+                >
+                  <span className="font-serif font-extrabold text-[11px] sm:text-[12.5px] text-[#A8382B] tracking-[0.2em] uppercase block leading-none mb-1">
+                    WANTED
+                  </span>
+                  <span className="font-serif text-[11.5px] sm:text-[13px] text-[#111111] font-bold tracking-wide block leading-tight mb-1">
+                    Krish Ramanandi
+                  </span>
+                  <div className="w-6 h-[1.5px] bg-[#111111] mx-auto" />
+                </div>
+              ) : (
+                <div className="shrink-0">
+                  <div className={`${headlineH} bg-[#222] rounded-xs ${headW} mb-1`} />
+                  <div className={spaceY}>
+                    {paraWList.map((pw, pIdx) => (
+                      <div key={pIdx} className={`${paraH} bg-[#777] rounded-xs ${pw}`} />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </React.Fragment>
+          );
+        })}
+      </div>
+    );
+  };
+
+  // 1. DESKTOP NEWSPAPER GRID (5 Columns)
+  const renderDesktopNewspaper = (isSharp: boolean) => (
+    <div className="w-full h-full min-h-screen bg-[#ECE7DA] px-8 py-8 flex flex-col justify-between select-none overflow-hidden">
       {/* Top masthead rule */}
-      <div className="max-w-[1300px] mx-auto w-full border-b-2 border-[#111111] pb-3 mb-6 flex justify-between items-center">
+      <div className="max-w-[1300px] mx-auto w-full border-b-2 border-[#111111] pb-3 mb-6 flex justify-between items-center shrink-0">
         <span className="font-mono-meta text-[10px] tracking-[0.3em] text-[#333] uppercase font-bold">THE INVESTIGATION EDITION</span>
         <span className="font-mono-meta text-[10px] tracking-[0.3em] text-[#333] uppercase font-bold">CLASSIFIED RECORDS &middot; EST. 2026</span>
       </div>
 
-      <div className="grid grid-cols-5 gap-6 max-w-[1300px] mx-auto w-full flex-1">
-        {/* Column 1 */}
-        <div className="space-y-3.5">
-          <div className="h-4 bg-[#222] rounded-sm w-3/4 mb-2" />
-          <div className="space-y-2">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-11/12" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-4/5" />
-          </div>
-          <div className="h-3.5 bg-[#333] rounded-sm w-3/5 my-2.5" />
-          <div className="space-y-2">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-5/6" />
-          </div>
-          <div className="h-3 bg-[#444] rounded-sm w-1/2 my-2" />
-          <div className="space-y-2">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-3/4" />
-          </div>
-          <div className="h-3.5 bg-[#222] rounded-sm w-2/3 my-2.5" />
-          <div className="space-y-2">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-4/5" />
-          </div>
-          <div className="h-3 bg-[#333] rounded-sm w-1/2 my-2" />
-          <div className="space-y-2">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-11/12" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-3/4" />
-          </div>
-        </div>
-
-        {/* Column 2 */}
-        <div className="space-y-3.5">
-          <div className="h-4 bg-[#222] rounded-sm w-2/3 mb-2" />
-          <div className="space-y-2">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-4/5" />
-          </div>
-          <div className="h-3.5 bg-[#333] rounded-sm w-3/4 my-2.5" />
-          <div className="space-y-2">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-11/12" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-          </div>
-          <div className="space-y-2">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-4/5" />
-          </div>
-          <div className="h-3 bg-[#444] rounded-sm w-1/2 my-2" />
-          <div className="space-y-2">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-5/6" />
-          </div>
-          <div className="h-3.5 bg-[#222] rounded-sm w-3/5 my-2.5" />
-          <div className="space-y-2">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-3/4" />
-          </div>
-        </div>
-
-        {/* Column 3 — CENTER COLUMN CONTAINING WANTED NOTICE */}
-        <div className="space-y-3.5 flex flex-col justify-center items-center">
-          <div className="h-4 bg-[#333] rounded-sm w-4/5 mb-2" />
-          <div className="space-y-2 w-full">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-          </div>
-
-          <div
-            ref={isSharp ? null : targetRef}
-            className="my-3 py-3 px-4 text-center border-y-2 border-[#111111] w-[140px] flex flex-col items-center justify-center bg-[#F7F3EA] shadow-xs"
-          >
-            <span className="font-serif font-extrabold text-[13px] text-[#A8382B] tracking-[0.25em] uppercase block leading-none mb-1.5">
-              WANTED
-            </span>
-            <span className="font-serif text-[13.5px] text-[#111111] font-bold tracking-wide block leading-tight mb-1.5">
-              Krish Ramanandi
-            </span>
-            <div className="w-8 h-[1.5px] bg-[#111111] mx-auto" />
-          </div>
-
-          <div className="space-y-2 w-full">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-4/5" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-          </div>
-          <div className="space-y-2 w-full">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-3/4" />
-          </div>
-          <div className="h-3.5 bg-[#333] rounded-sm w-2/3 my-2" />
-          <div className="space-y-2 w-full">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-11/12" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-          </div>
-        </div>
-
-        {/* Column 4 */}
-        <div className="space-y-3.5">
-          <div className="h-4 bg-[#333] rounded-sm w-1/2 mb-2" />
-          <div className="space-y-2">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-3/4" />
-          </div>
-          <div className="h-3.5 bg-[#222] rounded-sm w-2/3 my-2.5" />
-          <div className="space-y-2">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-5/6" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-          </div>
-          <div className="space-y-2">
-            <div className="h-2.5 bg-[#777] rounded-sm w-4/5" />
-          </div>
-          <div className="h-3 bg-[#444] rounded-sm w-3/5 my-2" />
-          <div className="space-y-2">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-11/12" />
-          </div>
-          <div className="h-3.5 bg-[#333] rounded-sm w-1/2 my-2.5" />
-          <div className="space-y-2">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-3/4" />
-          </div>
-        </div>
-
-        {/* Column 5 */}
-        <div className="space-y-3.5">
-          <div className="h-4 bg-[#222] rounded-sm w-3/4 mb-2" />
-          <div className="space-y-2">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-11/12" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-4/5" />
-          </div>
-          <div className="h-3.5 bg-[#333] rounded-sm w-1/2 my-2.5" />
-          <div className="space-y-2">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-          </div>
-          <div className="h-3 bg-[#222] rounded-sm w-2/3 my-2" />
-          <div className="space-y-2">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-4/5" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-          </div>
-          <div className="h-3.5 bg-[#444] rounded-sm w-3/5 my-2.5" />
-          <div className="space-y-2">
-            <div className="h-2.5 bg-[#777] rounded-sm w-full" />
-            <div className="h-2.5 bg-[#777] rounded-sm w-11/12" />
-          </div>
-        </div>
+      <div className="grid grid-cols-5 gap-6 max-w-[1300px] mx-auto w-full flex-1 overflow-hidden">
+        <ArticleColumn count={desktopCount} colIndex={0} />
+        <ArticleColumn count={desktopCount} colIndex={1} />
+        <ArticleColumn count={desktopCount} colIndex={2} hasWanted={true} isSharp={isSharp} />
+        <ArticleColumn count={desktopCount} colIndex={3} />
+        <ArticleColumn count={desktopCount} colIndex={4} />
       </div>
     </div>
   );
+
+  // 2. TABLET NEWSPAPER GRID (4 Columns)
+  const renderTabletNewspaper = (isSharp: boolean) => (
+    <div className="w-full h-full min-h-screen bg-[#ECE7DA] px-6 py-6 flex flex-col justify-between select-none overflow-hidden">
+      <div className="max-w-[900px] mx-auto w-full border-b-2 border-[#111111] pb-2.5 mb-5 flex justify-between items-center shrink-0">
+        <span className="font-mono-meta text-[9.5px] tracking-[0.25em] text-[#333] uppercase font-bold">THE INVESTIGATION EDITION</span>
+        <span className="font-mono-meta text-[9.5px] tracking-[0.25em] text-[#333] uppercase font-bold">CLASSIFIED RECORDS &middot; EST. 2026</span>
+      </div>
+
+      <div className="grid grid-cols-4 gap-5 max-w-[900px] mx-auto w-full flex-1 overflow-hidden">
+        <ArticleColumn count={tabletCount} colIndex={0} />
+        <ArticleColumn count={tabletCount} colIndex={1} hasWanted={true} isSharp={isSharp} />
+        <ArticleColumn count={tabletCount} colIndex={2} />
+        <ArticleColumn count={tabletCount} colIndex={3} />
+      </div>
+    </div>
+  );
+
+  // 3. MOBILE NEWSPAPER GRID (3 Columns — High Density)
+  const renderMobileNewspaper = (isSharp: boolean) => (
+    <div className="w-full h-full min-h-screen bg-[#ECE7DA] px-3.5 py-4 flex flex-col justify-between select-none overflow-hidden">
+      {/* Top masthead rule */}
+      <div className="w-full border-b border-[#111111] pb-2 mb-3 flex justify-between items-center shrink-0">
+        <span className="font-mono-meta text-[8.5px] tracking-[0.2em] text-[#333] uppercase font-bold">THE INVESTIGATION EDITION</span>
+        <span className="font-mono-meta text-[8.5px] tracking-[0.2em] text-[#333] uppercase font-bold">EST. 2026</span>
+      </div>
+
+      <div className="grid grid-cols-3 gap-3 w-full flex-1 overflow-hidden">
+        <ArticleColumn count={mobileCount} colIndex={0} isMobile={true} />
+        <ArticleColumn count={mobileCount} colIndex={1} isMobile={true} hasWanted={true} isSharp={isSharp} />
+        <ArticleColumn count={mobileCount} colIndex={2} isMobile={true} />
+      </div>
+    </div>
+  );
+
+  const renderNewspaperGrid = (isSharp: boolean) => {
+    if (isMobile) return renderMobileNewspaper(isSharp);
+    if (isTablet) return renderTabletNewspaper(isSharp);
+    return renderDesktopNewspaper(isSharp);
+  };
 
   return (
     <AnimatePresence>
