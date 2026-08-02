@@ -59,15 +59,9 @@ export default function App() {
       {/* Sticky Editorial Navigation Bar (Sticks top-0 as user scrolls) */}
       <Navigation />
 
-      {/* Hero Section with a premium multi-directional reveal landing animation */}
+      {/* Hero Section with immediate Frame 1 paint for LCP optimization */}
       <div className="overflow-hidden">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <Hero />
-        </motion.div>
+        <Hero />
       </div>
 
       {/* Bold separator line */}
