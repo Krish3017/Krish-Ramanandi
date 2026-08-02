@@ -25,7 +25,7 @@ export const CareerLedger: React.FC = () => {
   ];
 
   return (
-    <section id="career" className="w-full py-5 md:py-6 bg-[#F7F3EA]">
+    <section id="career" className="w-full py-5 md:py-6 bg-transparent">
       <div className="max-w-[1300px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
         {/* Section Header */}
         <div className="flex justify-between items-end pb-2">

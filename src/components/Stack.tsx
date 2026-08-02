@@ -25,7 +25,7 @@ export const Stack: React.FC = () => {
 ];
 
   return (
-    <section id="stack" className="w-full py-4 md:py-5 bg-[#F7F3EA]">
+    <section id="stack" className="w-full py-4 md:py-5 bg-transparent">
       <div className="max-w-[1300px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
         {/* Section Header — FORENSICS eyebrow + right-aligned note */}
         <div className="flex justify-between items-end pb-1">

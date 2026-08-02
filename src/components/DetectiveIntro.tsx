@@ -472,10 +472,10 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
                 />
               )}
 
-              {/* LAYER 2: CLEAN SIMPLE MAGNIFYING GLASS — hidden until real cursor position known */}
+              {/* LAYER 2: CLEAN SIMPLE MAGNIFYING GLASS — hidden on mobile layout */}
               {initializedRef.current && (
                 <div
-                  className="absolute pointer-events-none z-50 transform -translate-x-1/2 -translate-y-1/2 will-change-transform"
+                  className="hidden md:block absolute pointer-events-none z-50 transform -translate-x-1/2 -translate-y-1/2 will-change-transform"
                   style={{
                     transform: `translate3d(${lensState.x + shakeOffset.x}px, ${lensState.y + shakeOffset.y}px, 0) rotate(${lensState.rotation + shakeOffset.rotate}deg)`,
                     left: 0,

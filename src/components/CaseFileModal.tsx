@@ -88,12 +88,6 @@ export const CaseFileModal: React.FC<CaseFileModalProps> = ({
         {/* TOP STICKY BAR */}
         <div className="sticky top-0 z-50 bg-[#efeadd] border-b border-[#111111] px-4 sm:px-8 py-3">
           <div className="max-w-[1200px] mx-auto flex justify-between items-center">
-            <button
-              onClick={onClose}
-              className="magnify-hover font-mono-meta text-[11px] sm:text-[12.5px] font-bold text-[#111111] hover:text-[#8A3B2D] flex items-center gap-2 cursor-pointer uppercase tracking-wider transition-colors"
-            >
-              &larr; BACK TO THE CASE
-            </button>
             <span className="font-mono-meta text-[10px] sm:text-[11.5px] tracking-[0.18em] text-[#555555] font-bold uppercase hidden md:inline">
               THE KRISH RAMANANDI TIMES &middot; CASE FILES
             </span>
@@ -225,7 +219,7 @@ export const CaseFileModal: React.FC<CaseFileModalProps> = ({
 
             {/* RIGHT: SPECIFICATIONS TABLE (HOW IT WAS BUILT) */}
             <div className="lg:col-span-4">
-              <div className="border border-[#111111] bg-[#efeadd] overflow-hidden">
+              <div className="border border-[#111111] bg-[# ] overflow-hidden">
                 <div className="bg-[#111111] text-white px-4 py-2 font-mono-meta text-[11px] font-bold tracking-[0.18em] uppercase">
                   HOW IT WAS BUILT
                 </div>
@@ -285,25 +279,10 @@ export const CaseFileModal: React.FC<CaseFileModalProps> = ({
           >
             <button
               onClick={onClose}
-              className="magnify-hover px-5 py-2.5 border border-[#111111] bg-[#efeadd] hover:bg-[#E2DBCB] font-mono-meta text-[12px] font-bold uppercase tracking-wider cursor-pointer transition-colors"
+              className="magnify-hover px-5 py-2.5 border border-[#111111] bg-[#efeadd] hover:bg-[#111111] hover:text-[#efeadd] font-mono-meta text-[12px] font-bold uppercase tracking-wider cursor-pointer transition-colors"
             >
               &larr; BACK TO THE CASE
             </button>
-
-            <a
-              href={caseData.link}
-              target="_blank"
-              rel="noreferrer"
-              onClick={(e) => {
-                if (caseData.link === "#") {
-                  e.preventDefault();
-                  alert(`Inspecting live evidence: ${caseData.title}`);
-                }
-              }}
-              className="magnify-hover px-6 py-2.5 bg-[#111111] text-[#efeadd] hover:bg-[#333333] font-mono-meta text-[12px] font-bold uppercase tracking-widest flex items-center gap-2 cursor-pointer transition-colors"
-            >
-              INSPECT THE EVIDENCE &mdash; VISIT THE SITE &rarr;
-            </a>
           </motion.div>
         </motion.main>
       </motion.div>

@@ -20,7 +20,7 @@ export const FinalReport: React.FC = () => {
   };
 
   return (
-    <section id="report" className="w-full py-12 md:py-20 bg-[#F7F3EA] relative overflow-hidden select-none print-lines">
+    <section id="report" className="w-full py-12 md:py-20 bg-transparent relative overflow-hidden select-none print-lines">
       <div className="max-w-[900px] mx-auto px-4 sm:px-8 font-sans text-[#111111]">
         
         {/* ========================================================================= */}

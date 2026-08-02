@@ -17,7 +17,7 @@ export const EvidenceBoard: React.FC<EvidenceBoardProps> = ({ onOpenCase }) => {
   };
 
   return (
-    <section id="evidence" className="w-full py-8 md:py-14 bg-[#F2ECE0] relative overflow-hidden border-y-2 border-[#111111]">
+    <section id="evidence" className="w-full py-8 md:py-14 bg-transparent relative overflow-hidden">
       <div className="max-w-[1020px] mx-auto w-full px-4 sm:px-8 lg:px-10">
         {/* Section Header */}
         <div className="border-b border-[#111111] pb-3 mb-5">

@@ -46,13 +46,6 @@ export const EvidenceDetailModal: React.FC<EvidenceDetailModalProps> = ({ record
         >
           {/* Top Header Navigation Bar */}
           <div className="flex justify-between items-center border-b-2 border-[#111111] pb-3 mb-3 shrink-0 relative">
-            <button
-              onClick={onClose}
-              className="magnify-hover font-mono-meta text-xs font-bold text-[#111111] hover:text-[#8A3B2D] uppercase tracking-widest flex items-center gap-1.5 border border-[#111111] px-3.5 py-2 bg-[#F2ECE0] transition-colors shadow-xs min-h-[44px] cursor-pointer"
-            >
-              &larr; RETURN TO EVIDENCE BOARD
-            </button>
-
             <div className="text-center hidden lg:block">
               <span className="font-mono-meta text-[11px] font-bold tracking-[0.22em] text-[#8A3B2D] uppercase block">
                 CONFIDENTIAL DOSSIER · CASE FILE {record.caseCode}

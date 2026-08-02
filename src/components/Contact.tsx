@@ -21,7 +21,7 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="w-full py-5 md:py-6 bg-[#F2ECE0]">
+    <section id="contact" className="w-full py-5 md:py-6 bg-transparent">
       <div className="max-w-[1250px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
         {/* Section Header */}
         <div className="flex justify-between items-end pb-2">
@@ -129,7 +129,7 @@ export const Contact: React.FC = () => {
                   </span>
                   <button
                     type="submit"
-                    className="magnify-hover bg-[#111111] text-[#F7F3EA] border border-[#111111] px-6 py-2.5 font-mono-meta text-[11px] tracking-[0.2em] font-semibold hover:bg-[#333333] transition-colors cursor-pointer uppercase whitespace-nowrap"
+                    className="magnify-hover bg-[#111111] text-[#F7F3EA] border border-[#111111] px-6 py-2.5 font-mono-meta text-[11px] tracking-[0.2em] font-semibold hover:bg-[#efeadd] hover:text-[#111111] transition-colors cursor-pointer uppercase whitespace-nowrap"
                   >
                     SEND THE LETTER
                   </button>

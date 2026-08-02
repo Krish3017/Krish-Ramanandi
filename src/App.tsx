@@ -66,7 +66,7 @@ export default function App() {
 
       {/* Bold separator line */}
       <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
-        <div className="border-b-3 border-[#111111]" />
+        <div className="border-b-2 border-[#111111]" />
       </div>
 
       {/* Selected Works (Exhibits A-G) - Reveal/Slide in from LEFT */}
@@ -81,7 +81,7 @@ export default function App() {
 
       {/* Bold separator line */}
       <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
-        <div className="border-b-3 border-[#111111]" />
+        <div className="border-b-2 border-[#111111]" />
       </div>
 
       {/* The Lab Report / Stack - Reveal/Slide in from RIGHT */}
@@ -96,7 +96,7 @@ export default function App() {
 
       {/* Bold separator line */}
       <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
-        <div className="border-b-3 border-[#111111]" />
+        <div className="border-b-2 border-[#111111]" />
       </div>
 
       {/* The Career Ledger - Reveal/Slide in from LEFT */}
@@ -111,7 +111,7 @@ export default function App() {
 
       {/* Bold separator line */}
       <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
-        <div className="border-b-3 border-[#111111]" />
+        <div className="border-b-2 border-[#111111]" />
       </div>
 
       {/* The Evidence Board - Pinboard & Archival Wall */}
@@ -126,22 +126,7 @@ export default function App() {
 
       {/* Bold separator line */}
       <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
-        <div className="border-b-3 border-[#111111]" />
-      </div>
-
-      {/* Official Correspondence / Contact - Reveal/Slide in from RIGHT */}
-      <motion.div
-        initial={{ opacity: 0, x: 45 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <Contact />
-      </motion.div>
-
-      {/* Bold separator line */}
-      <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
-        <div className="border-b-3 border-[#111111]" />
+        <div className="border-b-2 border-[#111111]" />
       </div>
 
       {/* Final Investigation Report — Portfolio Conclusion */}
@@ -158,7 +143,22 @@ export default function App() {
 
       {/* Bold separator line */}
       <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
-        <div className="border-b-3 border-[#111111]" />
+        <div className="border-b-2 border-[#111111]" />
+      </div>
+
+      {/* Official Correspondence / Contact - Reveal/Slide in from RIGHT */}
+      <motion.div
+        initial={{ opacity: 0, x: 45 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <Contact />
+      </motion.div>
+
+      {/* Bold separator line */}
+      <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
+        <div className="border-b-2 border-[#111111]" />
       </div>
 
       {/* Newspaper Footer */}

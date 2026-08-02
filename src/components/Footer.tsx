@@ -1,5 +1,46 @@
 import React from "react";
 
+const WavyFooterLink: React.FC<{
+  onClick?: () => void;
+  href?: string;
+  children: React.ReactNode;
+}> = ({ onClick, href, children }) => {
+  const content = (
+    <span className="relative inline-block group cursor-pointer pb-1">
+      <span className="group-hover:text-[#FAF7F2] transition-colors duration-200">{children}</span>
+      {/* Wavy red line SVG progressing from 0 to 100% on hover */}
+      <span className="absolute left-0 -bottom-0.5 w-full h-[6px] overflow-hidden pointer-events-none">
+        <svg
+          viewBox="0 0 100 12"
+          preserveAspectRatio="none"
+          className="w-full h-full text-[#A8382B] stroke-current transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out"
+        >
+          <path
+            d="M 0,6 Q 12.5,1 25,6 T 50,6 T 75,6 T 100,6"
+            fill="none"
+            strokeWidth="3.5"
+            strokeLinecap="round"
+          />
+        </svg>
+      </span>
+    </span>
+  );
+
+  if (href) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className="inline-block">
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <button onClick={onClick} className="text-left inline-block">
+      {content}
+    </button>
+  );
+};
+
 export const Footer: React.FC = () => {
   const scrollToSection = (id: string) => {
     if (id === "hero") {
@@ -31,44 +72,29 @@ export const Footer: React.FC = () => {
             </p>
             <ul className="space-y-1.5 font-newspaper-title text-[15.5px] sm:text-[16.5px] text-[#F7F3EA]">
               <li>
-                <button
-                  onClick={() => scrollToSection("work")}
-                  className="magnify-hover hover:text-[#C8C2B4] transition-colors text-left"
-                >
+                <WavyFooterLink onClick={() => scrollToSection("work")}>
                   Selected Works
-                </button>
+                </WavyFooterLink>
               </li>
               <li>
-                <button
-                  onClick={() => scrollToSection("stack")}
-                  className="magnify-hover hover:text-[#C8C2B4] transition-colors text-left"
-                >
+                <WavyFooterLink onClick={() => scrollToSection("stack")}>
                   The Stack
-                </button>
+                </WavyFooterLink>
               </li>
               <li>
-                <button
-                  onClick={() => scrollToSection("career")}
-                  className="magnify-hover hover:text-[#C8C2B4] transition-colors text-left"
-                >
+                <WavyFooterLink onClick={() => scrollToSection("career")}>
                   Career Ledger
-                </button>
+                </WavyFooterLink>
               </li>
               <li>
-                <button
-                  onClick={() => scrollToSection("evidence")}
-                  className="magnify-hover hover:text-[#C8C2B4] transition-colors text-left"
-                >
+                <WavyFooterLink onClick={() => scrollToSection("evidence")}>
                   Evidence Board
-                </button>
+                </WavyFooterLink>
               </li>
               <li>
-                <button
-                  onClick={() => scrollToSection("contact")}
-                  className="magnify-hover hover:text-[#C8C2B4] transition-colors text-left"
-                >
+                <WavyFooterLink onClick={() => scrollToSection("contact")}>
                   Contact
-                </button>
+                </WavyFooterLink>
               </li>
             </ul>
           </div>
@@ -94,34 +120,19 @@ export const Footer: React.FC = () => {
             </p>
             <ul className="space-y-1.5 font-newspaper-title text-[15.5px] sm:text-[16.5px] text-[#F7F3EA]">
               <li>
-                <a
-                  href="https://github.com/Krish3017"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="magnify-hover hover:text-[#C8C2B4] transition-colors"
-                >
+                <WavyFooterLink href="https://github.com/Krish3017">
                   GitHub
-                </a>
+                </WavyFooterLink>
               </li>
               <li>
-                <a
-                  href="https://www.linkedin.com/in/krish-ramanandi"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="magnify-hover hover:text-[#C8C2B4] transition-colors"
-                >
+                <WavyFooterLink href="https://www.linkedin.com/in/krish-ramanandi">
                   LinkedIn
-                </a>
+                </WavyFooterLink>
               </li>
               <li>
-                <a
-                  href="https://www.instagram.com/krish_ramanandi30"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="magnify-hover hover:text-[#C8C2B4] transition-colors"
-                >
+                <WavyFooterLink href="https://www.instagram.com/krish_ramanandi30">
                   Instagram
-                </a>
+                </WavyFooterLink>
               </li>
             </ul>
           </div>
