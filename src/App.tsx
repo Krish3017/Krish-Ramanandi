@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Masthead } from "./components/Masthead";
 import { Navigation } from "./components/Navigation";
@@ -8,14 +8,16 @@ import { Stack } from "./components/Stack";
 import { CareerLedger } from "./components/CareerLedger";
 import { EvidenceBoard } from "./components/EvidenceBoard";
 import { Contact } from "./components/Contact";
-import { FinalReport } from "./components/FinalReport";
 import { Footer } from "./components/Footer";
 import { MagnifyingCursor } from "./components/MagnifyingCursor";
-import { CaseFileModal } from "./components/CaseFileModal";
-import { EvidenceDetailModal } from "./components/EvidenceDetailModal";
-import { DetectiveIntro } from "./components/DetectiveIntro";
 import { caseFilesMap } from "./data/caseFilesData";
 import { evidenceDetailMap } from "./data/evidenceDetailData";
+
+// Lazy-loaded heavy modal and concluding components for initial bundle optimization
+const CaseFileModal = lazy(() => import("./components/CaseFileModal").then(m => ({ default: m.CaseFileModal })));
+const EvidenceDetailModal = lazy(() => import("./components/EvidenceDetailModal").then(m => ({ default: m.EvidenceDetailModal })));
+const DetectiveIntro = lazy(() => import("./components/DetectiveIntro").then(m => ({ default: m.DetectiveIntro })));
+const FinalReport = lazy(() => import("./components/FinalReport").then(m => ({ default: m.FinalReport })));
 
 export default function App() {
   const [activeCaseKey, setActiveCaseKey] = useState<string | null>(null);
@@ -52,7 +54,11 @@ export default function App() {
   return (
     <div className="paper-texture print-lines min-h-screen w-full text-[#111111] bg-[#F7F3EA] overflow-x-clip selection:bg-[#111111] selection:text-[#F7F3EA] relative">
       {/* Interactive AAA Detective-Style Opening Sequence */}
-      {showIntro && <DetectiveIntro onComplete={() => setShowIntro(false)} />}
+      {showIntro && (
+        <Suspense fallback={null}>
+          <DetectiveIntro onComplete={() => setShowIntro(false)} />
+        </Suspense>
+      )}
 
       {/* Custom Outlined Magnifying Glass Cursor */}
       <MagnifyingCursor />
@@ -140,6 +146,14 @@ export default function App() {
       </div>
 
       {/* Official Correspondence / Contact - Reveal/Slide in from RIGHT */}
+      <motion.div
+        initial={{ opacity: 0, x: 45 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <Contact />
+      </motion.div>
 
       {/* Bold separator line */}
       <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
@@ -153,39 +167,38 @@ export default function App() {
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
-        <FinalReport />
+        <Suspense fallback={null}>
+          <FinalReport />
+        </Suspense>
       </motion.div>
 
       {/* Bold separator line */}
       <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
         <div className="border-b-3 border-[#111111]" />
       </div>
-<motion.div
-        initial={{ opacity: 0, x: 45 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <Contact />
-      </motion.div>
+
       {/* Newspaper Footer */}
       <Footer />
 
       {/* Dedicated Confidential Evidence Detail View for EV-001 through EV-007 */}
       {isEvidenceDetailKey && activeCaseKey && evidenceDetailMap[activeCaseKey] && (
-        <EvidenceDetailModal
-          record={evidenceDetailMap[activeCaseKey]}
-          onClose={handleCloseCase}
-        />
+        <Suspense fallback={null}>
+          <EvidenceDetailModal
+            record={evidenceDetailMap[activeCaseKey]}
+            onClose={handleCloseCase}
+          />
+        </Suspense>
       )}
 
       {/* Standard Case File View for Selected Works Exhibits A through G */}
       {!isEvidenceDetailKey && activeCaseKey && (
-        <CaseFileModal
-          caseData={caseFilesMap[activeCaseKey] || null}
-          onClose={handleCloseCase}
-          onSelectExhibit={handleOpenCase}
-        />
+        <Suspense fallback={null}>
+          <CaseFileModal
+            caseData={caseFilesMap[activeCaseKey] || null}
+            onClose={handleCloseCase}
+            onSelectExhibit={handleOpenCase}
+          />
+        </Suspense>
       )}
     </div>
   );

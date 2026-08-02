@@ -8,7 +8,7 @@ interface EvidenceBoardProps {
 
 export const EvidenceBoard: React.FC<EvidenceBoardProps> = ({ onOpenCase }) => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const [zoomingId, setZoomingId] = useState<string | null>(null);
+  const [zoomingId] = useState<string | null>(null);
 
   const handleInspect = (item: EvidenceItemData) => {
     if (onOpenCase) {

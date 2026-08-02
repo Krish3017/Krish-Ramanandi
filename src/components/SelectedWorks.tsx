@@ -132,6 +132,8 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
                 <img
                   src={supportFlowImg}
                   alt="SupportFlow AI"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-[220px] sm:h-[260px] object-cover object-top transition-transform duration-300 hover:scale-105"
                 />
 
@@ -214,6 +216,8 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
                     <img
                       src={proj.imageUrl}
                       alt={proj.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
                     />
                   ) : (
