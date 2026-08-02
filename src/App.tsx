@@ -15,10 +15,11 @@ import { MagnifyingCursor } from "./components/MagnifyingCursor";
 import { caseFilesMap } from "./data/caseFilesData";
 import { evidenceDetailMap } from "./data/evidenceDetailData";
 
+import { DetectiveIntro } from "./components/DetectiveIntro";
+
 // Lazy-loaded heavy modal and concluding components for initial bundle optimization
 const CaseFileModal = lazy(() => import("./components/CaseFileModal").then(m => ({ default: m.CaseFileModal })));
 const EvidenceDetailModal = lazy(() => import("./components/EvidenceDetailModal").then(m => ({ default: m.EvidenceDetailModal })));
-const DetectiveIntro = lazy(() => import("./components/DetectiveIntro").then(m => ({ default: m.DetectiveIntro })));
 const FinalReport = lazy(() => import("./components/FinalReport").then(m => ({ default: m.FinalReport })));
 
 export default function App() {
@@ -30,25 +31,14 @@ export default function App() {
     const key = exhibitName.toUpperCase();
     if (evidenceDetailMap[key] || caseFilesMap[key]) {
       setActiveCaseKey(key);
-      window.scrollTo({ top: 0, behavior: "instant" });
     } else {
       // Fallback to EXHIBIT G
       setActiveCaseKey("EXHIBIT G");
-      window.scrollTo({ top: 0, behavior: "instant" });
     }
   };
 
   const handleCloseCase = () => {
-    const isEvidence = activeCaseKey?.startsWith("EV-");
     setActiveCaseKey(null);
-    if (isEvidence) {
-      setTimeout(() => {
-        const el = document.getElementById("evidence");
-        if (el) {
-          el.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 50);
-    }
   };
 
   const isEvidenceDetailKey = activeCaseKey ? activeCaseKey.startsWith("EV-") : false;
@@ -57,9 +47,7 @@ export default function App() {
     <div className="paper-texture print-lines min-h-screen w-full text-[#111111] bg-[#F7F3EA] overflow-x-clip selection:bg-[#111111] selection:text-[#F7F3EA] relative">
       {/* Interactive AAA Detective-Style Opening Sequence */}
       {showIntro && (
-        <Suspense fallback={null}>
-          <DetectiveIntro onComplete={() => setShowIntro(false)} />
-        </Suspense>
+        <DetectiveIntro onComplete={() => setShowIntro(false)} />
       )}
 
       {/* Custom Outlined Magnifying Glass Cursor */}

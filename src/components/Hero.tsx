@@ -81,7 +81,11 @@ export const Hero: React.FC = () => {
                 <img 
                   src={profileImg} 
                   alt="Krish Ramanandi — Subject in his natural habitat" 
-                  decoding="async"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="sync"
+                  width="400"
+                  height="450"
                   className="w-full h-auto object-cover filter grayscale contrast-110"
                 />
               </div>

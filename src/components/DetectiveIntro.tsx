@@ -133,22 +133,44 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
           glareShift,
         });
 
+        let curTargetX = targetCenter.x;
+        let curTargetY = targetCenter.y;
+
+        if (targetRef.current) {
+          const rect = targetRef.current.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) {
+            curTargetX = rect.left + rect.width / 2;
+            curTargetY = rect.top + rect.height / 2;
+          }
+        }
+
         const distToTarget = Math.hypot(
-          lensPosRef.current.x - targetCenter.x,
-          lensPosRef.current.y - targetCenter.y
+          lensPosRef.current.x - curTargetX,
+          lensPosRef.current.y - curTargetY
         );
 
-        if (distToTarget < 85) {
+        if (distToTarget < 95) {
           setPhase("LOCKING");
         }
       } else if (phase === "LOCKING") {
-        const dx = targetCenter.x - lensPosRef.current.x;
-        const dy = targetCenter.y - lensPosRef.current.y;
+        let curTargetX = targetCenter.x;
+        let curTargetY = targetCenter.y;
 
-        lensPosRef.current.x += dx * 0.10;
-        lensPosRef.current.y += dy * 0.10;
+        if (targetRef.current) {
+          const rect = targetRef.current.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) {
+            curTargetX = rect.left + rect.width / 2;
+            curTargetY = rect.top + rect.height / 2;
+          }
+        }
 
-        rotationRef.current += (0 - rotationRef.current) * 0.15;
+        const dx = curTargetX - lensPosRef.current.x;
+        const dy = curTargetY - lensPosRef.current.y;
+
+        lensPosRef.current.x += dx * 0.18;
+        lensPosRef.current.y += dy * 0.18;
+
+        rotationRef.current += (0 - rotationRef.current) * 0.2;
 
         setLensState({
           x: lensPosRef.current.x,
@@ -157,9 +179,9 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
           glareShift: 0,
         });
 
-        if (Math.hypot(dx, dy) < 1.2) {
-          lensPosRef.current = { x: targetCenter.x, y: targetCenter.y };
-          setLensState({ x: targetCenter.x, y: targetCenter.y, rotation: 0, glareShift: 0 });
+        if (Math.hypot(dx, dy) < 2) {
+          lensPosRef.current = { x: curTargetX, y: curTargetY };
+          setLensState({ x: curTargetX, y: curTargetY, rotation: 0, glareShift: 0 });
           setPhase("PAUSED");
         }
       }
@@ -176,24 +198,23 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
       let shakeCount = 0;
       const shakeInterval = setInterval(() => {
         shakeCount++;
-
-        // Initial 1.1s: jitter with higher detective inspection amplitude
-        if (shakeCount <= 20) {
+        // Continuous detective inspection shake for exactly 2 seconds
+        if (shakeCount <= 38) {
           setShakeOffset({
-            x: (Math.random() - 0.5) * 8,
-            y: (Math.random() - 0.5) * 8,
-            rotate: (Math.random() - 0.5) * 3.5,
+            x: (Math.random() - 0.5) * 7,
+            y: (Math.random() - 0.5) * 7,
+            rotate: (Math.random() - 0.5) * 3,
           });
         } else {
-          // At end of inspection: stop jittering completely!
           setShakeOffset({ x: 0, y: 0, rotate: 0 });
         }
-      }, 55);
+      }, 50);
 
       const pauseTimer = setTimeout(() => {
         clearInterval(shakeInterval);
+        setShakeOffset({ x: 0, y: 0, rotate: 0 });
         setPhase("WHITE_PAGE");
-      }, 3000);
+      }, 2000);
 
       return () => {
         clearInterval(shakeInterval);
@@ -428,7 +449,7 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
           {(phase === "SEARCHING" || phase === "LOCKING" || phase === "PAUSED") && (
             <div className="relative w-full h-full">
               {/* LAYER 1: BLURRED NEWSPAPER BACKGROUND */}
-              <div className="absolute inset-0 w-full h-full filter blur-[9px] grayscale-[0.35] opacity-90 pointer-events-none">
+              <div className="absolute inset-0 w-full h-full filter blur-[9px] grayscale-[0.35] opacity-90 pointer-events-none transform-gpu will-change-transform">
                 {renderNewspaperGrid(false)}
               </div>
 
@@ -508,17 +529,17 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
               animate={
                 phase === "BURNING"
                   ? {
-                      clipPath: [
-                        "circle(150% at 50% 50%)",
-                        "circle(35% at 50% 50%)",
-                        "circle(0% at 50% 50%)",
-                      ],
-                      filter: [
-                        "contrast(1) brightness(1)",
-                        "contrast(2) brightness(1.4) sepia(0.8)",
-                        "contrast(3) brightness(0)",
-                      ],
-                    }
+                    clipPath: [
+                      "circle(150% at 50% 50%)",
+                      "circle(35% at 50% 50%)",
+                      "circle(0% at 50% 50%)",
+                    ],
+                    filter: [
+                      "contrast(1) brightness(1)",
+                      "contrast(2) brightness(1.4) sepia(0.8)",
+                      "contrast(3) brightness(0)",
+                    ],
+                  }
                   : {}
               }
               transition={{ duration: 0.85, ease: "easeInOut" }}

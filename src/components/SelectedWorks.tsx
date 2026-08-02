@@ -117,7 +117,10 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
         <div className="border-b-2 border-[#111111] mb-5" />
 
         {/* FEATURED EXHIBIT A */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border border-[#111111] bg-[#F2ECE0] p-4 sm:p-5 mb-6 hover:bg-[#FAF0DE] transition-colors duration-200">
+        <div 
+          onClick={(e) => handleOpen("EXHIBIT A", e)}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border border-[#111111] bg-[#F2ECE0] p-4 sm:p-5 mb-6 hover:bg-[#FAF0DE] transition-colors duration-200 cursor-pointer group"
+        >
           {/* Left Screenshot Frame with Real Image */}
           <div className="lg:col-span-7">
             <div className="border border-[#111111] bg-[#111111] p-2.5 text-white">
@@ -192,7 +195,8 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
           {projects.map((proj, idx) => (
             <div
               key={proj.exhibit}
-              className={`magnify-hover group flex flex-col py-3.5 px-2.5 sm:px-3.5 border-b border-[#111111] text-left hover:bg-[#ECE5D5] transition-colors duration-200 ${
+              onClick={(e) => handleOpen(proj.exhibit, e)}
+              className={`magnify-hover group flex flex-col py-3.5 px-2.5 sm:px-3.5 border-b border-[#111111] text-left hover:bg-[#ECE5D5] transition-colors duration-200 cursor-pointer ${
                 idx % 3 !== 2 ? "lg:border-r lg:border-[#111111]" : "lg:border-r-0"
               } ${
                 idx % 2 === 0 ? "md:border-r md:border-[#111111]" : "md:border-r-0"
