@@ -1,5 +1,7 @@
 import { useState, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Masthead } from "./components/Masthead";
 import { Navigation } from "./components/Navigation";
 import { Hero } from "./components/Hero";
@@ -200,6 +202,9 @@ export default function App() {
           />
         </Suspense>
       )}
+      {/* Vercel Web Analytics & Speed Insights Trackers */}
+      <Analytics />
+      <SpeedInsights />
     </div>
   );
 }
