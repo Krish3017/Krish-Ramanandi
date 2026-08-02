@@ -41,7 +41,7 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
       sub: "NEXUSRAG.AI",
       title: "NexusRAG",
       description: "An advanced RAG platform transforming unstructured documents into searchable, explainable knowledge using LangChain, vector similarity search, and Groq-hosted LLMs.",
-      tags: ["React", "TypeScript", "LangChain", "Vector Store"],
+      tags: ["React", "ChromaDB", "LangChain", "Groq LLM","RAG"],
       date: "2026",
       link: "#",
       imageBg: "bg-[#131313]",
@@ -52,7 +52,7 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
       sub: "DATAFORGE.STUDIO",
       title: "DataForge",
       description: "A modern analytics and visualization platform converting fragmented datasets into interactive real-time dashboards, statistical models, and business intelligence.",
-      tags: ["React", "Python", "SQL", "PostgreSQL", "Power BI"],
+      tags: ["React", "Python", "FaspApi", "PostgreSQL", "Matplotlib"],
       date: "2026",
       link: "#",
       imageBg: "bg-[#141414]",
@@ -63,7 +63,7 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
       sub: "CYBERKAVACH.ORG",
       title: "CyberKavach",
       description: "Operational backbone for the university cybersecurity community automating member registration, event tracking, certificates, audit logging, and role-based security.",
-      tags: ["JavaScript", "Tailwind CSS", "MySQL", "HTML"],
+      tags: ["JavaScript", "Tailwind CSS", "MySQL", "PHP","Vanila.JS"],
       date: "2026",
       link: "#",
       imageBg: "bg-[#0f0f0f]",
@@ -74,7 +74,7 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
       sub: "SCRUMMIND.APP",
       title: "ScrumMind",
       description: "A collaborative workspace where sprint planning, task management, backlog organization, documentation, and AI assistance converge into a unified workspace.",
-      tags: ["Next.js", "React", "Tailwind CSS", "PostgreSQL", "Supabase"],
+      tags: ["Next.js", "React", "Python", "PostgreSQL", "Lanchain/graph"],
       date: "2026",
       link: "#",
       imageBg: "bg-[#111111]",
@@ -85,7 +85,7 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
       sub: "SUPPORTFLOW.AI",
       title: "SupportFlow AI — Assistant",
       description: "Autonomous customer support agent workforce utilizing LangGraph and ChromaDB memory networks for low-latency question-answering pipelines.",
-      tags: ["FastAPI", "ChromaDB", "LangGraph", "Groq LLM"],
+      tags: ["FastAPI", "React", "Langchain/Graph","Python","Groq LLM",],
       date: "2026",
       link: "#",
       imageBg: "bg-[#101010]",
@@ -192,7 +192,7 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
               </p>
 
               <div className="flex flex-wrap gap-1 mb-3">
-                {["Next.js", "React", "ChromaDB", "FastAPI", "LangGraph"].map((t) => (
+                {["Next.js", "React", "ChromaDB", "FastAPI", "LangGraph","Langchain"].map((t) => (
                   <span key={t} className="font-mono text-[14px] px-1.5 py-0.5 bg-[#fff] font-semibold border border-[#111111]">
                     {t}
                   </span>

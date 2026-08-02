@@ -156,11 +156,6 @@ export default function App() {
         <Contact />
       </motion.div>
 
-      {/* Bold separator line */}
-      <div className="max-w-[1400px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px]">
-        <div className="border-b-2 border-[#111111]" />
-      </div>
-
       {/* Newspaper Footer */}
       <Footer />
 

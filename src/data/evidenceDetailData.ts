@@ -49,8 +49,7 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
     keyFindings: [
       "Engineered Bullion — a production-grade enterprise procurement platform powering daily agricultural business operations.",
       "Architected responsive administrative dashboards and REST APIs using Next.js 15, React, TypeScript, and Django REST Framework.",
-      "Implemented secure role-based access control (RBAC) and optimized high-concurrency PostgreSQL database queries.",
-      "Collaborated in daily sprint planning, code reviews, and continuous deployment workflows in a fast-paced environment.",
+      "Implemented secure role-based access control (RBAC) and optimized high-concurrency PostgreSQL database queries."
     ],
     evidenceCollected: [
       { label: "Deployment Transcript", tag: "[TRANSCRIPT]" },
@@ -68,7 +67,7 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
     subtitle: "GSSOC 2026 · OPEN SOURCE CONTRIBUTOR",
     status: "SELECTED",
     date: "Summer 2026",
-    location: "India (Nationwide Remote)",
+    location: "India (Remote)",
     category: "Open Source Initiative",
     statusHighlight: "Officially Selected Contributor",
     images: [
@@ -99,10 +98,10 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
     title: "GDG Sprintathon Hackathon 2026",
     subtitle: "GDG SPRINTATHON · 2ND RANK WINNER",
     status: "COMPLETED",
-    date: "2026",
-    location: "Online / GDG Community",
+    date: "FEB 2026",
+    location: "Online",
     category: "Engineering Hackathon",
-    statusHighlight: "2nd Rank Winner · ₹6000 Prize",
+    statusHighlight: "Runner Up",
     images: [
       {
         url: gdgEv,
@@ -163,8 +162,8 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
     title: "NPTEL DBMS Certification — Top 1%",
     subtitle: "NPTEL / IIT · ACADEMIC EXCELLENCE",
     status: "COMPLETED",
-    date: "2025",
-    location: "IIT / NPTEL India",
+    date: "JAN 2026 - MAR 2026",
+    location: "Self Paced",
     category: "Academic Certification",
     statusHighlight: "Top 1% · Score 85%",
     images: [
@@ -195,7 +194,7 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
     title: "Odoo Hackathon 2026 — Re-Selected",
     subtitle: "ODOO INDIA · NATIONAL HACKATHON",
     status: "QUALIFIED",
-    date: "2026",
+    date: "SEP 2026",
     location: "Gandhinagar, Gujarat",
     category: "National Hackathon",
     statusHighlight: "Consecutive Year Finalist",

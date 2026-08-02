@@ -4,12 +4,12 @@ import resumePdf from "../assets/Resume.pdf";
 
 export const FinalReport: React.FC = () => {
   const checklistItems = [
-    "10+ Engineering Projects",
-    "Industry Internship",
+    "Enterprise Software",
+    "AI  Systems",
+    "Production Experience",
     "National Hackathons",
     "Open Source Contributions",
-    "Leadership Experience",
-    "Academic Excellence",
+    "Leadership",
   ];
 
   const scrollToContact = () => {
@@ -79,7 +79,7 @@ export const FinalReport: React.FC = () => {
 
           {/* Section 2: Investigation Summary Note */}
           <div className="mb-6 font-newspaper-title text-base sm:text-lg text-[#222] leading-relaxed italic border-l-4 border-[#8A3B2D] pl-4 py-0.5 bg-[#FFFDF9] border-y border-r border-[#111111]/30">
-            "The investigation confirms that the subject demonstrates strong capabilities in AI, Full Stack Development, Enterprise Software, and modern web technologies. Through internships, hackathons, leadership roles, and independent engineering projects, sufficient evidence establishes technical proficiency, problem-solving ability, and continuous learning."
+            " The evidence points to an engineer who enjoys solving difficult problems through AI, scalable software, and thoughtful product engineering. Each project reflects a consistent approach: understand the problem, design the system, and build software that people can rely on."
           </div>
 
           {/* Section 3: Verified Evidence Checklist (2-Column Compact Grid) */}
@@ -107,7 +107,7 @@ export const FinalReport: React.FC = () => {
               <span className="font-mono-meta text-[10px] font-bold text-[#8A3B2D] uppercase">VERIFIED VERDICT</span>
             </div>
             <p className="font-sans text-xs sm:text-sm text-[#222] leading-relaxed mb-3">
-              After reviewing all collected evidence, the investigation concludes that the subject demonstrates strong engineering fundamentals, practical experience building production-ready software, and the ability to solve real-world problems.
+             The collected evidence reveals an engineer who turns ambitious ideas into practical software. From AI agents and enterprise applications to automation platforms, the work consistently balances technical depth with real-world usability.
             </p>
             <div className="font-mono text-xs font-bold text-[#8A3B2D] bg-[#FAF7F2] border border-[#8A3B2D] px-3 py-1.5 inline-block tracking-wider uppercase">
               RECOMMENDATION: PROCEED WITH INTERVIEW &rarr;
@@ -125,7 +125,7 @@ export const FinalReport: React.FC = () => {
           </div>
 
           {/* Section 6: Action Triggers */}
-          <div className="flex flex-wrap justify-center items-center gap-3 pt-2 border-t border-[#111111]">
+          <div className="flex flex-wrap justify-center items-center gap-3 pt-2 border-t border-[#111111] mb-11">
             <a
               href={resumePdf}
               target="_blank"
@@ -159,12 +159,12 @@ export const FinalReport: React.FC = () => {
           {/* ========================================================================= */}
           <motion.div
             initial={{ scale: 2.5, opacity: 0, rotate: -15 }}
-            whileInView={{ scale: 1, opacity: 1, rotate: -4 }}
+            whileInView={{ scale: 1, opacity: 1, rotate: -7 }}
             viewport={{ once: true }}
             transition={{ type: "spring", stiffness: 350, damping: 18, delay: 0.3 }}
             className="absolute bottom-2 right-2 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-30 pointer-events-none border-3 sm:border-4 border-[#8A3B2D] px-3 sm:px-6 py-1 sm:py-1.5 bg-[#FAF7F2]/95 backdrop-blur-[1px] shadow-lg font-newspaper text-lg sm:text-2xl md:text-3xl font-bold tracking-[0.18em] sm:tracking-[0.2em] text-[#8A3B2D] uppercase select-none"
           >
-            CASE CLOSED
+            CASE CONTINUES
           </motion.div>
 
         </motion.div>

@@ -54,14 +54,14 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="w-full bg-[#111111] text-[#F7F3EA] border-t border-[#222222]">
+    <footer className="w-full bg-[#111111] text-[#F7F3EA] ">
       <div className="max-w-[1300px] mx-auto w-full px-6 sm:px-10 lg:px-[60px] xl:px-[80px] pt-8 pb-6">
         {/* 4-Column Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-6">
           {/* About blurb */}
           <div>
             <p className="font-sans text-[13.5px] sm:text-[14px] leading-[1.55] text-[#C8C2B4]">
-              An AI Engineer in Surat, India. Building AI agents, full-stack applications, and automation systems.
+              An AI & Full Stack Engineer in Surat, India. Building AI agents, full-stack applications, and automation systems.
             </p>
           </div>
 

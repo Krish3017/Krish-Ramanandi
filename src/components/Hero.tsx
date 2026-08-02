@@ -24,17 +24,17 @@ export const Hero: React.FC = () => {
 
               {/* Main Editorial Headline */}
               <h2 className="font-editorial-headline text-[2.5rem] xs:text-[2.9rem] sm:text-[4.2rem] md:text-[5rem] lg:text-[5.6rem] leading-[0.88] text-[#111111] font-normal tracking-[-0.03em] mb-2 md:mb-3">
-                An AI Engineer <br />
-                who likes <br />
-                building intelligent <br />
-                systems — <br />
-                <span className="italic font-normal">front to back.</span>
+                An AI & <br />
+                Full Stack Engineer <br />
+                building<br />
+                intelligent systems—<br />
+                <span className="italic font-normal">beyond code.</span>
               </h2>
 
               {/* Pull Quote with Left Border */}
               <div className="border-l-2 border-[#111111] pl-4 md:pl-5 py-0.5 my-2 md:my-2.5 max-w-2xl">
                 <p className="font-editorial-headline text-[1.4rem] sm:text-[1.7rem] md:text-[1.9rem] leading-[1.15] italic text-[#222222]">
-                  Two years in: Krish Ramanandi builds AI agents, full-stack applications, automation systems, and solves real business problems.
+                 Designing AI agents, enterprise applications, and automation systems that turn ambitious ideas into production-ready software.
                 </p>
               </div>
 
@@ -99,10 +99,11 @@ export const Hero: React.FC = () => {
             {/* Article */}
             <div className="font-sans text-[13.5px] leading-[1.55] text-[#222222] space-y-2.5 text-justify">
               <p className="drop-cap-k">
-                He enjoys the whole process — going from a rough concept to an autonomous agent or production application that ships. His core stack centers around Python, PyTorch, React, TypeScript, and Tailwind CSS, with Supabase, PostgreSQL, and vector databases powering the data layer underneath.
+                He builds AI agents, intelligent automation systems, and full-stack applications that transform ambitious ideas into reliable, production-ready software. Every solution is designed with scalability, usability, and long-term maintainability in mind.
               </p>
+
               <p>
-                When a build calls for complex LLM workflows, he reaches for LangChain, LlamaIndex, and custom RAG architectures — deploying scalable serverless infrastructure on AWS and Vercel alongside the engineering team.
+                From multi-agent AI workflows and retrieval-augmented generation (RAG) systems to enterprise platforms and cloud-native applications, his work reflects a consistent focus on clean architecture, thoughtful engineering, and solving meaningful real-world problems.
               </p>
             </div>
           </div>

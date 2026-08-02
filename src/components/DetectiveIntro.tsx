@@ -29,6 +29,20 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
   const [shakeOffset, setShakeOffset] = useState({ x: 0, y: 0, rotate: 0 });
 
   useEffect(() => {
+    // Lock body & html scroll completely while intro sequence is active
+    const originalOverflow = document.body.style.overflow;
+    const originalPosition = document.body.style.position;
+    const originalWidth = document.body.style.width;
+    const originalTouchAction = document.body.style.touchAction;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
+    document.body.style.touchAction = "none";
+    document.documentElement.style.overflow = "hidden";
+    window.scrollTo(0, 0);
+
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (mediaQuery.matches) {
       onComplete();
@@ -38,7 +52,16 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
       if (e.key === "Escape") onComplete();
     };
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow || "";
+      document.body.style.position = originalPosition || "";
+      document.body.style.width = originalWidth || "";
+      document.body.style.touchAction = originalTouchAction || "";
+      document.documentElement.style.overflow = originalHtmlOverflow || "";
+      window.scrollTo(0, 0);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [onComplete]);
 
   const updateTargetPosition = () => {
@@ -70,6 +93,9 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
     };
 
     const handleTouchMove = (e: TouchEvent) => {
+      if (e.cancelable) {
+        e.preventDefault();
+      }
       if (phase !== "SEARCHING") return;
       if (e.touches.length > 0) {
         const tx = e.touches[0].clientX;
@@ -86,7 +112,7 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
     };
 
     window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("touchmove", handleTouchMove);
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("touchmove", handleTouchMove);
@@ -423,7 +449,10 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="fixed inset-0 z-[9999] overflow-hidden select-none bg-[#ECE7DA] cursor-none"
+          className="fixed inset-0 z-[9999] overflow-hidden select-none bg-[#ECE7DA] cursor-none touch-none"
+          onTouchMove={(e) => {
+            if (e.cancelable) e.preventDefault();
+          }}
         >
           {/* SKIP BUTTON WITH [ESC] KEY BADGE */}
           <button

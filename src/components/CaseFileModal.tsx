@@ -15,8 +15,9 @@ export interface CaseFileDetail {
   bodyParagraph2: string;
   pullQuote: string;
   bodyParagraph3: string;
-  frontend: string;
-  data: string;
+  techStack: string;
+  frontend?: string;
+  data?: string;
   admin: string;
   role: string;
   entered: string;
@@ -169,7 +170,7 @@ export const CaseFileModal: React.FC<CaseFileModalProps> = ({
                 </div>
 
                 <div className="flex flex-wrap gap-2">
-                  {caseData.frontend.split(" · ").concat(caseData.data.split(" · ")).map((tech) => (
+                  {caseData.techStack.split(" · ").map((tech) => (
                     <span key={tech} className="font-mono text-[10px] bg-white/10 px-2 py-0.5 border border-white/20 text-gray-200">
                       {tech}
                     </span>
@@ -219,35 +220,43 @@ export const CaseFileModal: React.FC<CaseFileModalProps> = ({
 
             {/* RIGHT: SPECIFICATIONS TABLE (HOW IT WAS BUILT) */}
             <div className="lg:col-span-4">
-              <div className="border border-[#111111] bg-[# ] overflow-hidden">
+              <div className="border border-[#111111] bg-[#FAF7F2] overflow-hidden">
                 <div className="bg-[#111111] text-white px-4 py-2 font-mono-meta text-[11px] font-bold tracking-[0.18em] uppercase">
                   HOW IT WAS BUILT
                 </div>
 
                 <div className="divide-y divide-[#C8C2B4] font-mono-meta text-[11.5px] text-[#111111]">
-                  <div className="px-4 py-2.5 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
-                    <span className="font-bold text-[#555555] shrink-0 text-[10.5px]">FRONT-END</span>
-                    <span className="font-semibold text-left sm:text-right text-[11.5px] leading-tight text-[#111111]">{caseData.frontend}</span>
+                  {/* TECH STACK */}
+                  <div className="px-4 py-3 flex flex-col gap-1.5">
+                    <span className="font-bold text-[#555555] text-[10.5px] uppercase tracking-wider">TECH STACK</span>
+                    <div className="flex flex-wrap gap-1">
+                      {caseData.techStack.split(" · ").map((tech) => (
+                        <span
+                          key={tech}
+                          className="font-mono text-[10px] font-semibold bg-[#FAF7F2] border border-[#111111] px-2 py-0.5 text-[#111111]"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <div className="px-4 py-2.5 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
-                    <span className="font-bold text-[#555555] shrink-0 text-[10.5px]">DATA</span>
-                    <span className="font-semibold text-left sm:text-right text-[11.5px] leading-tight text-[#111111]">{caseData.data}</span>
+
+                  {/* ROLE */}
+                  <div className="px-4 py-2.5 flex justify-between items-center">
+                    <span className="font-bold text-[#555555] text-[10.5px] uppercase tracking-wider">ROLE</span>
+                    <span className="font-semibold text-right text-[11.5px] text-[#111111]">{caseData.role}</span>
                   </div>
-                  <div className="px-4 py-2.5 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
-                    <span className="font-bold text-[#555555] shrink-0 text-[10.5px]">ADMIN</span>
-                    <span className="font-semibold text-left sm:text-right text-[11.5px] leading-tight text-[#111111]">{caseData.admin}</span>
+
+                  {/* ENTERED */}
+                  <div className="px-4 py-2.5 flex justify-between items-center">
+                    <span className="font-bold text-[#555555] text-[10.5px] uppercase tracking-wider">ENTERED</span>
+                    <span className="font-semibold text-right text-[11.5px] text-[#111111]">{caseData.entered}</span>
                   </div>
-                  <div className="px-4 py-2.5 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
-                    <span className="font-bold text-[#555555] shrink-0 text-[10.5px]">ROLE</span>
-                    <span className="font-semibold text-left sm:text-right text-[11.5px] leading-tight text-[#111111]">{caseData.role}</span>
-                  </div>
-                  <div className="px-4 py-2.5 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
-                    <span className="font-bold text-[#555555] shrink-0 text-[10.5px]">ENTERED</span>
-                    <span className="font-semibold text-left sm:text-right text-[11.5px] leading-tight text-[#111111]">{caseData.entered}</span>
-                  </div>
-                  <div className="px-4 py-2.5 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
-                    <span className="font-bold text-[#555555] shrink-0 text-[10.5px]">STATUS</span>
-                    <span className="font-semibold text-left sm:text-right text-[11.5px] leading-tight text-[#111111]">{caseData.status}</span>
+
+                  {/* STATUS */}
+                  <div className="px-4 py-2.5 flex justify-between items-center">
+                    <span className="font-bold text-[#555555] text-[10.5px] uppercase tracking-wider">STATUS</span>
+                    <span className="font-semibold text-right text-[11.5px] text-[#8A3B2D] uppercase tracking-wider">{caseData.status}</span>
                   </div>
 
                   {/* RELATED EXHIBITS */}
