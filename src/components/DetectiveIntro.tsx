@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface DetectiveIntroProps {
@@ -6,6 +6,86 @@ interface DetectiveIntroProps {
 }
 
 type Phase = "SEARCHING" | "LOCKING" | "PAUSED" | "WHITE_PAGE" | "STAMPING" | "BURNING" | "FINISHED";
+
+interface ArticleColumnProps {
+  count: number;
+  colIndex: number;
+  isMobile?: boolean;
+  hasWanted?: boolean;
+  isSharp?: boolean;
+  targetRef?: React.RefObject<HTMLDivElement | null>;
+}
+
+// Top-level memoized Newspaper Article Column (Prevents re-reconciliation on frames)
+const ArticleColumnMemo = memo(({
+  count,
+  colIndex,
+  isMobile,
+  hasWanted,
+  isSharp,
+  targetRef,
+}: ArticleColumnProps) => {
+  const headlineH = isMobile ? "h-3" : "h-3.5";
+  const paraH = isMobile ? "h-1.5" : "h-2.5";
+  const spaceY = isMobile ? "space-y-1.5" : "space-y-2";
+
+  const getHeadlineWidth = (idx: number) => {
+    const widths = ["w-3/4", "w-2/3", "w-4/5", "w-1/2", "w-3/5"];
+    return widths[(idx + colIndex * 2) % widths.length];
+  };
+
+  const getParaWidths = (idx: number) => {
+    const patterns = [
+      ["w-full", "w-11/12", "w-full", "w-4/5"],
+      ["w-full", "w-full", "w-5/6"],
+      ["w-full", "w-3/4"],
+      ["w-full", "w-11/12", "w-3/4"],
+    ];
+    return patterns[(idx + colIndex) % patterns.length];
+  };
+
+  const wantedIndex = Math.floor(count * (isMobile ? 0.35 : 0.40));
+
+  return (
+    <div className={`flex flex-col ${isMobile ? "space-y-2" : "space-y-3.5"} overflow-hidden h-full`}>
+      {Array.from({ length: count }).map((_, idx) => {
+        const isWantedPosition = hasWanted && idx === wantedIndex;
+        const headW = getHeadlineWidth(idx);
+        const paraWList = getParaWidths(idx);
+
+        return (
+          <React.Fragment key={idx}>
+            {isWantedPosition ? (
+              <div
+                ref={isSharp ? null : targetRef}
+                className={`my-2 py-2 px-3 text-center border-y-2 border-[#111111] ${
+                  isMobile ? "w-[118px]" : "w-[135px]"
+                } flex flex-col items-center justify-center bg-[#F7F3EA] shadow-2xs mx-auto shrink-0`}
+              >
+                <span className="font-serif font-extrabold text-[11px] sm:text-[12.5px] text-[#A8382B] tracking-[0.2em] uppercase block leading-none mb-1">
+                  WANTED
+                </span>
+                <span className="font-serif text-[11.5px] sm:text-[13px] text-[#111111] font-bold tracking-wide block leading-tight mb-1">
+                  Krish Ramanandi
+                </span>
+                <div className="w-6 h-[1.5px] bg-[#111111] mx-auto" />
+              </div>
+            ) : (
+              <div className="shrink-0">
+                <div className={`${headlineH} bg-[#222] rounded-xs ${headW} mb-1`} />
+                <div className={spaceY}>
+                  {paraWList.map((pw, pIdx) => (
+                    <div key={pIdx} className={`${paraH} bg-[#777] rounded-xs ${pw}`} />
+                  ))}
+                </div>
+              </div>
+            )}
+          </React.Fragment>
+        );
+      })}
+    </div>
+  );
+});
 
 export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) => {
   const [phase, setPhase] = useState<Phase>("SEARCHING");
@@ -17,16 +97,16 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
   const idleTimeRef = useRef(0);
   const initializedRef = useRef(false);
 
-  const [lensState, setLensState] = useState({
-    x: -9999,
-    y: -9999,
-    rotation: 0,
-    glareShift: 0,
-  });
-
+  // Cached Target Center (Eliminates forced reflow in animation loop)
   const targetRef = useRef<HTMLDivElement | null>(null);
-  const [targetCenter, setTargetCenter] = useState({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
-  const [shakeOffset, setShakeOffset] = useState({ x: 0, y: 0, rotate: 0 });
+  const targetCenterRef = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+  const shakeOffsetRef = useRef({ x: 0, y: 0, rotate: 0 });
+
+  // Direct DOM Element Refs to avoid 60 FPS React component re-renders
+  const spotlightRef = useRef<HTMLDivElement | null>(null);
+  const lensContainerRef = useRef<HTMLDivElement | null>(null);
+  const glareRef = useRef<HTMLDivElement | null>(null);
+  const magnifiedContentRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     // Lock body & html scroll completely while intro sequence is active
@@ -64,20 +144,37 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
     };
   }, [onComplete]);
 
+  // Compute and cache target position ONCE per mount/resize/layout update
   const updateTargetPosition = () => {
     if (targetRef.current) {
       const rect = targetRef.current.getBoundingClientRect();
-      setTargetCenter({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+      if (rect.width > 0 && rect.height > 0) {
+        targetCenterRef.current = {
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2,
+        };
+      }
     } else {
-      setTargetCenter({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+      targetCenterRef.current = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     }
   };
 
   useEffect(() => {
-    updateTargetPosition();
+    // Initial measurement after paint
+    const t = setTimeout(updateTargetPosition, 100);
     window.addEventListener("resize", updateTargetPosition);
-    return () => window.removeEventListener("resize", updateTargetPosition);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("resize", updateTargetPosition);
+    };
   }, []);
+
+  // Update target center position when phase changes to SEARCHING or LOCKING
+  useEffect(() => {
+    if (phase === "SEARCHING" || phase === "LOCKING") {
+      updateTargetPosition();
+    }
+  }, [phase]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -88,7 +185,7 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
         initializedRef.current = true;
         lensPosRef.current = { x: e.clientX, y: e.clientY };
         velocityRef.current = { x: 0, y: 0 };
-        setLensState({ x: e.clientX, y: e.clientY, rotation: 0, glareShift: 0 });
+        updateDOMTransforms(e.clientX, e.clientY, 0, 0);
       }
     };
 
@@ -106,7 +203,7 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
           initializedRef.current = true;
           lensPosRef.current = { x: tx, y: ty };
           velocityRef.current = { x: 0, y: 0 };
-          setLensState({ x: tx, y: ty, rotation: 0, glareShift: 0 });
+          updateDOMTransforms(tx, ty, 0, 0);
         }
       }
     };
@@ -118,6 +215,34 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
       window.removeEventListener("touchmove", handleTouchMove);
     };
   }, [phase]);
+
+  // Zero React Re-render DOM Updater for 60 FPS animation loop
+  const updateDOMTransforms = (x: number, y: number, rotation: number, glareShift: number) => {
+    const sx = shakeOffsetRef.current.x;
+    const sy = shakeOffsetRef.current.y;
+    const srot = shakeOffsetRef.current.rotate;
+
+    if (lensContainerRef.current) {
+      lensContainerRef.current.style.transform = `translate3d(${x + sx}px, ${y + sy}px, 0) rotate(${rotation + srot}deg)`;
+    }
+    if (glareRef.current) {
+      glareRef.current.style.transform = `translateX(${glareShift}px)`;
+    }
+    if (spotlightRef.current) {
+      spotlightRef.current.style.background = `radial-gradient(circle 520px at ${x}px ${y}px,
+        rgba(255, 253, 245, 0.55) 0%,
+        rgba(250, 246, 235, 0.48) 12%,
+        rgba(240, 234, 218, 0.38) 26%,
+        rgba(220, 210, 190, 0.28) 42%,
+        rgba(180, 170, 150, 0.20) 58%,
+        rgba(120, 112, 96, 0.30) 75%,
+        rgba(60, 55, 46, 0.42) 90%,
+        rgba(15, 12, 8, 0.48) 100%)`;
+    }
+    if (magnifiedContentRef.current) {
+      magnifiedContentRef.current.style.transform = `translate(calc(-${x}px * 1.4 + 87.5px), calc(-${y}px * 1.4 + 87.5px)) scale(1.4)`;
+    }
+  };
 
   useEffect(() => {
     let animId: number;
@@ -152,43 +277,25 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
           idleY = Math.cos(idleTimeRef.current * 1.4) * 1.2;
         }
 
-        setLensState({
-          x: lensPosRef.current.x + idleX,
-          y: lensPosRef.current.y + idleY,
-          rotation: rotationRef.current,
-          glareShift,
-        });
+        const lx = lensPosRef.current.x + idleX;
+        const ly = lensPosRef.current.y + idleY;
 
-        let curTargetX = targetCenter.x;
-        let curTargetY = targetCenter.y;
+        // Perform zero-re-render direct DOM transform updates
+        updateDOMTransforms(lx, ly, rotationRef.current, glareShift);
 
-        if (targetRef.current) {
-          const rect = targetRef.current.getBoundingClientRect();
-          if (rect.width > 0 && rect.height > 0) {
-            curTargetX = rect.left + rect.width / 2;
-            curTargetY = rect.top + rect.height / 2;
-          }
-        }
+        // Read cached target coordinates (Zero Forced Reflow!)
+        const curTargetX = targetCenterRef.current.x;
+        const curTargetY = targetCenterRef.current.y;
 
-        const distToTarget = Math.hypot(
-          lensPosRef.current.x - curTargetX,
-          lensPosRef.current.y - curTargetY
-        );
+        const distToTarget = Math.hypot(lx - curTargetX, ly - curTargetY);
 
         if (distToTarget < 95) {
           setPhase("LOCKING");
         }
       } else if (phase === "LOCKING") {
-        let curTargetX = targetCenter.x;
-        let curTargetY = targetCenter.y;
-
-        if (targetRef.current) {
-          const rect = targetRef.current.getBoundingClientRect();
-          if (rect.width > 0 && rect.height > 0) {
-            curTargetX = rect.left + rect.width / 2;
-            curTargetY = rect.top + rect.height / 2;
-          }
-        }
+        // Read cached target coordinates (Zero Forced Reflow!)
+        const curTargetX = targetCenterRef.current.x;
+        const curTargetY = targetCenterRef.current.y;
 
         const dx = curTargetX - lensPosRef.current.x;
         const dy = curTargetY - lensPosRef.current.y;
@@ -198,16 +305,11 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
 
         rotationRef.current += (0 - rotationRef.current) * 0.2;
 
-        setLensState({
-          x: lensPosRef.current.x,
-          y: lensPosRef.current.y,
-          rotation: rotationRef.current,
-          glareShift: 0,
-        });
+        updateDOMTransforms(lensPosRef.current.x, lensPosRef.current.y, rotationRef.current, 0);
 
         if (Math.hypot(dx, dy) < 2) {
           lensPosRef.current = { x: curTargetX, y: curTargetY };
-          setLensState({ x: curTargetX, y: curTargetY, rotation: 0, glareShift: 0 });
+          updateDOMTransforms(curTargetX, curTargetY, 0, 0);
           setPhase("PAUSED");
         }
       }
@@ -217,7 +319,7 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
 
     animId = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(animId);
-  }, [phase, targetCenter]);
+  }, [phase]);
 
   useEffect(() => {
     if (phase === "PAUSED") {
@@ -226,19 +328,21 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
         shakeCount++;
         // Continuous detective inspection shake for exactly 2 seconds
         if (shakeCount <= 38) {
-          setShakeOffset({
+          shakeOffsetRef.current = {
             x: (Math.random() - 0.5) * 7,
             y: (Math.random() - 0.5) * 7,
             rotate: (Math.random() - 0.5) * 3,
-          });
+          };
+          updateDOMTransforms(lensPosRef.current.x, lensPosRef.current.y, 0, 0);
         } else {
-          setShakeOffset({ x: 0, y: 0, rotate: 0 });
+          shakeOffsetRef.current = { x: 0, y: 0, rotate: 0 };
+          updateDOMTransforms(lensPosRef.current.x, lensPosRef.current.y, 0, 0);
         }
       }, 50);
 
       const pauseTimer = setTimeout(() => {
         clearInterval(shakeInterval);
-        setShakeOffset({ x: 0, y: 0, rotate: 0 });
+        shakeOffsetRef.current = { x: 0, y: 0, rotate: 0 };
         setPhase("WHITE_PAGE");
       }, 2000);
 
@@ -295,82 +399,6 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
   const tabletCount = Math.max(12, Math.ceil(viewportHeight / 80));
   const desktopCount = Math.max(8, Math.ceil(viewportHeight / 100));
 
-  // Programmatic Article Column Generator
-  const ArticleColumn = ({
-    count,
-    colIndex,
-    isMobile,
-    hasWanted,
-    isSharp,
-  }: {
-    count: number;
-    colIndex: number;
-    isMobile?: boolean;
-    hasWanted?: boolean;
-    isSharp?: boolean;
-  }) => {
-    const headlineH = isMobile ? "h-3" : "h-3.5";
-    const paraH = isMobile ? "h-1.5" : "h-2.5";
-    const spaceY = isMobile ? "space-y-1.5" : "space-y-2";
-
-    const getHeadlineWidth = (idx: number) => {
-      const widths = ["w-3/4", "w-2/3", "w-4/5", "w-1/2", "w-3/5"];
-      return widths[(idx + colIndex * 2) % widths.length];
-    };
-
-    const getParaWidths = (idx: number) => {
-      const patterns = [
-        ["w-full", "w-11/12", "w-full", "w-4/5"],
-        ["w-full", "w-full", "w-5/6"],
-        ["w-full", "w-3/4"],
-        ["w-full", "w-11/12", "w-3/4"],
-      ];
-      return patterns[(idx + colIndex) % patterns.length];
-    };
-
-    const wantedIndex = Math.floor(count * (isMobile ? 0.35 : 0.40));
-
-    return (
-      <div className={`flex flex-col ${isMobile ? "space-y-2" : "space-y-3.5"} overflow-hidden h-full`}>
-        {Array.from({ length: count }).map((_, idx) => {
-          const isWantedPosition = hasWanted && idx === wantedIndex;
-          const headW = getHeadlineWidth(idx);
-          const paraWList = getParaWidths(idx);
-
-          return (
-            <React.Fragment key={idx}>
-              {isWantedPosition ? (
-                <div
-                  ref={isSharp ? null : targetRef}
-                  className={`my-2 py-2 px-3 text-center border-y-2 border-[#111111] ${
-                    isMobile ? "w-[118px]" : "w-[135px]"
-                  } flex flex-col items-center justify-center bg-[#F7F3EA] shadow-2xs mx-auto shrink-0`}
-                >
-                  <span className="font-serif font-extrabold text-[11px] sm:text-[12.5px] text-[#A8382B] tracking-[0.2em] uppercase block leading-none mb-1">
-                    WANTED
-                  </span>
-                  <span className="font-serif text-[11.5px] sm:text-[13px] text-[#111111] font-bold tracking-wide block leading-tight mb-1">
-                    Krish Ramanandi
-                  </span>
-                  <div className="w-6 h-[1.5px] bg-[#111111] mx-auto" />
-                </div>
-              ) : (
-                <div className="shrink-0">
-                  <div className={`${headlineH} bg-[#222] rounded-xs ${headW} mb-1`} />
-                  <div className={spaceY}>
-                    {paraWList.map((pw, pIdx) => (
-                      <div key={pIdx} className={`${paraH} bg-[#777] rounded-xs ${pw}`} />
-                    ))}
-                  </div>
-                </div>
-              )}
-            </React.Fragment>
-          );
-        })}
-      </div>
-    );
-  };
-
   // 1. DESKTOP NEWSPAPER GRID (5 Columns)
   const renderDesktopNewspaper = (isSharp: boolean) => (
     <div className="w-full h-full min-h-screen bg-[#ECE7DA] px-8 py-8 flex flex-col justify-between select-none overflow-hidden">
@@ -381,11 +409,11 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
       </div>
 
       <div className="grid grid-cols-5 gap-6 max-w-[1300px] mx-auto w-full flex-1 overflow-hidden">
-        <ArticleColumn count={desktopCount} colIndex={0} />
-        <ArticleColumn count={desktopCount} colIndex={1} />
-        <ArticleColumn count={desktopCount} colIndex={2} hasWanted={true} isSharp={isSharp} />
-        <ArticleColumn count={desktopCount} colIndex={3} />
-        <ArticleColumn count={desktopCount} colIndex={4} />
+        <ArticleColumnMemo count={desktopCount} colIndex={0} />
+        <ArticleColumnMemo count={desktopCount} colIndex={1} />
+        <ArticleColumnMemo count={desktopCount} colIndex={2} hasWanted={true} isSharp={isSharp} targetRef={targetRef} />
+        <ArticleColumnMemo count={desktopCount} colIndex={3} />
+        <ArticleColumnMemo count={desktopCount} colIndex={4} />
       </div>
     </div>
   );
@@ -399,10 +427,10 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
       </div>
 
       <div className="grid grid-cols-4 gap-5 max-w-[900px] mx-auto w-full flex-1 overflow-hidden">
-        <ArticleColumn count={tabletCount} colIndex={0} />
-        <ArticleColumn count={tabletCount} colIndex={1} hasWanted={true} isSharp={isSharp} />
-        <ArticleColumn count={tabletCount} colIndex={2} />
-        <ArticleColumn count={tabletCount} colIndex={3} />
+        <ArticleColumnMemo count={tabletCount} colIndex={0} />
+        <ArticleColumnMemo count={tabletCount} colIndex={1} hasWanted={true} isSharp={isSharp} targetRef={targetRef} />
+        <ArticleColumnMemo count={tabletCount} colIndex={2} />
+        <ArticleColumnMemo count={tabletCount} colIndex={3} />
       </div>
     </div>
   );
@@ -417,9 +445,9 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
       </div>
 
       <div className="grid grid-cols-3 gap-3 w-full flex-1 overflow-hidden">
-        <ArticleColumn count={mobileCount} colIndex={0} isMobile={true} />
-        <ArticleColumn count={mobileCount} colIndex={1} isMobile={true} hasWanted={true} isSharp={isSharp} />
-        <ArticleColumn count={mobileCount} colIndex={2} isMobile={true} />
+        <ArticleColumnMemo count={mobileCount} colIndex={0} isMobile={true} />
+        <ArticleColumnMemo count={mobileCount} colIndex={1} isMobile={true} hasWanted={true} isSharp={isSharp} targetRef={targetRef} />
+        <ArticleColumnMemo count={mobileCount} colIndex={2} isMobile={true} />
       </div>
     </div>
   );
@@ -472,55 +500,56 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
               </div>
 
               {/* SPOTLIGHT FLASHLIGHT OVERLAY — hidden until real cursor position known */}
-              {initializedRef.current && (
-                <div
-                  className="absolute inset-0 pointer-events-none z-10 transition-opacity duration-300"
-                  style={{
-                    background: `radial-gradient(circle 520px at ${lensState.x}px ${lensState.y}px,
-                      rgba(255, 253, 245, 0.55) 0%,
-                      rgba(250, 246, 235, 0.48) 12%,
-                      rgba(240, 234, 218, 0.38) 26%,
-                      rgba(220, 210, 190, 0.28) 42%,
-                      rgba(180, 170, 150, 0.20) 58%,
-                      rgba(120, 112, 96, 0.30) 75%,
-                      rgba(60, 55, 46, 0.42) 90%,
-                      rgba(15, 12, 8, 0.48) 100%)`,
-                    filter: "blur(30px)",
-                  }}
-                />
-              )}
+              <div
+                ref={spotlightRef}
+                className="absolute inset-0 pointer-events-none z-10 transition-opacity duration-300"
+                style={{
+                  background: `radial-gradient(circle 520px at ${lensPosRef.current.x}px ${lensPosRef.current.y}px,
+                    rgba(255, 253, 245, 0.55) 0%,
+                    rgba(250, 246, 235, 0.48) 12%,
+                    rgba(240, 234, 218, 0.38) 26%,
+                    rgba(220, 210, 190, 0.28) 42%,
+                    rgba(180, 170, 150, 0.20) 58%,
+                    rgba(120, 112, 96, 0.30) 75%,
+                    rgba(60, 55, 46, 0.42) 90%,
+                    rgba(15, 12, 8, 0.48) 100%)`,
+                  filter: "blur(30px)",
+                }}
+              />
 
               {/* LAYER 2: CLEAN SIMPLE MAGNIFYING GLASS — hidden on mobile layout */}
-              {initializedRef.current && (
-                <div
-                  className="hidden md:block absolute pointer-events-none z-50 transform -translate-x-1/2 -translate-y-1/2 will-change-transform"
-                  style={{
-                    transform: `translate3d(${lensState.x + shakeOffset.x}px, ${lensState.y + shakeOffset.y}px, 0) rotate(${lensState.rotation + shakeOffset.rotate}deg)`,
-                    left: 0,
-                    top: 0,
-                  }}
-                >
-                  <div className="relative w-[175px] h-[175px]">
-                    <div className="absolute inset-0 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.35)]" />
+              <div
+                ref={lensContainerRef}
+                className="hidden md:block absolute pointer-events-none z-50 transform -translate-x-1/2 -translate-y-1/2 will-change-transform"
+                style={{
+                  transform: `translate3d(${lensPosRef.current.x}px, ${lensPosRef.current.y}px, 0) rotate(0deg)`,
+                  left: 0,
+                  top: 0,
+                }}
+              >
+                <div className="relative w-[175px] h-[175px]">
+                  <div className="absolute inset-0 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.35)]" />
 
-                    <div className="relative w-full h-full rounded-full overflow-hidden border-[9px] border-[#111111] bg-[#ECE7DA] z-10">
-                      <div
-                        className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/25 rounded-full z-20 pointer-events-none transition-transform duration-100"
-                        style={{ transform: `translateX(${lensState.glareShift}px)` }}
-                      />
+                  <div className="relative w-full h-full rounded-full overflow-hidden border-[9px] border-[#111111] bg-[#ECE7DA] z-10">
+                    <div
+                      ref={glareRef}
+                      className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/25 rounded-full z-20 pointer-events-none transition-transform duration-100"
+                      style={{ transform: "translateX(0px)" }}
+                    />
 
-                      <div
-                        className="absolute inset-0 pointer-events-none"
-                        style={{
-                          width: `${window.innerWidth}px`,
-                          height: `${window.innerHeight}px`,
-                          transform: `translate(calc(-${lensState.x}px * 1.4 + 87.5px), calc(-${lensState.y}px * 1.4 + 87.5px)) scale(1.4)`,
-                          transformOrigin: "0 0",
-                        }}
-                      >
-                        {renderNewspaperGrid(true)}
-                      </div>
+                    <div
+                      ref={magnifiedContentRef}
+                      className="absolute inset-0 pointer-events-none"
+                      style={{
+                        width: `${window.innerWidth}px`,
+                        height: `${window.innerHeight}px`,
+                        transform: `translate(calc(-${lensPosRef.current.x}px * 1.4 + 87.5px), calc(-${lensPosRef.current.y}px * 1.4 + 87.5px)) scale(1.4)`,
+                        transformOrigin: "0 0",
+                      }}
+                    >
+                      {renderNewspaperGrid(true)}
                     </div>
+                  </div>
 
                     <div
                       className="absolute z-0"
@@ -537,7 +566,6 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
                     </div>
                   </div>
                 </div>
-              )}
             </div>
           )}
 

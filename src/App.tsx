@@ -5,10 +5,6 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Masthead } from "./components/Masthead";
 import { Navigation } from "./components/Navigation";
 import { Hero } from "./components/Hero";
-import { SelectedWorks } from "./components/SelectedWorks";
-import { Stack } from "./components/Stack";
-import { CareerLedger } from "./components/CareerLedger";
-import { EvidenceBoard } from "./components/EvidenceBoard";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { MagnifyingCursor } from "./components/MagnifyingCursor";
@@ -17,7 +13,11 @@ import { evidenceDetailMap } from "./data/evidenceDetailData";
 
 import { DetectiveIntro } from "./components/DetectiveIntro";
 
-// Lazy-loaded heavy modal and concluding components for initial bundle optimization
+// Selective Lazy-loading for heavy below-the-fold sections to minimize initial JS bundle
+const SelectedWorks = lazy(() => import("./components/SelectedWorks").then(m => ({ default: m.SelectedWorks })));
+const Stack = lazy(() => import("./components/Stack").then(m => ({ default: m.Stack })));
+const CareerLedger = lazy(() => import("./components/CareerLedger").then(m => ({ default: m.CareerLedger })));
+const EvidenceBoard = lazy(() => import("./components/EvidenceBoard").then(m => ({ default: m.EvidenceBoard })));
 const CaseFileModal = lazy(() => import("./components/CaseFileModal").then(m => ({ default: m.CaseFileModal })));
 const EvidenceDetailModal = lazy(() => import("./components/EvidenceDetailModal").then(m => ({ default: m.EvidenceDetailModal })));
 const FinalReport = lazy(() => import("./components/FinalReport").then(m => ({ default: m.FinalReport })));
@@ -76,7 +76,9 @@ export default function App() {
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
-        <SelectedWorks onOpenCase={handleOpenCase} />
+        <Suspense fallback={null}>
+          <SelectedWorks onOpenCase={handleOpenCase} />
+        </Suspense>
       </motion.div>
 
       {/* Bold separator line */}
@@ -91,7 +93,9 @@ export default function App() {
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
-        <Stack />
+        <Suspense fallback={null}>
+          <Stack />
+        </Suspense>
       </motion.div>
 
       {/* Bold separator line */}
@@ -106,7 +110,9 @@ export default function App() {
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
-        <CareerLedger />
+        <Suspense fallback={null}>
+          <CareerLedger />
+        </Suspense>
       </motion.div>
 
       {/* Bold separator line */}
@@ -121,7 +127,9 @@ export default function App() {
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
-        <EvidenceBoard onOpenCase={handleOpenCase} />
+        <Suspense fallback={null}>
+          <EvidenceBoard onOpenCase={handleOpenCase} />
+        </Suspense>
       </motion.div>
 
       {/* Bold separator line */}

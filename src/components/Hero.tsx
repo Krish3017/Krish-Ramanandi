@@ -1,5 +1,5 @@
 import React from "react";
-import profileImg from "../assets/profile.jpeg";
+import profileImg from "../assets/profile.webp";
 import { MetricsStrip } from "./MetricsStrip";
 
 export const Hero: React.FC = () => {

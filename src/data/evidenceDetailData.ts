@@ -1,10 +1,10 @@
-import bullAgritechEv from "../assets/evidence/BullAgritech.png";
-import gssocEv from "../assets/evidence/Gssoc.png";
-import gdgEv from "../assets/evidence/GDG.png";
-import odoo2025Ev from "../assets/evidence/Odoo2025.jpeg";
-import nptelDbmsEv from "../assets/evidence/NPTELDBMS.png";
-import odoo2026Ev from "../assets/evidence/Odoo2026.png";
-import cyberkavachEv from "../assets/evidence/cyberkavach.png";
+import bullAgritechEv from "../assets/evidence/BullAgritech.webp";
+import gssocEv from "../assets/evidence/Gssoc.webp";
+import gdgEv from "../assets/evidence/GDG.webp";
+import odoo2025Ev from "../assets/evidence/Odoo2025.webp";
+import nptelDbmsEv from "../assets/evidence/NPTELDBMS.webp";
+import odoo2026Ev from "../assets/evidence/Odoo2026.webp";
+import cyberkavachEv from "../assets/evidence/cyberkavach.webp";
 
 export interface EvidenceDetailRecord {
   caseCode: string;

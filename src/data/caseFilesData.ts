@@ -1,10 +1,10 @@
 import type { CaseFileDetail } from "../components/CaseFileModal";
-import supportFlowImg from "../assets/SupportFlow.png";
-import bullionImg from "../assets/bullion.png";
-import nexusImg from "../assets/Nexus.png";
-import cyberkavachImg from "../assets/cyberkavach.png";
-import scrummindImg from "../assets/scrummind.png";
-import dataforgeImg from "../assets/dataforge.png";
+import supportFlowImg from "../assets/SupportFlow.webp";
+import bullionImg from "../assets/bullion.webp";
+import nexusImg from "../assets/Nexus.webp";
+import cyberkavachImg from "../assets/cyberkavach.webp";
+import scrummindImg from "../assets/scrummind.webp";
+import dataforgeImg from "../assets/dataforge.webp";
 
 export const caseFilesMap: Record<string, CaseFileDetail> = {
   "EXHIBIT A": {

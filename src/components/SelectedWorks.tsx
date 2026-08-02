@@ -1,11 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
-import supportFlowImg from "../assets/black-white/SupportFlow.png";
-import bullionImg from "../assets/black-white/bullion.png";
-import nexusImg from "../assets/black-white/Nexus.png";
-import cyberkavachImg from "../assets/black-white/cyberkavach.png";
-import scrummindImg from "../assets/black-white/scrummind.png";
-import dataforgeImg from "../assets/black-white/dataforge.png";
+import supportFlowImg from "../assets/black-white/SupportFlow.webp";
+import bullionImg from "../assets/black-white/bullion.webp";
+import nexusImg from "../assets/black-white/Nexus.webp";
+import cyberkavachImg from "../assets/black-white/cyberkavach.webp";
+import scrummindImg from "../assets/black-white/scrummind.webp";
+import dataforgeImg from "../assets/black-white/dataforge.webp";
 
 interface Project {
   exhibit: string;
@@ -133,6 +133,7 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
                   alt="SupportFlow AI"
                   loading="lazy"
                   decoding="async"
+                  fetchPriority="low"
                   className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
                 />
 
@@ -247,6 +248,7 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
                       alt={proj.title}
                       loading="lazy"
                       decoding="async"
+                      fetchPriority="low"
                       className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
                     />
                   ) : (
