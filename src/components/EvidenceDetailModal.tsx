@@ -14,10 +14,23 @@ export const EvidenceDetailModal: React.FC<EvidenceDetailModalProps> = ({ record
     if (record) {
       document.body.style.overflow = "hidden";
     }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        if (lightboxImg) {
+          setLightboxImg(null);
+        } else {
+          onClose();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
     return () => {
       document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [record]);
+  }, [record, lightboxImg, onClose]);
 
   if (!record) return null;
 

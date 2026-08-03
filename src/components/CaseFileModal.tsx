@@ -62,17 +62,26 @@ export const CaseFileModal: React.FC<CaseFileModalProps> = ({
   onClose,
   onSelectExhibit,
 }) => {
-  // Prevent body scroll when modal is open
+  // Prevent body scroll when modal is open and handle Escape key navigation
   useEffect(() => {
     if (caseData) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
     return () => {
       document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [caseData]);
+  }, [caseData, onClose]);
 
   if (!caseData) return null;
 
