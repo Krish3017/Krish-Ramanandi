@@ -1,32 +1,88 @@
-# React + TypeScript + Vite
+# Krish Ramanandi — The Investigation Edition
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+An interactive, newspaper and detective-themed portfolio showcasing full-stack applications, AI agents, RAG pipelines, and engineering projects.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🔎 Overview
 
-## React Compiler
+Designed around an editorial "Classified Records & Investigation" theme, this portfolio blends vintage newspaper typography with high-performance 60 FPS micro-interactions.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Developer**: Krish Ramanandi — AI Engineer & Full-Stack Developer
+- **Design Theme**: Classified Archival / Newspaper Editorial Edition
 
-## Expanding the Oxlint configuration
+---
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## ✨ Key Features
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+- **Interactive Detective Intro**: Spotlight flashlight effect, spring-physics magnifying lens, target lock-on, and paper-burn transition.
+- **Classified Case Files (Exhibits A–G)**: In-depth project case files detailing technical architecture, live demos, and outcomes.
+- **Evidence Board & Archival Wall**: Interactive pinboard showcasing hackathon achievements, certifications, and open-source contributions (GSSoC 2026).
+- **Career Ledger**: Structured timeline of education, experience, and core technical skills.
+- **Letters & Commissions**: Asynchronous contact section integrated with Formspree and custom editorial feedback states.
+- **Performance Optimized**: Built with React 19, Vite, lazy-loaded section bundles, and hardware-accelerated animations.
+
+---
+
+## 🛠 Tech Stack
+
+| Category | Technologies |
+| :--- | :--- |
+| **Frontend Core** | React 19, TypeScript, Vite 8, Tailwind CSS v4 |
+| **Animations & 3D** | Framer Motion 12, Three.js, React Three Fiber |
+| **Integrations** | Formspree (`@formspree/react`), Vercel Analytics, Vercel Speed Insights |
+| **Typography & Assets** | Cormorant Garamond, IBM Plex Mono, Inter, Custom Canvas Noise |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18+ recommended)
+- npm or pnpm
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Krish3017/Portfollio.git
+   cd Portfollio
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Build for production**
+   ```bash
+   npm run build
+   ```
+
+---
+
+## 📂 Project Structure
+
+```text
+Portfollio/
+├── public/                 # Static icons & favicon
+├── src/
+│   ├── assets/             # WebP graphics, project screenshots, and certificates
+│   ├── components/         # React UI components (DetectiveIntro, SelectedWorks, EvidenceBoard, etc.)
+│   ├── data/               # Project case files and evidence data maps
+│   ├── App.tsx             # Application layout & section rendering
+│   └── main.tsx            # Entry point
+├── package.json
+└── vite.config.ts
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+---
+
+## 📄 License
+
+Designed & Developed by **Krish Ramanandi**.

@@ -1,23 +1,46 @@
 import React, { useState } from "react";
+import { useForm, ValidationError, FormspreeProvider } from "@formspree/react";
 
-export const Contact: React.FC = () => {
-  const [submitted, setSubmitted] = useState(false);
+export const FORMSPREE_FORM_ID = "mgoggzkl";
+
+const ContactFormInner: React.FC = () => {
+  const [state, handleSubmit, reset] = useForm(FORMSPREE_FORM_ID);
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [formErrors, setFormErrors] = useState<{ name?: string; email?: string; message?: string }>({});
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateForm = () => {
+    const newErrors: { name?: string; email?: string; message?: string } = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = "NAME IS REQUIRED";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "EMAIL IS REQUIRED";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      newErrors.email = "ENTER A VALID EMAIL ADDRESS";
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "MESSAGE IS REQUIRED";
+    }
+
+    setFormErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!formData.email || !formData.message) return;
-    
-    // Construct mailto link
-    const mailtoSubject = encodeURIComponent(formData.subject || "Portfolio Commission / Inquiry");
-    const mailtoBody = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-    );
-    
-    // Trigger local mail client
-    window.location.href = `mailto:krishramanandi30@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
-    
-    setSubmitted(true);
+    if (!validateForm()) return;
+    await handleSubmit(e);
+  };
+
+  const handleReset = () => {
+    setFormData({ name: "", email: "", subject: "", message: "" });
+    setFormErrors({});
+    if (typeof reset === "function") {
+      reset();
+    }
   };
 
   return (
@@ -43,23 +66,24 @@ export const Contact: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 border-2 border-[#111111] bg-[#F7F3EA]">
           {/* LEFT — Form */}
           <div className="lg:col-span-7 p-5 sm:p-6 lg:p-7 lg:border-r border-[#111111]">
-            {submitted ? (
+            {state.succeeded ? (
               <div className="p-4 text-center my-4">
-                <h4 className="font-newspaper-title text-2xl text-[#111111] mb-2">
-                  Transmission Drafted.
+                <h4 className="font-newspaper-title text-2xl sm:text-3xl text-[#111111] mb-2">
+                  Transmission Received.
                 </h4>
-                <p className="font-sans text-[13.5px] text-[#333333]">
-                  Your mail client has been opened to transmit the letter to krishramanandi30@gmail.com.
+                <p className="font-sans text-[13.5px] leading-[1.55] text-[#333333]">
+                  Your letter has been dispatched to the desk. He will get back to you shortly.
                 </p>
                 <button
-                  onClick={() => setSubmitted(false)}
-                  className="mt-3 font-mono-meta text-[10.5px] tracking-widest text-[#111111] underline font-bold"
+                  type="button"
+                  onClick={handleReset}
+                  className="mt-4 font-mono-meta text-[10.5px] tracking-widest text-[#111111] underline font-bold hover:text-[#555555] transition-colors cursor-pointer uppercase"
                 >
                   SEND ANOTHER LETTER
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleFormSubmit} noValidate>
                 <h3 className="font-newspaper-title text-2xl sm:text-3xl text-[#111111] font-normal mb-1.5">
                   Put it in writing
                 </h3>
@@ -67,60 +91,107 @@ export const Contact: React.FC = () => {
                   A project in mind, a role to fill, or just a good question — send it through and he'll get back to you.
                 </p>
 
+                {state.errors !== null && (
+                  <div className="mb-4 p-3 border-2 border-[#A8382B] bg-[#FDF2F0] text-[#A8382B]">
+                    <p className="font-mono-meta text-[10.5px] tracking-[0.15em] font-bold uppercase mb-1">
+                      TRANSMISSION ERROR
+                    </p>
+                    <p className="font-sans text-xs text-[#822B22]">
+                      Unable to send message at this time. Please check your details and try again.
+                    </p>
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label className="block font-mono-meta text-[10px] text-[#111111] tracking-[0.15em] font-bold mb-1 uppercase">
+                    <label htmlFor="contact-name" className="block font-mono-meta text-[10px] text-[#111111] tracking-[0.15em] font-bold mb-1 uppercase">
                       YOUR NAME
                     </label>
                     <input
+                      id="contact-name"
                       type="text"
+                      name="name"
                       required
-                      placeholder="Jane Doe"
+                      placeholder="Your Name"
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-white border-2 border-[#111111] p-2.5 font-sans text-sm text-[#111111] placeholder:text-[#999999] focus:outline-none"
+                      onChange={(e) => {
+                        setFormData({ ...formData, name: e.target.value });
+                        if (formErrors.name) setFormErrors({ ...formErrors, name: undefined });
+                      }}
+                      className={`w-full bg-white border-2 ${formErrors.name ? 'border-[#A8382B]' : 'border-[#111111]'} p-2.5 font-sans text-sm text-[#111111] placeholder:text-[#999999] focus:outline-none`}
                     />
+                    {formErrors.name && (
+                      <span className="block font-mono-meta text-[10px] text-[#A8382B] tracking-[0.1em] font-bold mt-1 uppercase">
+                        {formErrors.name}
+                      </span>
+                    )}
+                    <ValidationError prefix="Name" field="name" errors={state.errors} className="block font-mono-meta text-[10px] text-[#A8382B] tracking-[0.1em] font-bold mt-1 uppercase" />
                   </div>
                   <div>
-                    <label className="block font-mono-meta text-[10px] text-[#111111] tracking-[0.15em] font-bold mb-1 uppercase">
+                    <label htmlFor="contact-email" className="block font-mono-meta text-[10px] text-[#111111] tracking-[0.15em] font-bold mb-1 uppercase">
                       EMAIL
                     </label>
                     <input
+                      id="contact-email"
                       type="email"
+                      name="email"
                       required
-                      placeholder="jane@company.com"
+                      placeholder="Your Email"
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-white border-2 border-[#111111] p-2.5 font-sans text-sm text-[#111111] placeholder:text-[#999999] focus:outline-none"
+                      onChange={(e) => {
+                        setFormData({ ...formData, email: e.target.value });
+                        if (formErrors.email) setFormErrors({ ...formErrors, email: undefined });
+                      }}
+                      className={`w-full bg-white border-2 ${formErrors.email ? 'border-[#A8382B]' : 'border-[#111111]'} p-2.5 font-sans text-sm text-[#111111] placeholder:text-[#999999] focus:outline-none`}
                     />
+                    {formErrors.email && (
+                      <span className="block font-mono-meta text-[10px] text-[#A8382B] tracking-[0.1em] font-bold mt-1 uppercase">
+                        {formErrors.email}
+                      </span>
+                    )}
+                    <ValidationError prefix="Email" field="email" errors={state.errors} className="block font-mono-meta text-[10px] text-[#A8382B] tracking-[0.1em] font-bold mt-1 uppercase" />
                   </div>
                 </div>
 
                 <div className="mb-4">
-                  <label className="block font-mono-meta text-[10px] text-[#111111] tracking-[0.15em] font-bold mb-1 uppercase">
+                  <label htmlFor="contact-subject" className="block font-mono-meta text-[10px] text-[#111111] tracking-[0.15em] font-bold mb-1 uppercase">
                     SUBJECT
                   </label>
                   <input
+                    id="contact-subject"
                     type="text"
+                    name="subject"
                     placeholder="A new product, a rebuild, a contract..."
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     className="w-full bg-white border-2 border-[#111111] p-2.5 font-sans text-sm text-[#111111] placeholder:text-[#999999] focus:outline-none"
                   />
+                  <ValidationError prefix="Subject" field="subject" errors={state.errors} className="block font-mono-meta text-[10px] text-[#A8382B] tracking-[0.1em] font-bold mt-1 uppercase" />
                 </div>
 
                 <div className="mb-4">
-                  <label className="block font-mono-meta text-[10px] text-[#111111] tracking-[0.15em] font-bold mb-1 uppercase">
+                  <label htmlFor="contact-message" className="block font-mono-meta text-[10px] text-[#111111] tracking-[0.15em] font-bold mb-1 uppercase">
                     THE STORY
                   </label>
                   <textarea
+                    id="contact-message"
                     rows={4}
+                    name="message"
                     required
                     placeholder="Tell him what you're building."
                     value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-white border-2 border-[#111111] p-2.5 font-sans text-sm text-[#111111] placeholder:text-[#999999] focus:outline-none resize-y"
+                    onChange={(e) => {
+                      setFormData({ ...formData, message: e.target.value });
+                      if (formErrors.message) setFormErrors({ ...formErrors, message: undefined });
+                    }}
+                    className={`w-full bg-white border-2 ${formErrors.message ? 'border-[#A8382B]' : 'border-[#111111]'} p-2.5 font-sans text-sm text-[#111111] placeholder:text-[#999999] focus:outline-none resize-y`}
                   />
+                  {formErrors.message && (
+                    <span className="block font-mono-meta text-[10px] text-[#A8382B] tracking-[0.1em] font-bold mt-1 uppercase">
+                      {formErrors.message}
+                    </span>
+                  )}
+                  <ValidationError prefix="Message" field="message" errors={state.errors} className="block font-mono-meta text-[10px] text-[#A8382B] tracking-[0.1em] font-bold mt-1 uppercase" />
                 </div>
 
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pt-1">
@@ -129,9 +200,10 @@ export const Contact: React.FC = () => {
                   </span>
                   <button
                     type="submit"
-                    className="magnify-hover bg-[#111111] text-[#F7F3EA] border border-[#111111] px-6 py-2.5 font-mono-meta text-[11px] tracking-[0.2em] font-semibold hover:bg-[#efeadd] hover:text-[#111111] transition-colors cursor-pointer uppercase whitespace-nowrap"
+                    disabled={state.submitting}
+                    className="magnify-hover bg-[#111111] text-[#F7F3EA] border border-[#111111] px-6 py-2.5 font-mono-meta text-[11px] tracking-[0.2em] font-semibold hover:bg-[#efeadd] hover:text-[#111111] transition-colors cursor-pointer uppercase whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    SEND THE LETTER
+                    {state.submitting ? "SENDING..." : "SEND THE LETTER"}
                   </button>
                 </div>
               </form>
@@ -229,5 +301,13 @@ export const Contact: React.FC = () => {
         </div>
       </div>
     </section>
+  );
+};
+
+export const Contact: React.FC = () => {
+  return (
+    <FormspreeProvider>
+      <ContactFormInner />
+    </FormspreeProvider>
   );
 };

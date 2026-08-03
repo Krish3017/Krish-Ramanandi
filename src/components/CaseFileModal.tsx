@@ -90,7 +90,7 @@ export const CaseFileModal: React.FC<CaseFileModalProps> = ({
         <div className="sticky top-0 z-50 bg-[#efeadd] border-b border-[#111111] px-4 sm:px-8 py-3">
           <div className="max-w-[1200px] mx-auto flex justify-between items-center">
             <span className="font-mono-meta text-[10px] sm:text-[11.5px] tracking-[0.18em] text-[#555555] font-bold uppercase hidden md:inline">
-              THE KRISH RAMANANDI TIMES &middot; CASE FILES
+              THE INVESTIGATION EDITION &middot; CASE FILES
             </span>
             <span className="font-mono-meta text-[10px] sm:text-[11.5px] tracking-[0.18em] text-[#555555] font-bold uppercase">
               FILED FROM MELBOURNE

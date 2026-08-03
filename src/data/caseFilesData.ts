@@ -153,7 +153,7 @@ export const caseFilesMap: Record<string, CaseFileDetail> = {
     techStack: "Next.js · TypeScript · FastAPI · AI Agent · PostgreSQL · Python",
     admin: "Agile Project Dashboard",
     role: "Full Stack Developer",
-    entered: "JUNE 2026 - PRESENT",
+    entered: "JUNE 2026 - ONGOING",
     status: "In Development",
     relatedExhibits: [
       { name: "EXHIBIT A", title: "SupportFlow AI" },
@@ -167,7 +167,7 @@ export const caseFilesMap: Record<string, CaseFileDetail> = {
     id: "supportflow-ai-g",
     exhibitLetter: "EXHIBIT G",
     sub: "SUPPORTFLOW.AI",
-    title: "SupportFlow AI — Assistant",
+    title: "SupportFlow AI",
     headline: "Autonomous customer support agent workforce utilizing LangGraph and ChromaDB memory networks",
     subtitle: "The investigation uncovered a specialized sub-module of SupportFlow AI built specifically to serve as a low-latency conversational assistant equipped with vector memory recall.",
     byline: "THE INVESTIGATION DESK",

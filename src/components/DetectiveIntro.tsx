@@ -467,9 +467,6 @@ export const DetectiveIntro: React.FC<DetectiveIntroProps> = ({ onComplete }) =>
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
           className="fixed inset-0 z-[9999] overflow-hidden select-none bg-[#ECE7DA] cursor-none touch-none"
-          onTouchMove={(e) => {
-            if (e.cancelable) e.preventDefault();
-          }}
         >
           {/* SKIP BUTTON WITH [ESC] KEY BADGE */}
           <button

@@ -81,7 +81,6 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
       "Selected as an official contributor for GirlScript Summer of Code (GSSoC 2026) among thousands of applicants across India.",
       "Contributed pull requests across public GitHub repositories, resolving frontend UI bugs and adding new feature components.",
       "Collaborated asynchronously with open-source project maintainers and global developer communities.",
-      "Demonstrated proficiency in Git branch management, pull request workflows, and peer code reviews.",
     ],
     evidenceCollected: [
       { label: "GSSoC Contributor Certificate", tag: "[CERT]" },

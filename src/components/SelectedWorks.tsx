@@ -31,7 +31,7 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
       title: "Bullion Admin",
       description: "A production-grade administrative platform streamlining procurement, inventory, user operations, and business workflows for an AgriTech enterprise.",
       tags: ["Next.js 15", "React", "TypeScript", "Tailwind", "Django REST", "PostgreSQL"],
-      date: "2026",
+      date: "DEC 2025 - APRIL 2026",
       link: "#",
       imageBg: "bg-[#101010]",
       imageUrl: bullionImg
@@ -42,7 +42,7 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
       title: "NexusRAG",
       description: "An advanced RAG platform transforming unstructured documents into searchable, explainable knowledge using LangChain, vector similarity search, and Groq-hosted LLMs.",
       tags: ["React", "ChromaDB", "LangChain", "Groq LLM","RAG"],
-      date: "2026",
+      date: "APRIL 2026",
       link: "#",
       imageBg: "bg-[#131313]",
       imageUrl: nexusImg
@@ -53,7 +53,7 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
       title: "DataForge",
       description: "A modern analytics and visualization platform converting fragmented datasets into interactive real-time dashboards, statistical models, and business intelligence.",
       tags: ["React", "Python", "FaspApi", "PostgreSQL", "Matplotlib"],
-      date: "2026",
+      date: "DEC 2025 - MAR 2026",
       link: "#",
       imageBg: "bg-[#141414]",
       imageUrl: dataforgeImg
@@ -64,7 +64,7 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
       title: "CyberKavach",
       description: "Operational backbone for the university cybersecurity community automating member registration, event tracking, certificates, audit logging, and role-based security.",
       tags: ["JavaScript", "Tailwind CSS", "MySQL", "PHP","Vanila.JS"],
-      date: "2026",
+      date: "MAY 2026",
       link: "#",
       imageBg: "bg-[#0f0f0f]",
       imageUrl: cyberkavachImg
@@ -75,7 +75,7 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
       title: "ScrumMind",
       description: "A collaborative workspace where sprint planning, task management, backlog organization, documentation, and AI assistance converge into a unified workspace.",
       tags: ["Next.js", "React", "Python", "PostgreSQL", "Lanchain/graph"],
-      date: "2026",
+      date: "JUNE 2026 - ONGOING",
       link: "#",
       imageBg: "bg-[#111111]",
       imageUrl: scrummindImg
@@ -83,10 +83,10 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
     {
       exhibit: "EXHIBIT G",
       sub: "SUPPORTFLOW.AI",
-      title: "SupportFlow AI — Assistant",
+      title: "SupportFlow AI",
       description: "Autonomous customer support agent workforce utilizing LangGraph and ChromaDB memory networks for low-latency question-answering pipelines.",
       tags: ["FastAPI", "React", "Langchain/Graph","Python","Groq LLM",],
-      date: "2026",
+      date: "APRIL 2026 - MAY 2026",
       link: "#",
       imageBg: "bg-[#101010]",
       imageUrl: supportFlowImg
