@@ -5,12 +5,13 @@ import odoo2025Ev from "../assets/evidence/Odoo2025.webp";
 import nptelDbmsEv from "../assets/evidence/NPTELDBMS.webp";
 import odoo2026Ev from "../assets/evidence/Odoo2026.webp";
 import cyberkavachEv from "../assets/evidence/cyberkavach.webp";
+import tcs2026Ev from "../assets/evidence/TCS.webp";
 
 export interface EvidenceDetailRecord {
   caseCode: string;
   title: string;
   subtitle: string;
-  status: "VERIFIED" | "SELECTED" | "COMPLETED" | "QUALIFIED" | "LEADERSHIP ACTIVE";
+  status: string;
   date: string;
   location: string;
   category: string;
@@ -26,7 +27,9 @@ export interface EvidenceDetailRecord {
     tag: string;
   }[];
   investigationNotes: string;
-  stampText: "CASE VERIFIED" | "FILE ARCHIVED";
+  stampText: string;
+  link?: string;
+  linkText?: string;
 }
 
 export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
@@ -49,7 +52,7 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
     keyFindings: [
       "Engineered Bullion — a production-grade enterprise procurement platform powering daily agricultural business operations.",
       "Architected responsive administrative dashboards and REST APIs using Next.js 15, React, TypeScript, and Django REST Framework.",
-      "Implemented secure role-based access control (RBAC) and optimized high-concurrency PostgreSQL database queries."
+      "Implemented secure role-based access control (RBAC) and optimized high-concurrency PostgreSQL database queries.",
     ],
     evidenceCollected: [
       { label: "Deployment Transcript", tag: "[TRANSCRIPT]" },
@@ -57,7 +60,7 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
       { label: "Industry Internship Verification", tag: "[DOC]" },
     ],
     investigationNotes:
-      "This investigation confirms seven months of intensive full-stack engineering at Bull Agritech. The subject successfully built and deployed Bullion, a mission-critical procurement platform handling real business transactions and inventory workflows with high uptime and reliability.",
+      "Investigation confirms seven months of intensive full-stack engineering at Bull Agritech. The subject successfully built and deployed Bullion, a mission-critical enterprise procurement platform handling daily operations with high reliability.",
     stampText: "CASE VERIFIED",
   },
 
@@ -88,7 +91,7 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
       { label: "Selection Badge Record", tag: "[BADGE]" },
     ],
     investigationNotes:
-      "Evidence confirms the subject's selection and active participation in GSSoC 2026. Contributions to public open-source software demonstrate real-world asynchronous collaboration, clean Git discipline, and community-driven engineering impact.",
+      "Evidence confirms active participation in GSSoC 2026. Contributions to public open-source software demonstrate clean Git discipline, asynchronous collaboration, and community-driven engineering impact across public codebases.",
     stampText: "CASE VERIFIED",
   },
 
@@ -110,9 +113,8 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
     ],
     keyFindings: [
       "Secured 2nd Rank overall out of all competing teams in an intensive week-long online engineering hackathon.",
-      "Awarded ₹6000 prize for outstanding technical prototype design and execution under continuous deadlines.",
-      "Scored 480 team points and personally earned Top 2 Contributor distinction with 255 points.",
-      "Engineered rapid full-stack features, FastAPI backend endpoints, and responsive user interfaces.",
+      "Awarded ₹6,000 cash prize for outstanding technical prototype design and execution under continuous deadlines.",
+      "Earned Top 2 Contributor distinction with 255 points and led Team #152 to a 480-point finish.",
     ],
     evidenceCollected: [
       { label: "2nd Rank Winner Certificate", tag: "[RANK 2]" },
@@ -120,7 +122,7 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
       { label: "Leaderboard Score Verification", tag: "[SCORE]" },
     ],
     investigationNotes:
-      "Records verify 2nd Rank placement in GDG Sprintathon 2026. The subject led Team #152 under continuous pressure, demonstrating rapid problem-solving, high individual code output (255 Pts), and effective team collaboration.",
+      "Records verify 2nd Rank placement in GDG Sprintathon 2026. The subject led Team #152 under continuous pressure, demonstrating rapid problem-solving, high individual code output (255 Pts), and effective technical collaboration.",
     stampText: "FILE ARCHIVED",
   },
 
@@ -143,8 +145,7 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
     keyFindings: [
       "Selected among the Top 350 Teams in India after clearing competitive nationwide screening rounds.",
       "Qualified for the 24-hour non-stop onsite Grand Finale in Gandhinagar, Gujarat on August 11–12, 2025.",
-      "Architected and deployed a complete functional software prototype within 24 hours under strict deadlines.",
-      "Collaborated within a team of four under live evaluation from industry judges and Odoo leads.",
+      "Architected and deployed a complete functional software prototype within 24 hours under live industry evaluation.",
     ],
     evidenceCollected: [
       { label: "National Selection Record", tag: "[RECORD]" },
@@ -152,7 +153,7 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
       { label: "Team Onsite Photography", tag: "[PHOTO]" },
     ],
     investigationNotes:
-      "This investigation confirms that the subject successfully progressed through national selection rounds before competing in the 24-hour Grand Finale in Gandhinagar. The experience strengthened rapid development, collaboration, and problem-solving under real project constraints.",
+      "Investigation confirms the subject cleared competitive national screening rounds to compete in the 24-hour onsite Grand Finale in Gandhinagar, delivering a functional prototype under strict time constraints and live judging.",
     stampText: "CASE VERIFIED",
   },
 
@@ -176,7 +177,6 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
       "Earned Elite + Silver certification with an 85% final score in Database Management Systems.",
       "Ranked among the Top 1% of 12,988+ registered learners nationwide across engineering institutes.",
       "Mastered relational algebra, SQL optimization, normalization (1NF–5NF), ACID transactions, and indexing.",
-      "Applied theoretical database principles to production full-stack database architectures.",
     ],
     evidenceCollected: [
       { label: "NPTEL Elite + Silver Certificate", tag: "[CERT]" },
@@ -184,38 +184,41 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
       { label: "Grade Transcript (85%)", tag: "[SCORE]" },
     ],
     investigationNotes:
-      "Official academic transcripts verify an Elite + Silver certification with an 85% score, placing the subject in the Top 1% nationwide out of 12,988+ learners. This credential demonstrates rigorous grounding in database design and query performance.",
+      "Official academic transcripts verify an Elite + Silver certification with an 85% score, placing the subject in the Top 1% nationwide out of 12,988+ learners. Demonstrates deep grounding in relational database architecture.",
     stampText: "FILE ARCHIVED",
   },
 
   "EV-006": {
     caseCode: "EV-006",
-    title: "Odoo Hackathon 2026 — Re-Selected",
-    subtitle: "ODOO INDIA · NATIONAL HACKATHON",
+    title: "Odoo Hackathon 2026 — National Finalist",
+    subtitle: "ODOO INDIA HQ · NATIONAL FINALS",
     status: "QUALIFIED",
-    date: "SEP 2026",
-    location: "Gandhinagar, Gujarat",
+    date: "5–6 Sep 2026",
+    location: "Odoo Headquarters, Gandhinagar, Gujarat",
     category: "National Hackathon",
-    statusHighlight: "Consecutive Year Finalist",
+    statusHighlight: "Top 850 Finalist (20,000+ Participants)",
     images: [
       {
         url: odoo2026Ev,
-        caption: "Odoo 2026 Selection Confirmation Memo & Team Registration Record",
+        caption: "Official Odoo Hackathon 2026 Finals Verification & DealFlow360 Evidence",
         isPrimary: true,
       },
     ],
     keyFindings: [
-      "Selected once again as a National Finalist in Odoo Hackathon 2026.",
-      "Demonstrated sustained competitive engineering performance across consecutive hackathon seasons.",
-      "Qualified through rigorous technical screening evaluating system design, code quality, and logic.",
+      "Advanced to the onsite Grand Finale at Odoo Headquarters among the Top 850 teams nationwide from 20,000+ applicants.",
+      "Architected DealFlow360 — a self-governing B2B deal engine managing discount approvals, multi-warehouse inventory, and margins.",
+      "Cleared three rigorous technical review rounds with Odoo engineering leads and received two hiring interview opportunities.",
     ],
     evidenceCollected: [
-      { label: "Selection Confirmation Memo", tag: "[MEMO]" },
-      { label: "National Finalist Badge", tag: "[BADGE]" },
+      { label: "Grand Finale Verification", tag: "[FINALS]" },
+      { label: "DealFlow360 Live Platform", tag: "[PRODUCT]" },
+      { label: "Odoo HQ Technical Interviews", tag: "[INTERVIEW]" },
     ],
     investigationNotes:
-      "Investigation confirms consecutive re-selection for Odoo Hackathon 2026. This multi-year record highlights sustained proficiency and rapid execution across national engineering hackathons.",
+      "Records confirm the subject competed in the Odoo Hackathon 2026 onsite finals at Odoo HQ, advancing to Top 850 from 20,000+ applicants. Built DealFlow360 across 3 review rounds and earned two technical interview invites.",
     stampText: "CASE VERIFIED",
+    link: "https://dealflowproduction.vercel.app/",
+    linkText: "VIEW LIVE PROJECT",
   },
 
   "EV-007": {
@@ -238,7 +241,6 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
       "Appointed as Web Development Coordinator for CyberKavach Club at CHARUSAT University.",
       "Leading technical development and maintenance of the club's official web platform.",
       "Engineered automated event attendance tracking, digital certificate verification, and member portals.",
-      "Directing web development projects, conducting code reviews, and maintaining security standards.",
     ],
     evidenceCollected: [
       { label: "Official Appointment Order", tag: "[APPOINTMENT]" },
@@ -248,5 +250,36 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
     investigationNotes:
       "Records confirm active leadership as Web Development Coordinator for CyberKavach Club. The subject leads web platform maintenance and digital infrastructure, serving hundreds of campus club members with reliable tools.",
     stampText: "CASE VERIFIED",
+  },
+
+  "EV-008": {
+    caseCode: "EV-008",
+    title: "TCS Technology Day 2026 — Hackathon Winner",
+    subtitle: "TATA CONSULTANCY SERVICES · CHARUSAT",
+    status: "WINNER",
+    date: "13 Aug 2026",
+    location: "CHARUSAT, Gujarat",
+    category: "AI / Engineering Hackathon",
+    statusHighlight: "🏆 Hackathon Winner · 1st Place",
+    images: [
+      {
+        url: tcs2026Ev,
+        caption: "TCS Technology Day 2026 Winner Record & Participation Certificate",
+        isPrimary: true,
+      },
+    ],
+    keyFindings: [
+      "Secured 1st Place / Hackathon Winner among approximately 30 engineering teams in an on-campus challenge organized by TCS.",
+      "Engineered an autonomous hybrid RAG chatbot combining semantic vector search, BM25 keyword retrieval, and structured synthesis.",
+      "Delivered sub-3-second live query response times across institutional datasets during evaluation by senior TCS industry experts.",
+    ],
+    evidenceCollected: [
+      { label: "TCS Participation Certificate", tag: "[CERT]" },
+      { label: "Winner Evaluation Transcript", tag: "[WINNER]" },
+      { label: "Hybrid RAG Pipeline Source", tag: "[CODE]" },
+    ],
+    investigationNotes:
+      "Records confirm 1st Place / Winner distinction at TCS Technology Day 2026 among ~30 teams. In an intensive 2-hour build window, the subject engineered a hybrid RAG system achieving sub-3s query latency before TCS judges.",
+    stampText: "FILE ARCHIVED",
   },
 };

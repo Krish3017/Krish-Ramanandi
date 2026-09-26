@@ -43,7 +43,7 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
       description: "An advanced RAG platform transforming unstructured documents into searchable, explainable knowledge using LangChain, vector similarity search, and Groq-hosted LLMs.",
       tags: ["React", "ChromaDB", "LangChain", "Groq LLM","RAG"],
       date: "APRIL 2026",
-      link: "#",
+      link: "https://github.com/Krish3017/Nexus",
       imageBg: "bg-[#131313]",
       imageUrl: nexusImg
     },
@@ -54,7 +54,7 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
       description: "A modern analytics and visualization platform converting fragmented datasets into interactive real-time dashboards, statistical models, and business intelligence.",
       tags: ["React", "Python", "FaspApi", "PostgreSQL", "Matplotlib"],
       date: "DEC 2025 - MAR 2026",
-      link: "#",
+      link: "https://github.com/Krish3017/DataForge",
       imageBg: "bg-[#141414]",
       imageUrl: dataforgeImg
     },
@@ -65,18 +65,18 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
       description: "Operational backbone for the university cybersecurity community automating member registration, event tracking, certificates, audit logging, and role-based security.",
       tags: ["JavaScript", "Tailwind CSS", "MySQL", "PHP","Vanila.JS"],
       date: "MAY 2026",
-      link: "#",
+      link: "https://cyberkavachclub.charusat.ac.in/",
       imageBg: "bg-[#0f0f0f]",
       imageUrl: cyberkavachImg
     },
     {
       exhibit: "EXHIBIT F",
-      sub: "SCRUMMIND.APP",
-      title: "ScrumMind",
+      sub: "SPRINTIVE.APP",
+      title: "Sprintive",
       description: "A collaborative workspace where sprint planning, task management, backlog organization, documentation, and AI assistance converge into a unified workspace.",
       tags: ["Next.js", "React", "Python", "PostgreSQL", "Lanchain/graph"],
       date: "JUNE 2026 - ONGOING",
-      link: "#",
+      link: "https://sprintiveproduction.vercel.app/",
       imageBg: "bg-[#111111]",
       imageUrl: scrummindImg
     },
@@ -87,7 +87,7 @@ export const SelectedWorks: React.FC<SelectedWorksProps> = ({ onOpenCase }) => {
       description: "Autonomous customer support agent workforce utilizing LangGraph and ChromaDB memory networks for low-latency question-answering pipelines.",
       tags: ["FastAPI", "React", "Langchain/Graph","Python","Groq LLM",],
       date: "APRIL 2026 - MAY 2026",
-      link: "#",
+      link: "https://github.com/Krish3017/SupportFlow.AI",
       imageBg: "bg-[#101010]",
       imageUrl: supportFlowImg
     }

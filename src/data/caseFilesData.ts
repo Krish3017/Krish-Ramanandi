@@ -5,6 +5,8 @@ import nexusImg from "../assets/Nexus.webp";
 import cyberkavachImg from "../assets/cyberkavach.webp";
 import scrummindImg from "../assets/scrummind.webp";
 import dataforgeImg from "../assets/dataforge.webp";
+import odoo2026Ev from "../assets/evidence/Odoo2026.webp";
+import tcs2026Ev from "../assets/evidence/TCS.webp";
 
 export const caseFilesMap: Record<string, CaseFileDetail> = {
   "EXHIBIT A": {
@@ -29,7 +31,7 @@ export const caseFilesMap: Record<string, CaseFileDetail> = {
       { name: "EXHIBIT B", title: "Bullion Admin" },
       { name: "EXHIBIT C", title: "NexusRAG" }
     ],
-    link: "#",
+    link: "https://github.com/Krish3017/SupportFlow.AI",
     imageBg: "bg-[#101010]",
     imageUrl: supportFlowImg
   },
@@ -81,7 +83,7 @@ export const caseFilesMap: Record<string, CaseFileDetail> = {
       { name: "EXHIBIT A", title: "SupportFlow AI" },
       { name: "EXHIBIT D", title: "DataForge" }
     ],
-    link: "#",
+    link: "https://github.com/Krish3017/Nexus",
     imageBg: "bg-[#131313]",
     imageUrl: nexusImg
   },
@@ -107,7 +109,7 @@ export const caseFilesMap: Record<string, CaseFileDetail> = {
       { name: "EXHIBIT C", title: "NexusRAG" },
       { name: "EXHIBIT E", title: "CyberKavach" }
     ],
-    link: "#",
+    link: "https://github.com/Krish3017/DataForge",
     imageBg: "bg-[#141414]",
     imageUrl: dataforgeImg
   },
@@ -131,22 +133,22 @@ export const caseFilesMap: Record<string, CaseFileDetail> = {
     status: "Live",
     relatedExhibits: [
       { name: "EXHIBIT B", title: "Bullion Admin" },
-      { name: "EXHIBIT F", title: "ScrumMind" }
+      { name: "EXHIBIT F", title: "Sprintive" }
     ],
-    link: "#",
+    link: "https://cyberkavachclub.charusat.ac.in/",
     imageBg: "bg-[#0f0f0f]",
     imageUrl: cyberkavachImg
   },
   "EXHIBIT F": {
-    id: "scrummind",
+    id: "sprintive",
     exhibitLetter: "EXHIBIT F",
-    sub: "SCRUMMIND.APP",
-    title: "ScrumMind",
+    sub: "SPRINTIVE.APP",
+    title: "Sprintive",
     headline: "An AI-powered workspace for agile engineering teams",
     subtitle: "Evidence reveals a collaborative platform where sprint planning, task management, documentation, and AI assistance converge into a single operational workspace.",
     byline: "THE INVESTIGATION DESK",
     figCaption: "agile operations dashboard coordinating sprints, tasks, and team collaboration.",
-    bodyParagraph1: "ScrumMind was developed to simplify agile software development by centralizing sprint planning, backlog organization, documentation, and AI-assisted productivity into one unified workspace.",
+    bodyParagraph1: "Sprintive was developed to simplify agile software development by centralizing sprint planning, backlog organization, documentation, and AI-assisted productivity into one unified workspace.",
     bodyParagraph2: "Modern frontend technologies combine with scalable backend services to provide secure collaboration, task management, analytics, and intelligent workflow recommendations for engineering teams.",
     pullQuote: "Better planning creates better software.",
     bodyParagraph3: "The evidence demonstrates a focus on intuitive user experience, scalable architecture, and practical AI assistance designed to reduce administrative overhead during software development cycles.",
@@ -159,7 +161,7 @@ export const caseFilesMap: Record<string, CaseFileDetail> = {
       { name: "EXHIBIT A", title: "SupportFlow AI" },
       { name: "EXHIBIT E", title: "CyberKavach" }
     ],
-    link: "#",
+    link: "https://sprintiveproduction.vercel.app/",
     imageBg: "bg-[#111111]",
     imageUrl: scrummindImg
   },
@@ -185,7 +187,7 @@ export const caseFilesMap: Record<string, CaseFileDetail> = {
       { name: "EXHIBIT A", title: "SupportFlow AI" },
       { name: "EXHIBIT C", title: "NexusRAG" }
     ],
-    link: "#",
+    link: "https://github.com/Krish3017/SupportFlow.AI",
     imageBg: "bg-[#101010]",
     imageUrl: supportFlowImg
   },
@@ -322,28 +324,28 @@ export const caseFilesMap: Record<string, CaseFileDetail> = {
   "EV-006": {
     id: "odoo-hackathon-2026",
     exhibitLetter: "EV-006",
-    sub: "ODOO INDIA · NATIONAL HACKATHON",
-    title: "Odoo Hackathon 2026 — Re-Selected",
-    headline: "Consecutive selection as National Finalist in Odoo Hackathon 2026",
-    subtitle: "Investigation notes re-selection for Odoo Hackathon 2026, demonstrating sustained multi-year consistency in national competitive hackathons.",
+    sub: "ODOO INDIA · NATIONAL HACKATHON FINALS",
+    title: "Odoo Hackathon 2026 — National Finalist",
+    headline: "Engineered DealFlow360 at Odoo HQ after advancing from 20,000+ participants",
+    subtitle: "Investigation confirms Top 850 finalist advancement out of 20,000+ participants, building DealFlow360 at Odoo Headquarters, completing 3 review rounds, and receiving 2 hiring interview opportunities.",
     byline: "THE INVESTIGATION DESK",
-    figCaption: "official Odoo 2026 selection confirmation memo and team registration record.",
-    bodyParagraph1: "Building on the success of 2025, the subject was once again selected to compete in Odoo Hackathon 2026 as a national finalist.",
-    bodyParagraph2: "Consecutive selection demonstrates sustained technical proficiency, rapid learning capacity, and strong performance across competitive national software hackathons.",
-    pullQuote: "Consistency across consecutive years is the mark of enduring engineering quality.",
-    bodyParagraph3: "Full case file details and project exhibits will be cataloged upon completion of the 2026 grand finale cycle.",
-    techStack: "React · TypeScript · Python · Odoo ORM · Tailwind CSS",
-    admin: "Odoo 2026 Operations Console",
-    role: "National Finalist",
-    entered: "SEP 2026",
-    status: "CONFIRMED FINALIST",
+    figCaption: "official Odoo 2026 Grand Finale badge and DealFlow360 live platform verification.",
+    bodyParagraph1: "Out of more than 20,000 participants nationwide, the subject's team advanced to the onsite Grand Finale of Odoo Hackathon 2026 at Odoo Headquarters in Gandhinagar, Gujarat on September 5–6, 2026, ranking among the Top 850 finalist teams.",
+    bodyParagraph2: "During the 2-day finale, the team architected DealFlow360, a self-governing B2B sales operations platform engineered for complex enterprise deal cycles. The platform integrates multi-level discount approval matrices, distributed multi-warehouse inventory allocation, and combined subscription/one-time order processing.",
+    pullQuote: "Enterprise sales operations demand self-governing workflows that eliminate margin leakage and streamline approvals.",
+    bodyParagraph3: "The platform progressed through three thorough judging review rounds with Odoo engineering leads. Over the course of the hackathon review process, the subject also received two technical hiring interview opportunities with Odoo engineers.",
+    techStack: "React · TypeScript · Next.js · Tailwind CSS · PostgreSQL · REST APIs",
+    admin: "DealFlow360 B2B Operations Console",
+    role: "Full Stack Engineer & National Finalist",
+    entered: "5–6 SEP 2026",
+    status: "🇮🇳 TOP 850 FINALIST",
     relatedExhibits: [
       { name: "EV-004", title: "Odoo Hackathon 2025" },
-      { name: "EV-003", title: "GDG Sprintathon" }
+      { name: "EV-008", title: "TCS Technology Day" }
     ],
-    link: "https://odoo.com",
+    link: "https://dealflowproduction.vercel.app/",
     imageBg: "bg-[#101010]",
-    imageUrl: nexusImg
+    imageUrl: odoo2026Ev
   },
   "EV-007": {
     id: "cyberkavach-coordinator",
@@ -370,5 +372,31 @@ export const caseFilesMap: Record<string, CaseFileDetail> = {
     link: "https://cyberkavach.org",
     imageBg: "bg-[#0f0f0f]",
     imageUrl: cyberkavachImg
+  },
+  "EV-008": {
+    id: "tcs-tech-day-2026",
+    exhibitLetter: "EV-008",
+    sub: "TCS TECHNOLOGY DAY · HACKATHON WINNER",
+    title: "TCS Technology Day 2026 — Hackathon Winner",
+    headline: "Engineered winning hybrid RAG intelligence system under 2-hour sprint constraint",
+    subtitle: "Investigation verifies 1st Place victory in TCS Technology Day 2026 hackathon, building a production-style RAG student assistant chatbot from scratch in 2 hours.",
+    byline: "THE INVESTIGATION DESK",
+    figCaption: "official TCS Technology Day 2026 certificate and hybrid RAG architecture evaluation.",
+    bodyParagraph1: "During TCS Technology Day 2026 organized by Tata Consultancy Services at CHARUSAT, approximately 30 teams received randomized challenge prompts. As lead AI engineer for a 4-member team, the subject tackled the challenge of architecting a comprehensive student assistance chatbot capable of querying admissions, placement statistics, academics, and institutional knowledge.",
+    bodyParagraph2: "Operating within a strict 2-hour development timeframe, the subject engineered a hybrid retrieval pipeline combining dense semantic vector search, BM25 keyword matching, and context-aware prompt templating. During testing and demonstration, the solution consistently synthesized structured answers in under 3 seconds.",
+    pullQuote: "High-pressure engineering proves that robust retrieval architecture can be delivered even within strict time constraints.",
+    bodyParagraph3: "During the final presentation round, the subject demonstrated live interactive queries, explained the retrieval mechanics, and defended the technical architecture before a senior TCS expert panel, culminating in the team winning 1st Place in the competition.",
+    techStack: "RAG · Hybrid Search · BM25 · LangChain · FastAPI · Python · Vector Search",
+    admin: "TCS Technology Day Control Console",
+    role: "Lead AI / RAG Developer",
+    entered: "13 AUG 2026",
+    status: "🏆 HACKATHON WINNER",
+    relatedExhibits: [
+      { name: "EV-006", title: "Odoo Hackathon 2026" },
+      { name: "EXHIBIT C", title: "NexusRAG" }
+    ],
+    link: "#",
+    imageBg: "bg-[#111111]",
+    imageUrl: tcs2026Ev
   }
 };
