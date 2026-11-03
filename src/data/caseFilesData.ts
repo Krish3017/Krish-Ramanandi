@@ -7,6 +7,7 @@ import scrummindImg from "../assets/scrummind.webp";
 import dataforgeImg from "../assets/dataforge.webp";
 import odoo2026Ev from "../assets/evidence/Odoo2026.webp";
 import tcs2026Ev from "../assets/evidence/TCS.webp";
+import gdgLeadEv from "../assets/evidence/GDGLead.webp";
 
 export const caseFilesMap: Record<string, CaseFileDetail> = {
   "EXHIBIT A": {
@@ -398,5 +399,31 @@ export const caseFilesMap: Record<string, CaseFileDetail> = {
     link: "#",
     imageBg: "bg-[#111111]",
     imageUrl: tcs2026Ev
+  },
+  "EV-009": {
+    id: "gdg-campus-lead",
+    exhibitLetter: "EV-009",
+    sub: "GOOGLE DEVELOPERS GROUPS · LEADERSHIP",
+    title: "GDG CHARUSAT — Campus Lead",
+    headline: "Appointed Campus Lead driving technical initiatives and developer community",
+    subtitle: "Officially appointed as Campus Lead of GDG on Campus CHARUSAT for 2026–27, contributing to technical initiatives, community development, and student engagement.",
+    byline: "THE INVESTIGATION DESK",
+    figCaption: "official GDG CHARUSAT leadership onboarding confirmation and appointment verification.",
+    bodyParagraph1: "In November 2026, the subject was officially appointed as Campus Lead of Google Developer Groups (GDG) on Campus CHARUSAT for the 2026–27 academic tenure.",
+    bodyParagraph2: "Operating at the helm of the campus developer community, key initiatives include organizing hands-on technical workshops, hackathons, cloud and AI study jams, and mentoring student developers across diverse technical tracks.",
+    pullQuote: "Community leadership is about cultivating an environment where every developer can build, learn, and innovate.",
+    bodyParagraph3: "Records confirm sustained technical outreach, curriculum execution in collaboration with Google developer community networks, and building an active, collaborative engineering community on campus.",
+    techStack: "Community Leadership · Technical Mentorship · Developer Relations · Workshops · Event Operations",
+    admin: "GDG CHARUSAT Community Operations",
+    role: "Campus Lead",
+    entered: "NOV 2026 – PRESENT",
+    status: "LEADERSHIP ACTIVE",
+    relatedExhibits: [
+      { name: "EV-003", title: "GDG Sprintathon" },
+      { name: "EV-007", title: "CyberKavach" }
+    ],
+    link: "#",
+    imageBg: "bg-[#101010]",
+    imageUrl: gdgLeadEv
   }
 };

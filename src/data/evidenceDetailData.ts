@@ -6,6 +6,7 @@ import nptelDbmsEv from "../assets/evidence/NPTELDBMS.webp";
 import odoo2026Ev from "../assets/evidence/Odoo2026.webp";
 import cyberkavachEv from "../assets/evidence/cyberkavach.webp";
 import tcs2026Ev from "../assets/evidence/TCS.webp";
+import gdgOnboardingEv from "../assets/evidence/GDGLead.webp";
 
 export interface EvidenceDetailRecord {
   caseCode: string;
@@ -281,5 +282,35 @@ export const evidenceDetailMap: Record<string, EvidenceDetailRecord> = {
     investigationNotes:
       "Records confirm 1st Place / Winner distinction at TCS Technology Day 2026 among ~30 teams. In an intensive 2-hour build window, the subject engineered a hybrid RAG system achieving sub-3s query latency before TCS judges.",
     stampText: "FILE ARCHIVED",
+  },
+
+  "EV-009": {
+    caseCode: "EV-009",
+    title: "GDG CHARUSAT — Campus Lead",
+    subtitle: "GOOGLE DEVELOPERS GROUPS · LEADERSHIP",
+    status: "ONGOING",
+    date: "NOV 2026 - PRESENT",
+    location: "CHARUSAT · Anand, Gujarat",
+    category: "Leadership & Community",
+    statusHighlight: "Campus Lead · 2026–27",
+    images: [
+      {
+        url: gdgOnboardingEv,
+        caption: "Official GDG CHARUSAT Leadership Onboarding Confirmation — 2026–27",
+        isPrimary: true,
+      },
+    ],
+    keyFindings: [
+      "Selected as Campus Lead for GDG CHARUSAT 2026–27.",
+      "Driving technical initiatives and hands-on learning experiences.",
+      "Building a collaborative and innovation-driven developer community.",
+    ],
+    evidenceCollected: [
+      { label: "Official Leadership Onboarding Email", tag: "[APPOINTMENT]" },
+      { label: "GDG Leadership Announcement", tag: "[LEADERSHIP]" },
+    ],
+    investigationNotes:
+      "Officially appointed as Campus Lead of GDG on Campus CHARUSAT for 2026–27, contributing to technical initiatives, community development, and student engagement.",
+    stampText: "LEADERSHIP ACTIVE",
   },
 };

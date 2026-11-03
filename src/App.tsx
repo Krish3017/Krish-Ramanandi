@@ -256,7 +256,7 @@ export default function App() {
       {/* Newspaper Footer */}
       <Footer />
 
-      {/* Dedicated Confidential Evidence Detail View for EV-001 through EV-007 */}
+      {/* Dedicated Confidential Evidence Detail View for EV-001 through EV-009 */}
       {isEvidenceDetailKey && activeCaseKey && evidenceDetailMap[activeCaseKey] && (
         <Suspense fallback={null}>
           <EvidenceDetailModal

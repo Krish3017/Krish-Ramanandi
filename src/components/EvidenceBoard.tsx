@@ -31,7 +31,7 @@ export const EvidenceBoard: React.FC<EvidenceBoardProps> = ({ onOpenCase }) => {
               </h2>
             </div>
             <span className="font-mono-meta text-[10px] md:text-[11px] tracking-[0.18em] text-[#555555] uppercase hidden sm:inline">
-              RECOVERED ARTIFACTS · 8 ITEMS PINNED
+              RECOVERED ARTIFACTS · 9 ITEMS PINNED
             </span>
           </div>
           <p className="font-sans text-[13.5px] sm:text-[14.5px] text-[#444444] mt-1 max-w-3xl">
@@ -69,10 +69,10 @@ export const EvidenceBoard: React.FC<EvidenceBoardProps> = ({ onOpenCase }) => {
           </div>
 
           {/* Staggered Non-Row Canvas (Trimmed Max-Width & Compact Min-Height) */}
-          <div className="relative max-w-[820px] mx-auto min-h-[480px] md:min-h-[520px]">
+          <div className="relative max-w-[820px] mx-auto min-h-[500px] md:min-h-[540px]">
 
             {/* Interconnected Red Evidence Thread Network (SVG Layer precisely aligned to pin anchors) */}
-            <svg viewBox="0 0 820 520" preserveAspectRatio="none" className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-visible block">
+            <svg viewBox="0 0 820 540" preserveAspectRatio="none" className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-visible block">
               {/* Thread 1: EV-001 (Top-Left) to EV-004 (Top-High-Center) */}
               <motion.path
                 d={hoveredId === "ev-001" || hoveredId === "ev-004" ? "M 130 50 C 230 20, 330 15, 430 25" : "M 130 50 C 220 25, 340 18, 430 25"}
@@ -143,9 +143,9 @@ export const EvidenceBoard: React.FC<EvidenceBoardProps> = ({ onOpenCase }) => {
                 strokeLinecap="round"
                 className="transition-all duration-300 drop-shadow-[1px_2px_3px_rgba(0,0,0,0.3)]"
               />
-              {/* Thread 8: EV-007 (Center Heart) to EV-006 (Low-Right) */}
+              {/* Thread 8: EV-007 (Center Heart) to EV-006 (Low-Right-Center) */}
               <motion.path
-                d={hoveredId === "ev-007" || hoveredId === "ev-006" ? "M 423 210 C 470 270, 520 320, 570 375" : "M 423 210 C 460 275, 515 325, 570 375"}
+                d={hoveredId === "ev-007" || hoveredId === "ev-006" ? "M 423 210 C 455 270, 495 320, 535 375" : "M 423 210 C 450 275, 490 325, 535 375"}
                 fill="none"
                 stroke="#A8382B"
                 strokeWidth="2.2"
@@ -153,9 +153,9 @@ export const EvidenceBoard: React.FC<EvidenceBoardProps> = ({ onOpenCase }) => {
                 strokeLinecap="round"
                 className="transition-all duration-300 drop-shadow-[1px_2px_3px_rgba(0,0,0,0.3)]"
               />
-              {/* Thread 9: EV-002 (Deep-Mid-Right) to EV-006 (Low-Right) */}
+              {/* Thread 9: EV-002 (Deep-Mid-Right) to EV-006 (Low-Right-Center) */}
               <motion.path
-                d={hoveredId === "ev-002" || hoveredId === "ev-006" ? "M 662 230 C 640 290, 605 330, 570 375" : "M 662 230 C 630 295, 595 335, 570 375"}
+                d={hoveredId === "ev-002" || hoveredId === "ev-006" ? "M 662 230 C 625 280, 580 330, 535 375" : "M 662 230 C 615 285, 575 335, 535 375"}
                 fill="none"
                 stroke="#A8382B"
                 strokeWidth="2.2"
@@ -165,7 +165,7 @@ export const EvidenceBoard: React.FC<EvidenceBoardProps> = ({ onOpenCase }) => {
               />
               {/* Thread 10: EV-005 (Low-Left) to EV-008 (Low-Left-Center) */}
               <motion.path
-                d={hoveredId === "ev-005" || hoveredId === "ev-008" ? "M 147 280 C 165 320, 195 355, 230 385" : "M 147 280 C 160 325, 190 360, 230 385"}
+                d={hoveredId === "ev-005" || hoveredId === "ev-008" ? "M 147 280 C 158 320, 180 355, 200 385" : "M 147 280 C 155 325, 175 360, 200 385"}
                 fill="none"
                 stroke="#A8382B"
                 strokeWidth="2.2"
@@ -173,9 +173,39 @@ export const EvidenceBoard: React.FC<EvidenceBoardProps> = ({ onOpenCase }) => {
                 strokeLinecap="round"
                 className="transition-all duration-300 drop-shadow-[1px_2px_3px_rgba(0,0,0,0.3)]"
               />
-              {/* Thread 11: EV-008 (Low-Left-Center) to EV-006 (Low-Right) */}
+              {/* Thread 11: EV-008 (Low-Left-Center) to EV-006 (Low-Right-Center) */}
               <motion.path
-                d={hoveredId === "ev-008" || hoveredId === "ev-006" ? "M 230 385 C 330 425, 470 420, 570 375" : "M 230 385 C 340 420, 460 415, 570 375"}
+                d={hoveredId === "ev-008" || hoveredId === "ev-006" ? "M 200 385 C 300 425, 430 420, 535 375" : "M 200 385 C 310 420, 420 415, 535 375"}
+                fill="none"
+                stroke="#A8382B"
+                strokeWidth="2.2"
+                strokeDasharray="5 1"
+                strokeLinecap="round"
+                className="transition-all duration-300 drop-shadow-[1px_2px_3px_rgba(0,0,0,0.3)]"
+              />
+              {/* Thread 12: EV-006 (Low-Right-Center) to EV-009 (Low-Right) */}
+              <motion.path
+                d={hoveredId === "ev-006" || hoveredId === "ev-009" ? "M 535 375 C 590 415, 660 415, 715 380" : "M 535 375 C 595 410, 655 410, 715 380"}
+                fill="none"
+                stroke="#A8382B"
+                strokeWidth="2.2"
+                strokeDasharray="5 1"
+                strokeLinecap="round"
+                className="transition-all duration-300 drop-shadow-[1px_2px_3px_rgba(0,0,0,0.3)]"
+              />
+              {/* Thread 13: EV-002 (Deep-Mid-Right) to EV-009 (Low-Right) */}
+              <motion.path
+                d={hoveredId === "ev-002" || hoveredId === "ev-009" ? "M 662 230 C 680 280, 705 330, 715 380" : "M 662 230 C 675 285, 700 335, 715 380"}
+                fill="none"
+                stroke="#A8382B"
+                strokeWidth="2.2"
+                strokeDasharray="5 1"
+                strokeLinecap="round"
+                className="transition-all duration-300 drop-shadow-[1px_2px_3px_rgba(0,0,0,0.3)]"
+              />
+              {/* Thread 14: EV-007 (Center Heart) to EV-009 (Low-Right) */}
+              <motion.path
+                d={hoveredId === "ev-007" || hoveredId === "ev-009" ? "M 423 210 C 510 240, 620 300, 715 380" : "M 423 210 C 500 245, 615 305, 715 380"}
                 fill="none"
                 stroke="#A8382B"
                 strokeWidth="2.2"
@@ -511,7 +541,7 @@ export const EvidenceBoard: React.FC<EvidenceBoardProps> = ({ onOpenCase }) => {
               </div>
 
               {/* ITEM 8: EV-008 — TCS Technology Day 2026 (Low Left) */}
-              <div className="relative md:absolute md:top-[375px] md:left-[14%] z-24 mb-4 md:mb-0">
+              <div className="relative md:absolute md:top-[375px] md:left-[10%] z-24 mb-4 md:mb-0">
                 <motion.div
                   initial={{ opacity: 0, y: 15, rotate: -2 }}
                   whileInView={{ opacity: 1, y: 0, rotate: -3 }}
@@ -571,8 +601,8 @@ export const EvidenceBoard: React.FC<EvidenceBoardProps> = ({ onOpenCase }) => {
                 </motion.div>
               </div>
 
-              {/* ITEM 6: EV-006 — Odoo Hackathon 2026 (Low Right) */}
-              <div className="relative md:absolute md:top-[365px] md:left-[54%] z-20 mb-4 md:mb-0">
+              {/* ITEM 6: EV-006 — Odoo Hackathon 2026 (Low Right Center) */}
+              <div className="relative md:absolute md:top-[365px] md:left-[41%] z-20 mb-4 md:mb-0">
                 <motion.div
                   initial={{ opacity: 0, y: 15, rotate: 3 }}
                   whileInView={{ opacity: 1, y: 0, rotate: 3 }}
@@ -627,12 +657,76 @@ export const EvidenceBoard: React.FC<EvidenceBoardProps> = ({ onOpenCase }) => {
                 </motion.div>
               </div>
 
+              {/* ITEM 9: EV-009 — GDG CHARUSAT Campus Lead (Low Right) */}
+              <div className="relative md:absolute md:top-[370px] md:left-[72%] z-23 mb-4 md:mb-0">
+                <motion.div
+                  initial={{ opacity: 0, y: 15, rotate: 2 }}
+                  whileInView={{ opacity: 1, y: 0, rotate: 2.5 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.65 }}
+                  onHoverStart={() => setHoveredId("ev-009")}
+                  onHoverEnd={() => setHoveredId(null)}
+                  onClick={() => handleInspect(evidenceItemsData.find(e => e.id === "ev-009") || evidenceItemsData[8])}
+                  className={`magnify-hover relative cursor-pointer group transition-all duration-300 max-w-[245px] sm:max-w-[255px] w-full ${
+                    zoomingId === "ev-009" ? "scale-110 z-50" : "hover:-translate-y-1.5"
+                  }`}
+                >
+                  {/* Push Pin Anchor */}
+                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-40 pointer-events-none">
+                    <div className="w-3.5 h-3.5 rounded-full bg-[#1A73E8] border border-[#0d47a1] shadow-sm flex items-center justify-center">
+                      <div className="w-1 h-1 rounded-full bg-[#FAF7F2]" />
+                    </div>
+                  </div>
+
+                  <div className="bg-[#FAF7F2] border-2 border-[#111111] p-3 sm:p-3.5 shadow-[4px_6px_14px_rgba(0,0,0,0.12)] group-hover:shadow-[8px_12px_22px_rgba(0,0,0,0.2)] transition-shadow relative">
+                    <div className="flex justify-between items-start border-b border-[#111111] pb-1 mb-1.5">
+                      <div>
+                        <span className="font-mono-meta text-[9px] font-bold tracking-[0.16em] text-[#8A3B2D] uppercase block">
+                          EV-009 · LEADERSHIP
+                        </span>
+                        <span className="font-mono-meta text-[8px] text-[#666] uppercase">GDG ON CAMPUS</span>
+                      </div>
+                      <span className="font-mono text-[8px] font-bold bg-[#1A73E8] text-white px-1.5 py-0.5 uppercase">
+                        LEAD
+                      </span>
+                    </div>
+
+                    <div className="bg-[#111111] text-[#FAF7F2] p-1 text-center font-mono text-[8px] font-bold tracking-widest uppercase mb-1">
+                      CAMPUS LEAD · 2026–27
+                    </div>
+
+                    <h3 className="font-newspaper-title text-base text-[#111111] font-normal mb-0.5">
+                      GDG CHARUSAT
+                    </h3>
+                    <p className="font-mono-meta text-[8px] text-[#555] font-semibold uppercase mb-1">
+                      Campus Lead · Nov 26–Present
+                    </p>
+
+                    <div className="flex justify-between items-center pt-1 border-t border-dashed border-[#999]">
+                      <span className="font-newspaper text-[10px] font-bold tracking-widest text-[#8A3B2D] border border-[#8A3B2D] px-1 py-0.5 rotate-2">
+                        ONGOING
+                      </span>
+                      <span className="font-mono-meta text-[8px] font-bold text-[#111] group-hover:text-[#8A3B2D] transition-colors">
+                        INSPECT &rarr;
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Sticky Note */}
+                  <div className="absolute -bottom-2.5 -right-2 w-32 bg-[#FFF6C5] border border-[#D8CE9A] p-1 shadow-md z-30 rotate-2 group-hover:rotate-0 transition-transform">
+                    <p className="font-newspaper text-[9.5px] leading-tight text-[#4A421D] italic">
+                      "Campus Lead 2026–27."
+                    </p>
+                  </div>
+                </motion.div>
+              </div>
+
             </div>
           </div>
 
           {/* Bottom Archival Status Bar */}
           <div className="border-t border-[#111111] pt-2.5 mt-3 flex flex-col sm:flex-row justify-between items-center text-[9.5px] sm:text-[10.5px] font-mono-meta tracking-[0.2em] text-[#555555] uppercase">
-            <span>TOTAL EVIDENTIARY ARTIFACTS: 8 ON RECORD</span>
+            <span>TOTAL EVIDENTIARY ARTIFACTS: 9 ON RECORD</span>
             <span className="mt-1 sm:mt-0 text-[#8A3B2D] font-bold">STATUS: INVESTIGATION CONTINUING</span>
           </div>
         </div>

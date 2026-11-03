@@ -141,6 +141,21 @@ export const evidenceItemsData: EvidenceItemData[] = [
     scoreTag: "<3s Response Time",
     rotation: -2.8,
   },
+  {
+    id: "ev-009",
+    exhibitKey: "EV-009",
+    title: "GDG ON CAMPUS",
+    subtitle: "Campus Lead",
+    company: "Google Developer Groups",
+    role: "Campus Lead · 2026–27",
+    date: "Nov 2026 – Present",
+    stampText: "LEADERSHIP",
+    attachmentType: "push-pin",
+    paperType: "dossier",
+    stickyNoteText: "Campus Lead 2026–27.\nGoogle Developer Groups.",
+    badgeTag: "CAMPUS LEAD 2026–27",
+    rotation: 2.2,
+  },
 ];
 
 export const evidenceStringConnections: EvidenceStringConnection[] = [
@@ -153,4 +168,7 @@ export const evidenceStringConnections: EvidenceStringConnection[] = [
   { fromId: "ev-002", toId: "ev-006" },
   { fromId: "ev-005", toId: "ev-008" },
   { fromId: "ev-008", toId: "ev-006" },
+  { fromId: "ev-006", toId: "ev-009" },
+  { fromId: "ev-002", toId: "ev-009" },
+  { fromId: "ev-007", toId: "ev-009" },
 ];
